@@ -114,7 +114,7 @@ const residents=[
  {id:"r5",name:"Ramón Benítez",home:"Casa Benítez",cond:"Parkinson, riesgo caídas",bHr:76,bRr:17},
  {id:"r6",name:"Nilda Vega",home:"Casa Vega",cond:"Seguimiento general",bHr:75,bRr:16},
 ];
-residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;});
+residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;r.level="ok";r.risk=Math.round(R(0,10));r.factors=[];r.pred=false;});
 
 function step(r,dt){
   r.t0+=dt;
@@ -201,8 +201,4 @@ function applyScn(){
 }
 // init
 document.getElementById("sel-res").innerHTML=residents.map(r=>`<option value="${r.id}">${r.name} (${r.home})</option>`).join("");
-setInterval(()=>{residents.forEach(r=>step(r,1.5));render();},1500);
-render();
-</script>
-</body>
-</html>
+setInterval(()=>{residents.forEach(r=>s
