@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0e1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Wi-Sense · Demo</title>
+<style>
+  :root{--bg:#0a0e1a;--panel:#121829;--panel2:#1a2238;--line:#243049;--txt:#e8edf7;--muted:#8a96b3;
+        --accent:#3ba9ff;--teal:#22d3a8;--ok:#22c55e;--aviso:#facc15;--urgente:#fb923c;--critico:#ef4444;--predictivo:#a855f7}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;line-height:1.45}
+  .wrap{max-width:1080px;margin:0 auto;padding:14px 14px 70px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .lg{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#22c8b4,#0c3a5f);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  h1{font-size:21px;font-weight:800;margin:0}
+  .sub{font-size:12px;color:var(--muted)}
+  .clock{margin-left:auto;font-size:13px;color:var(--muted)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 6px;text-align:center}
+  .kpi b{display:block;font-size:24px;font-weight:800}.kpi span{font-size:11px;color:var(--muted)}
+  .board{background:var(--panel);border:1px solid var(--accent);border-radius:16px;padding:14px;margin-bottom:12px}
+  .board h2{font-size:14px;margin:0 0 9px;font-weight:800}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .lc{display:flex;align-items:center;gap:6px;background:var(--panel2);border-radius:18px;padding:5px 11px;font-size:12px}
+  .lc i{width:10px;height:10px;border-radius:50%} .lc b{font-size:14px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px}
+  .tile{background:var(--panel2);border-radius:11px;border-left:6px solid var(--ok);padding:9px 12px}
+  .tile .r1{display:flex;align-items:center;gap:9px}
+  .tile .dot{width:14px;height:14px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 8px currentColor}
+  .tile .nm{flex:1;min-width:0}.tile .nm .n{font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tile .nm .h{font-size:10px;color:var(--muted)}
+  .tile .bd{font-size:10px;font-weight:800}
+  .tile .vt{font-size:10px;color:var(--muted);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .eta{color:var(--predictivo);font-weight:700}
+  .ctrl{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  select,button{font-family:inherit;font-size:13px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--txt);padding:9px 11px}
+  button.apply{background:var(--accent);color:#04101e;border:none;font-weight:800;cursor:pointer}
+  .msg{font-size:12px;color:var(--teal)}
+  .cols{display:grid;grid-template-columns:1fr 320px;gap:12px}
+  @media(max-width:780px){.cols{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+  .card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--ok);border-radius:13px;padding:13px}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start}
+  .card .n{font-weight:700}.card .meta{font-size:11px;color:var(--muted)}
+  .badge{font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
+  .v{background:var(--panel2);border-radius:9px;padding:8px 2px;text-align:center}.v b{display:block;font-size:18px;font-weight:700}.v span{font-size:9px;color:var(--muted)}
+  .loc{font-size:11px;color:var(--muted)}
+  .fct{font-size:11px;color:var(--muted);margin-top:6px;min-height:22px}
+  .alerts{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+  .alerts h3{font-size:14px;margin:0 0 9px}
+  .al{border-left:3px solid var(--urgente);background:var(--panel2);border-radius:8px;padding:8px 11px;margin-bottom:7px;font-size:12px}
+  .al .t{font-weight:700}.al .s{color:var(--muted);font-size:11px}.al .nt{color:var(--teal);font-size:10px}
+  .foot{color:var(--muted);font-size:10.5px;text-align:center;margin-top:18px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="lg"><svg viewBox="0 0 100 100" width="26" height="26"><g fill="none" stroke="#eafff8" stroke-width="7" stroke-linecap="round"><path d="M30 38 A28 28 0 0 1 70 38"/><path d="M38 30 A18 18 0 0 1 62 30" opacity=".7"/></g><circle cx="50" cy="26" r="5" fill="#eafff8"/><path d="M28 56 L50 40 L72 56 Z M34 56 H66 V82 H34 Z" fill="#fff"/><path d="M37 70 h8 l4 -10 5 16 4 -6 h6" fill="none" stroke="#0c3a5f" stroke-width="4" stroke-linejoin="round"/></svg></div>
+    <div><h1>Wi-Sense</h1><div class="sub">Demo interactivo · corre en tu navegador (sin servidor)</div></div>
+    <div class="clock" id="clock"></div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi"><b id="k-h">0</b><span>Hogares</span></div>
+    <div class="kpi"><b id="k-a" style="color:var(--urgente)">0</b><span>Alarmas</span></div>
+    <div class="kpi"><b id="k-p" style="color:var(--predictivo)">0</b><span>Predictivas</span></div>
+    <div class="kpi"><b id="k-c" style="color:var(--critico)">0</b><span>Críticos</span></div>
+  </div>
+
+  <div class="board">
+    <h2>🚦 Estado de pacientes — vista rápida del operador</h2>
+    <div class="legend" id="legend"></div>
+    <div class="tiles" id="tiles"></div>
+  </div>
+
+  <div class="ctrl">
+    <span style="font-size:13px">🎬 Escenario:</span>
+    <select id="sel-res"></select>
+    <select id="sel-scn">
+      <option value="normal">Normal</option>
+      <option value="deterioro">Deterioro progresivo</option>
+      <option value="evento">Evento agudo</option>
+      <option value="caida">Caída nocturna</option>
+    </select>
+    <button class="apply" onclick="applyScn()">Aplicar</button>
+    <span class="msg" id="msg"></span>
+  </div>
+
+  <div class="cols">
+    <div class="cards" id="cards"></div>
+    <div class="alerts"><h3>🚨 Alarmas y notificaciones</h3><div id="al-list"></div></div>
+  </div>
+
+  <div class="foot">Wi-Sense — demo de simulación (datos generados en el navegador). Sistema de apoyo y alerta temprana; no es un dispositivo médico certificado.</div>
+</div>
+
+<script>
+const COL={ok:"#22c55e",aviso:"#facc15",urgente:"#fb923c",critico:"#ef4444",predictivo:"#a855f7"};
+const LBL={ok:"ESTABLE",aviso:"VIGILAR",urgente:"URGENTE",critico:"CRÍTICO",predictivo:"PREDICTIVO"};
+const CLBL={critico:"Crítico",urgente:"Urgente",predictivo:"Predictivo",aviso:"Vigilar",ok:"Estable"};
+const ZONES=["dormitorio","baño","cocina","sala"];
+const RANGES={hr:{lo:50,hi:100,cl:40,ch:130},rr:{lo:12,hi:20,cl:8,ch:28},spo2:{lo:94,hi:100,cl:90,ch:100}};
+let alerts=[]; let stats={alerts:0,predictive:0};
+
+function R(a,b){return a+Math.random()*(b-a);}
+const residents=[
+ {id:"r1",name:"Dolores Martinez",home:"Casa Martinez",cond:"Hipertensión",bHr:74,bRr:16},
+ {id:"r2",name:"Jorge Martinez",home:"Casa Martinez",cond:"Diabetes tipo 2",bHr:78,bRr:17},
+ {id:"r3",name:"Héctor Ferreyra",home:"Depto Ferreyra",cond:"EPOC / insuf. cardíaca",bHr:80,bRr:18},
+ {id:"r4",name:"Susana Quiroga",home:"Casa Quiroga",cond:"Post-operatorio",bHr:72,bRr:16},
+ {id:"r5",name:"Ramón Benítez",home:"Casa Benítez",cond:"Parkinson, riesgo caídas",bHr:76,bRr:17},
+ {id:"r6",name:"Nilda Vega",home:"Casa Vega",cond:"Seguimiento general",bHr:75,bRr:16},
+];
+residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;});
+
+function step(r,dt){
+  r.t0+=dt;
+  let dHr=0,dRr=0,dSpo=0,mov=R(0.05,0.4);
+  if(r.scn==="deterioro"){const k=Math.min(r.t0/40,1);dRr+=9*k;dHr+=14*k;dSpo-=6*k;}
+  else if(r.scn==="evento"){if(r.t0>3){dHr+=58;dRr+=14;dSpo-=11;mov=0.05;}}
+  else if(r.scn==="caida"){if(r.t0>3){r.fall=1;mov=0.02;r.zone="baño";}}
+  r.hr += 0.3*((r.bHr+10*mov+dHr)-r.hr)+R(-1,1);
+  r.rr += 0.3*((r.bRr+4*mov+dRr)-r.rr)+R(-.4,.4);
+  r.spo2 += 0.3*((97.5-1.5*mov+dSpo)-r.spo2)+R(-.3,.3);
+  r.spo2=Math.max(80,Math.min(100,r.spo2)); r.mov=mov;
+  if(r.scn==="normal"&&Math.random()<0.05){r.zone=ZONES[Math.floor(Math.random()*ZONES.length)];}
+  r.sleep = mov>0.3?"despierto":"ligero";
+  // riesgo
+  let risk=0,factors=[],level="ok",pred=false,eta=null;
+  const z=v=>Math.abs(v);
+  if(r.hr>=RANGES.hr.ch){factors.push("Taquicardia crítica ("+Math.round(r.hr)+" lpm)");risk=Math.max(risk,95);}
+  if(r.rr>=RANGES.rr.ch){factors.push("Taquipnea marcada ("+Math.round(r.rr)+" rpm)");risk=Math.max(risk,70);}
+  if(r.spo2<=RANGES.spo2.cl){factors.push("Desaturación ("+Math.round(r.spo2)+"%)");risk=Math.max(risk,88);}
+  if(r.fall){factors.push("Posible caída + inmovilidad");risk=Math.max(risk,96);}
+  // predicción simple: si deterioro en curso y aún no crítico
+  if(r.scn==="deterioro"&&r.rr<RANGES.rr.ch&&r.rr>r.bRr+2){
+    const slope=(r.rr-r.bRr)/Math.max(r.t0,1);
+    if(slope>0.02){eta=Math.max(1,Math.round((RANGES.rr.ch-r.rr)/slope));if(eta<=30){pred=true;factors.push("Predicción: FR cruzaría umbral en ~"+eta+" min");}}
+  }
+  if(risk===0){risk=Math.round(R(0,12));}
+  if(risk>=80)level="critico";else if(risk>=55)level="urgente";else if(pred)level="predictivo";else if(risk>=30)level="aviso";else level="ok";
+  r.risk=Math.round(risk);r.level=level;r.factors=factors;r.pred=pred;r.eta=eta;
+  // alarma
+  if((level==="critico"||level==="urgente"||level==="predictivo")&&(!r._lastAl||r._lastLvl!==level||(Date.now()-r._lastAl)>20000)){
+    r._lastAl=Date.now();r._lastLvl=level;
+    const notified = level==="critico"?["FAMILIAR","SAME 107"]:(level==="predictivo"?["FAMILIAR (preventivo)"]:["FAMILIAR"]);
+    alerts.unshift({level,home:r.home,factors:factors.slice(0,2),notified,ts:Date.now()});
+    alerts=alerts.slice(0,12); stats[level==="predictivo"?"predictive":"alerts"]++;
+  }
+}
+
+function order(l){return {critico:0,urgente:1,predictivo:2,aviso:3,ok:4}[l]??9;}
+function render(){
+  document.getElementById("clock").textContent=new Date().toLocaleTimeString();
+  const homes=new Set(residents.map(r=>r.home)).size;
+  document.getElementById("k-h").textContent=homes;
+  document.getElementById("k-a").textContent=stats.alerts;
+  document.getElementById("k-p").textContent=stats.predictive;
+  document.getElementById("k-c").textContent=residents.filter(r=>r.level==="critico").length;
+  // legend / counts
+  const counts={critico:0,urgente:0,predictivo:0,aviso:0,ok:0};residents.forEach(r=>counts[r.level]++);
+  document.getElementById("legend").innerHTML=["critico","urgente","predictivo","aviso","ok"].map(k=>
+    `<div class="lc" style="opacity:${counts[k]?1:.45}"><i style="background:${COL[k]}"></i>${CLBL[k]} <b style="color:${COL[k]}">${counts[k]}</b></div>`).join("");
+  // tiles
+  const sorted=[...residents].sort((a,b)=>order(a.level)-order(b.level));
+  document.getElementById("tiles").innerHTML=sorted.map(r=>{const c=COL[r.level];
+    const eta=(r.pred&&r.eta)?` · <span class="eta">🔮 ~${r.eta} min</span>`:"";
+    return `<div class="tile" style="border-left-color:${c}"><div class="r1">
+      <span class="dot" style="background:${c};color:${c}"></span>
+      <div class="nm"><div class="n">${r.name}</div><div class="h">${r.home}</div></div>
+      <span class="bd" style="color:${c}">${LBL[r.level]}</span></div>
+      <div class="vt">FC ${Math.round(r.hr)} · FR ${Math.round(r.rr)} · SpO₂ ${Math.round(r.spo2)}% · 📍${r.zone}${eta}</div></div>`;}).join("");
+  // cards
+  document.getElementById("cards").innerHTML=sorted.map(r=>{const c=COL[r.level];
+    const eta=(r.pred&&r.eta)?`<div style="font-size:11px;color:var(--predictivo);margin-top:5px">🔮 Predicción: posible deterioro en ~${r.eta} min</div>`:"";
+    return `<div class="card" style="border-top-color:${c}"><div class="top">
+      <div><div class="n">${r.name}</div><div class="meta">${r.home} · ${r.cond}</div></div>
+      <span class="badge" style="background:${c}22;color:${c}">${LBL[r.level]}</span></div>
+      <div class="grid4">
+        <div class="v"><b>${Math.round(r.hr)}</b><span>FC lpm</span></div>
+        <div class="v"><b>${Math.round(r.rr)}</b><span>FR rpm</span></div>
+        <div class="v"><b>${Math.round(r.spo2)}</b><span>SpO₂ %</span></div>
+        <div class="v"><b style="color:${c}">${r.risk}</b><span>Riesgo</span></div></div>
+      <div class="loc">📍 ${r.zone} · 😴 ${r.sleep}</div>${eta}
+      <div class="fct">${(r.factors.length&&r.level!=="ok")?"⚠ "+r.factors.join(" · "):"Parámetros dentro de la normalidad individual"}</div>
+    </div>`;}).join("");
+  // alerts
+  document.getElementById("al-list").innerHTML=alerts.length?alerts.map(a=>{const c=COL[a.level];
+    return `<div class="al" style="border-left-color:${c}"><div class="t" style="color:${c}">${LBL[a.level]} · ${a.home}</div>
+      <div class="s">${(a.factors||[]).join(" · ")}</div><div class="nt">📨 ${a.notified.join(" ; ")}</div></div>`;}).join(""):
+    '<div style="color:var(--muted);font-size:12px">Sin alarmas.</div>';
+}
+function applyScn(){
+  const rid=document.getElementById("sel-res").value, scn=document.getElementById("sel-scn").value;
+  const r=residents.find(x=>x.id===rid); if(r){r.scn=scn;r.t0=0;r.fall=0;if(scn!=="caida")r.zone="dormitorio";}
+  document.getElementById("msg").textContent="✓ "+scn+" aplicado a "+(r?r.name:"");
+  setTimeout(()=>document.getElementById("msg").textContent="",2500);
+}
+// init
+document.getElementById("sel-res").innerHTML=residents.map(r=>`<option value="${r.id}">${r.name} (${r.home})</option>`).join("");
+setInterval(()=>{residents.forEach(r=>step(r,1.5));render();},1500);
+render();
+</script>
+</body>
+</html>
