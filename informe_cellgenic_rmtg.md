@@ -363,3 +363,150 @@ Una "Certificación Avanzada en Terapia con Péptidos" vendida a US$ 3.000 en un
 - Stem Cell Center Network: https://www.beckersspine.com/biologics/stem-cell-center-network-to-open-5th-us-location-5-takeaways/
 - Bookimed, Cellular Hope (autismo): https://health.bookimed.com/clinic/m/cellular-hope-institute/illness=autism
 - Foros bursátiles: https://investorshangout.com/post/view?id=6838330
+
+---
+
+# Parte III: habilitaciones y permisos regulatorios, jurisdicción por jurisdicción
+
+*(Agregado el 31/10/2026. A = documento regulatorio, judicial o societario; B = afirmación de la empresa; C = fuente terciaria. "No hallado" significa que no apareció en búsquedas web; las bases oficiales de FDA, COFEPRIS, CENATRA, USPTO, IMPI, Sunbiz y Nevada no fueron accesibles desde esta sesión.)*
+
+## 15. Registros societarios
+
+| Entidad | Jurisdicción y dato | Fuente |
+|---|---|---|
+| Regenerative Medical Technology Group Inc. (RMTG) | Sociedad de **Nevada** (ex Pure Hospitality Solutions Inc., ex Meso Numismatics Inc.). Nº IRS 88-0492191. Expediente SEC 000-56010, CIK 1760026. Domicilio legal: 433 Plaza Real, Suite 275, Boca Raton, FL 33432. Tel. (800) 956-3935 | A (10-K) |
+| Global Stem Cells Group, Inc. | Florida, documento P13000036085, constituida en abril de 2013, **activa**. Agente registrado y oficial/director: Benito Novas, 9100 S. Dadeland Blvd., Suite 1500, Miami. Último evento: **reinstalación el 17/06/2021** (una reinstalación implica que la sociedad había sido disuelta administrativamente por no presentar el informe anual). | A (Sunbiz, vía resumen) |
+| Stem Cell Training Inc. | Florida, documento P13000035214, **activa**. Oficial/director: Benito Novas. Domicilio en Miami Lakes (coincide con el perfil BBB: 14750 NW 77th Ct., Ste. 304). Último evento: **reinstalación el 28/04/2025**. Es la entidad que figura como desarrolladora de la app "ISSCA" en el App Store. | A (Sunbiz, vía resumen) / B |
+| Cellular Hope Institute | Figura como subsidiaria mexicana al 100 % de GSCG en el anexo 21.1 del 10-K 2022. Forma societaria (S.A. de C.V. u otra), RFC y aviso de funcionamiento: no hallados. | A |
+| Cellgenic, ISSCA, Adimarket, Stem Cell Center Network, Regenestem | No se halló registro societario en Florida ni en otra jurisdicción. "Cellgenic" opera como marca/división, no como persona jurídica identificada. Un comunicado afirma que ISSCA está "constituida en la República de Corea como entidad sin fines de lucro": nada lo confirma. | B |
+| Entidad argentina | No hallada en IGJ, Boletín Oficial ni padrón de CUIT. Regentherapy S.A. (Dra. Pastrana): CUIT no hallado. | — |
+
+## 16. Marcas
+
+| Marca | Dato | Fuente |
+|---|---|---|
+| CELLGENIC (USPTO, serie 99343222, estilizada) y CELLGENIC (serie 99343235, caracteres estándar) | Presentadas el **18/08/2025**; primer uso declarado 23/01/2020; estado "nueva solicitud, sin examinador asignado". Productos declarados: cremas para la piel, **células madre para fines médicos**, equipos de laboratorio, dispositivos de recolección de médula ósea, kits de PRP y kits de aislamiento de células madre adiposas. Titular no visible en las fuentes consultadas. | A (vía Justia) |
+| CG CELLGENIC (USPTO, serie 97252348, 2022, suplementos vitamínicos) | Titular: GeneCell International LLC. Relación con GSCG desconocida. | A (vía Justia) |
+| IMPI (México) y WIPO | Sin registros hallados. | — |
+
+**Lectura.** La propia solicitud de marca describe "células madre para fines médicos" y kits clínicos. Es difícil sostener ante un regulador que los productos son "solo para investigación" cuando la marca se pide para fines médicos.
+
+## 17. Permisos sanitarios por país
+
+| País / organismo | Lo que la empresa afirma | Evidencia independiente | Cómo verificar |
+|---|---|---|---|
+| **México / COFEPRIS** | Tres autorizaciones: licencia de banco de células o tejidos, licencia de centro de recolección y "licencia de aplicación clínica". Bookimed cita una licencia de 2022. La planta Cellgenic sería "COFEPRIS-licensed" como banco y centro de recolección. | Ningún número de licencia publicado. Nada hallado en prensa ni en actos de COFEPRIS. El ISCT (abril 2025) aclara que una licencia de banco **no autoriza expandir células más allá de lo estrictamente necesario ni usarlas en pacientes**, y que la NOM específica de células troncales (PROY-NOM-260-SSA1) seguía en proyecto. | Padrón abierto de establecimientos autorizados de CENATRA (datos.gob.mx, actualizado 13/03/2026), filtrando Quintana Roo y programa "banco de células/tejidos"; consulta de licencias sanitarias en COFEPRIS; pedir los números por escrito. |
+| **México / instalaciones (10-K, Item 2)** | "Planta de fabricación de biológicos de primera en su tipo" con dos salas limpias ISO 7 adicionales. | Según los 10-K: clínica en Tulum Trade Center de 1.647 pies² (153 m²) a US$ 2.714/mes más una ampliación de 1.216 pies²; en 2025 se firmaron dos alquileres nuevos: **1.290 pies² (120 m²) en Cancún a US$ 10.000/mes por tres años** y **1.205 pies² (112 m²) en Tulum a US$ 3.500/mes por cinco años**. Si el local de 120 m² es el laboratorio, la "fabricación a escala completa" de seis líneas de biológicos ocurre en el tamaño de un departamento de tres ambientes. | Leer el Item 2 del 10-K 2025 directamente. |
+| **México / profesionales** | Director médico de Cellular Hope Institute: Dr. Rafael Moguel; director de cirugía regenerativa: Dr. Alejandro Cole (según PlacidWay). | Cédulas profesionales no verificadas. | Registro Nacional de Profesionistas (SEP). |
+| **EE. UU. / FDA** | "Nuestros productos no están aprobados por la FDA"; venta solo "fuera de EE. UU. donde la ley lo permite". | Sin registro de establecimiento (medicamentos ni HCT/P) hallado; sin cartas de advertencia; sin alertas de importación. Base pública de registros no accesible desde aquí. | FDA Establishment Registration & Listing y eHCTERS por nombre o FEI; base de cartas de advertencia. |
+| **EE. UU. / Florida (AHCA, DOH)** | — | Sin licencia de clínica hallada. AHCA no licencia clínicas que cobran solo en efectivo, y la capacitación no requiere licencia sanitaria. La red "Stem Cell Center Network" anunció una quinta sede en West Palm Beach sin fecha confirmada. | FloridaHealthFinder por nombre o por la dirección de Dadeland. |
+| **EE. UU. / BBB** | — | Perfil en Miami Lakes bajo rubro "programa de capacitación", sin calificación ni quejas recuperadas. | bbb.org. |
+| **Emiratos Árabes Unidos** | "Registro de exosomas liofilizados en todo el territorio" (feb. 2024); clínica en el Hyatt de Jumeirah (nov. 2024); representante exclusivo en Abu Dhabi: Aesthetic Polyclinic. | Autoridad emisora no nombrada (MOHAP, hoy reemplazada por Emirates Drug Corporation). Sin número de registro ni licencia DHA hallados. Apertura efectiva de la clínica no confirmada. | Registros de EDC/MOHAP y de DHA. |
+| **Uzbekistán** | "Registro oficial" de exosomas (feb. 2024); alianza con la filial de Termez de la Academia Médica de Taskent. | Sin certificado ni número. | Registro estatal de medicamentos de Uzbekistán. |
+| **Brasil / ANVISA** | Presencia comercial "sujeta a ANVISA"; descargo expreso de que no hay aprobación de producto ni de planta. | Sin registro. | Consulta ANVISA. |
+| **Perú / DIGEMID**, **Colombia / INVIMA** | "Representación exclusiva en canales permitidos", "sujeto a requisitos locales". | Sin registro hallado. | Consultas DIGEMID e INVIMA. |
+| **Argentina / ANMAT, INCUCAI** | "Operaciones comerciales reguladas" (jul. 2026). | Sin registro de producto, sin habilitación de importador, sin entidad local, sin domicilio. | Vademécum Nacional de Medicamentos; listado de establecimientos habilitados; consulta a INCUCAI. |
+| **Ecuador (ARCSA), Chile (ISP/Seremi), Puerto Rico (Depto. de Salud), España (AEMPS)** | Clínicas anunciadas entre 2016 y 2025. | Nada hallado. | Registros de cada organismo. |
+| **Corea del Sur** | ISSCA "constituida en Corea como sin fines de lucro". | Nada hallado. | Registro de personas jurídicas sin fines de lucro. |
+
+## 18. Certificaciones de calidad que invocan los documentos comerciales
+
+| Sello | Qué es realmente | Qué falta |
+|---|---|---|
+| "cGMP certified" | cGMP no es una certificación que se compra: es el cumplimiento de buenas prácticas verificado por inspección de una autoridad (FDA, COFEPRIS, ANMAT, EMA). Los "certificados cGMP" privados no tienen valor regulatorio. | Autoridad inspectora, fecha, alcance (biológicos vs. péptidos sintéticos), número de certificado. |
+| "ISO 20387 biobanking" | Norma de acreditación de biobancos (2018). La acreditan organismos nacionales (ema en México, A2LA/ANAB en EE. UU., ENAC, UKAS, DAkkS, NATA). | Organismo acreditador y número de acreditación. No se halló ninguno. |
+| "ISO 7 cleanroom" | Clasificación de partículas de una sala (ISO 14644-1). Es una condición de infraestructura, no una certificación de producto ni de proceso. | Informe de clasificación y de quién. |
+| "Esterilidad USP <71>" y "Endotoxinas USP <85>" | Ensayos farmacopeicos **para productos inyectables**. Aplicarlos a péptidos "de investigación" es, en la doctrina de la FDA, evidencia de que el uso previsto es parenteral en humanos. | Resultados por lote de un laboratorio identificado. |
+| "COA por lote", "secuencia verificada" | Certificado de análisis. | Laboratorio emisor, método, espectrometría de masas, contenido peptídico. Ver la alegación sobre el COA de MOTS-c en la sección 6. |
+
+---
+
+# Parte IV: análisis de los documentos enviados por la empresa
+
+*(Catálogo "Regenerative Cellgenic Biologics" 2026, 44 páginas, y "Lista de precios V1.0, septiembre 2026", 7 páginas, recibidos por el Dr. González. No se incorporan al repositorio por llevar la leyenda "Confidencial"; se citan por página.)*
+
+## 19. Qué dicen los documentos sobre quién vende y desde dónde
+
+- **Ningún dato legal.** Ni el catálogo ni la lista de precios identifican razón social, domicilio, país de origen, número de registro sanitario, condiciones de venta, jurisdicción ni responsable técnico. Los únicos contactos son el teléfono de Miami +1 305 560 5337 y el correo info@stemcellsgroup.com (catálogo, páginas 2 y 43). El vendedor real es, por lo tanto, Global Stem Cells Group Inc. (Florida).
+- **Metadatos.** El catálogo fue creado en Adobe Illustrator (Windows) el 1/07/2026 y unido con iLovePDF el 6/07/2026; su título interno es "ESPWEBPUO_New Catalogue Cellgenic" (versión en español, para web, "PUO"). La lista de precios fue generada por un script (productor "pypdf"), sin autor.
+- **Precios "USD · sin IVA".** Facturación desde el exterior. Quien compra desde Argentina pasa a ser el **importador de registro** del producto, con la responsabilidad que eso implica ante Aduana y ANMAT.
+- **Alcance.** La lista dice "más de 10 países"; los comunicados dicen "más de 30".
+
+## 20. La contradicción central: "Research Use Only" vs. "Physician Use Only"
+
+| Dónde | Qué dice |
+|---|---|
+| Lista de precios, portada de péptidos y pie | "Todos los péptidos de esta lista son productos Research Use Only (RUO): destinados exclusivamente a uso en investigación. No están aprobados para uso diagnóstico ni terapéutico en humanos." |
+| Catálogo, etiquetas de los viales (páginas 23 a 39) | **"Physician Use Only"** en cada vial, incluidos semaglutida, retatrutida y tirzepatida (página 33). |
+| Catálogo, lapiceras (páginas 11 a 15) | "Pre-filled pen", "10 mg Injection Subcutaneous", "Research Purpose Only" en letra pequeña; dosificador graduado. |
+| Catálogo, sprays nasales (páginas 17 a 21) | "Nasal Spray 15 ml", "Research Use Only", "Refrigerate, shake well before use". |
+| Catálogo, textos | "Soporte clínico e información de pedidos", "Consulte con nuestros especialistas las dosis disponibles", "Inyección subcutánea", "Terapia peptídica de administración multivía", y claims de salud para cada producto. |
+| Lista de precios | Agua bacteriostática en tres presentaciones (3, 6 y 10 ml), insumo de reconstitución para inyección. |
+
+Para la FDA (cartas del 31/03/2026 y 24/08/2026) la leyenda RUO es irrelevante cuando el contexto muestra uso humano: lapiceras, dosis, agua bacteriostática y promoción a médicos. Este catálogo reúne los cuatro elementos. En Argentina, el mismo contexto encuadra el producto como medicamento sin registro (Ley 16.463, art. 2 y 19) y su promoción al público profesional como anuncio de terapéuticas ajenas a la enseñanza de las facultades (Ley 17.132, art. 20 inc. 4).
+
+## 21. Claims terapéuticos del catálogo (selección relevante para un psiquiatra)
+
+| Producto | Claim textual | Estado regulatorio real |
+|---|---|---|
+| Selank (vial y nasal) | "Reduce la respuesta al estrés, favorece el equilibrio emocional, promueve calma mental" | Ansiolítico de registro ruso; no aprobado por FDA, EMA ni ANMAT. |
+| Semax (vial y nasal) | "Potencia el enfoque cognitivo, función de memoria, acción neuroprotectora" | Ídem Rusia. |
+| Cerebrolysin 60 mg | "Neuroregeneración avanzada, restauración cognitiva" | Medicamento registrado (EVER Pharma, Austria) de origen porcino; **no es un péptido sintético**, por lo que la "secuencia verificada" es imposible. No registrado en Argentina según lo hallado. |
+| DSIP (vial y lapicera) | "Arquitectura del sueño, equilibrio de cortisol" | Sin aprobación en ningún país. |
+| Kisspeptin | "Soporte de señalización hormonal, función reproductiva" | Investigacional. |
+| PT-141 / Oxitocina nasal | "Conexión intensificada, diseñado para la intimidad" | PT-141 es bremelanotida (Vyleesi, aprobado por FDA solo subcutáneo). **La oxitocina es un medicamento de venta bajo receta** en Argentina; venderla como "research" es un medicamento disfrazado. |
+| Melanotan-2 | "Bronceado, aumento de la libido" | Nunca aprobado; alertas de FDA, EMA y TGA por riesgo de melanoma y efectos cardiovasculares. |
+| Semaglutida, retatrutida, tirzepatida (página 33) | "Control del apetito, equilibrio glucémico, señalización triple incretina" | Semaglutida y tirzepatida: medicamentos registrados (Novo, Lilly). **Retatrutida: fármaco en fase 3 de Lilly, no aprobado en ningún país.** Cagrilintida: investigacional de Novo. Son exactamente los productos objeto de las cartas de advertencia de la FDA de 2026 y de la prohibición de ANMAT a "Tirzec" (Disp. 8203/2025). |
+| IGF-1 LR3 | "Crecimiento muscular" | Sin aprobación humana; sustancia dopante. |
+| Thymosin alfa-1, SS-31, ARA-290, VIP, AOD-9604, BPC-157, TB-500, CJC-1295, Ipamorelin, GHRP-2/6, GHK-Cu, Epitalon, Pinealon, KPV, LL-37, MOTS-c | Claims de recuperación, longevidad, inmunidad | La mayoría integra la lista de "Categoría 2" de la FDA (sustancias que **ni siquiera pueden prepararse en farmacias magistrales de EE. UU.** por riesgos de seguridad identificados). Verificar la lista vigente para cada una. |
+| NAD+, 5-Amino-1MQ, agua bacteriostática | — | No son péptidos; la lista los declara "secuencia verificada". |
+
+## 22. Productos celulares (lista de precios, páginas 1 y 2; catálogo, páginas 5 a 9)
+
+| Producto | Precio B2B (USD) | Observaciones |
+|---|---|---|
+| Exosomas liofilizados "para estética", 10 mil millones/vial | 750 (5 viales); 550 (3 viales) | Sin fuente celular declarada en la lista; sin ensayo de potencia; el recuento de partículas no distingue exosomas de restos celulares. |
+| Exosome Flow 15B / 50B / ExoElite 70B | 250 / 650 / 850 | Conservación a −80 °C: la cadena de frío hasta Argentina implica importación formal, no un sobre por correo. |
+| WJ-MSC 50 M / 100 M "células mesenquimales cultivadas" | 1.250 / 2.500 | Célula alogénica expandida: **medicamento de terapia avanzada** en Argentina (Disp. ANMAT 179/2018) y, en México, fuera del alcance de una licencia de banco según el ISCT. |
+| Células Muse 30 M / 100 M | 5.000 / 9.500 | Tipo celular investigacional; ningún regulador ha aprobado un producto de células Muse. La etiqueta fotografiada (página 8) dice "20×10⁶ cel/vial", mientras el texto ofrece 100 millones. |
+
+## 23. Precios de los péptidos y la economía del negocio
+
+| Producto | Presentación | Precio B2B (USD) | Precio por mg |
+|---|---|---|---|
+| Tirzepatida | 20 / 30 / 40 / 50 / 60 mg | 180 / 220 / 270 / 305 / 320 | 9,0 / 7,3 / 6,8 / 6,1 / 5,3 |
+| Retatrutida | 20 / 30 / 50 / 60 mg | 260 / 290 / 340 / 390 | 13,0 / 9,7 / 6,8 / 6,5 |
+| Semaglutida | 10 mg | 140 | 14,0 |
+| Lapicera retatrutida | 40 mg | 550 | 13,8 |
+| Lapicera "Longevity 2.0" (NAD+ 200 mg, 5-Amino-1MQ 50 mg, MOTS-c 10 mg) | 260 mg | 450 | — |
+
+Un vial de 20 mg de tirzepatida a US$ 180 equivale a entre uno y dos meses de dosis de inicio de Mounjaro, cuyo precio de lista en farmacias argentinas superaba los $580.000 mensuales en diciembre de 2025. Esa brecha es el argumento de venta, y el margen que queda para el médico que "reparte" el vial es el incentivo que el modelo necesita. Ninguna de las dos cosas cambia el estatus legal del producto.
+
+## 24. Las lapiceras "GoQuick"
+
+El catálogo llama a sus lapiceras "Sistema Prellenado GoQuick" (páginas 2 y 10 a 15). **GoQuick® es la marca registrada de Pfizer** para la lapicera de Genotropin (somatropina), fabricada por Ypsomed. O se trata de hardware reutilizado de otro medicamento, o de uso indebido de una marca ajena. En cualquiera de los dos casos, una lapicera multidosis "prellenada" con un péptido sin registro, con dosificador graduado, es un medicamento terminado para autoadministración, no un reactivo.
+
+## 25. Qué agregan los PDF al cuadro general
+
+1. Confirman que el vendedor es Global Stem Cells Group Inc. (Miami) y que no existe entidad ni domicilio en Argentina.
+2. Confirman que la línea de péptidos se promociona a médicos con indicaciones, dosis y vías de administración, con etiqueta "Physician Use Only" en los viales. La leyenda RUO de la lista de precios es una cláusula de descargo, no una descripción del producto.
+3. Confirman que venden tres fármacos en investigación (retatrutida, cagrilintida, células Muse) y un medicamento de receta (oxitocina) bajo la misma leyenda.
+4. Ninguna de las certificaciones invocadas trae organismo emisor ni número. La afirmación "cGMP certified" sobre péptidos sintéticos contradice el comunicado de la propia empresa, que describe la planta de Cancún como banco de células y fábrica de biológicos, sin mención de síntesis de péptidos.
+5. Para el Dr. González en particular: el catálogo contiene al menos seis productos con claims psiquiátricos o neurológicos (Selank, Semax, Cerebrolysin, DSIP, kisspeptina, oxitocina/PT-141), ninguno registrado por ANMAT. Prescribir o aplicar cualquiera de ellos encuadra en el art. 20 inc. 4 de la Ley 17.132 y expone a la responsabilidad descrita en la sección 8.
+
+## 26. Fuentes adicionales (Partes III y IV)
+
+- Sunbiz, Global Stem Cells Group Inc.: https://search.sunbiz.org/Inquiry/corporationsearch/SearchResultDetail?inquirytype=EntityName&directionType=Initial&searchNameOrder=GLOBALSTEMCELLSGROUP+P130000360850&aggregateId=domp-p13000036085-ec2ccdb8-c202-4dec-b0d7-d1532b4544e2
+- Sunbiz, Stem Cell Training Inc.: https://search.sunbiz.org/Inquiry/corporationsearch/SearchResultDetail?inquirytype=EntityName&directionType=PreviousList&searchNameOrder=STEMCELLTRAINING+P130000352140&aggregateId=domp-p13000035214-c4786117-12c3-4504-ba06-017b68053c12
+- Anexo 21.1 del 10-K 2022 (subsidiarias): https://www.sec.gov/Archives/edgar/data/1760026/000121390023029942/f10k2022ex21-1_mesonumis.htm
+- Marcas CELLGENIC: https://trademarks.justia.com/993/43/cellgenic-99343222.html y https://trademarks.justia.com/993/43/cellgenic-99343235.html
+- Cellular Hope Institute, "Certified stem cells" (tres autorizaciones afirmadas): https://www.cellularhopeinstitute.com/certified-stem-cells/
+- ISCT, actualización regulatoria México (abril 2025): https://www.isctglobal.org/telegrafthub/blogs/ken-ip1/2025/04/09/sca-lra-update-april-2025-regulatory-landscape-of
+- AABB, autoridades competentes México (art. 315 LGS): https://www.aabb.org/regulatory-and-advocacy/regulatory-affairs/regulatory-for-cellular-therapies/international-competent-authorities/mexico
+- CENATRA, datos abiertos de establecimientos: https://cenatra.salud.gob.mx/transparencia/datos-abiertos/datos_abiertos_establecimientos.html
+- FDA, registro de establecimientos HCT/P: https://www.fda.gov/vaccines-blood-biologics/biologics-establishment-registration/establishment-registration-and-listing-human-cells-tissues-and-cellular-and-tissue-based-products
+- Pfizer, lapicera GoQuick: https://pfizerpro.co.uk/medicine/genotropin/devices/goquick
+- ISO 20387, acreditación (UKAS): https://www.ukas.com/resources/publications/biobanks-accreditation/
+- Cartas FDA a vendedores de péptidos (2026): https://pharmaphorum.com/news/fda-issues-warning-letters-five-unapproved-glp-1-websites
+- Tirzec prohibido por ANMAT (Disp. 8203/2025): https://eleconomista.com.ar/actualidad/ozempic-trucho-anmat-lanza-prohibicion-urgente-riesgo-extremo-todo-pais-n87637
+- Precio de Mounjaro en Argentina (dic. 2025): https://www.lanacion.com.ar/sociedad/que-precio-tiene-el-tirzepatida-en-la-argentina-y-en-el-mundo-nid11122025
