@@ -510,3 +510,33 @@ El catálogo llama a sus lapiceras "Sistema Prellenado GoQuick" (páginas 2 y 10
 - Cartas FDA a vendedores de péptidos (2026): https://pharmaphorum.com/news/fda-issues-warning-letters-five-unapproved-glp-1-websites
 - Tirzec prohibido por ANMAT (Disp. 8203/2025): https://eleconomista.com.ar/actualidad/ozempic-trucho-anmat-lanza-prohibicion-urgente-riesgo-extremo-todo-pais-n87637
 - Precio de Mounjaro en Argentina (dic. 2025): https://www.lanacion.com.ar/sociedad/que-precio-tiene-el-tirzepatida-en-la-argentina-y-en-el-mundo-nid11122025
+
+---
+
+# Parte V: los audios del vendedor (31/10/2026)
+
+*(Dos notas de voz de WhatsApp recibidas por el Dr. González el 31/10/2026 a las 10:47:41 y 10:47:42, de 107 y 64 segundos. Transcriptas localmente en esta sesión con Whisper (modelos base y small vía sherpa-onnx), sin enviar los archivos a ningún servicio externo. Se consolidan ambos pases; entre corchetes, palabras que el reconocimiento no resolvió con seguridad. Los archivos de audio no se incorporan al repositorio.)*
+
+## 27. Transcripción
+
+**Audio 1 (10:47:41).** "Hola doctor Gabriel, buenos días, ¿cómo está? Entonces, le comento. Para el tema del certificado de análisis, verificar la calidad y pureza del producto: en el momento que usted reciba el producto, el vial, el etiquetado va a venir con un código QR. Usted lo escanea con su teléfono y lo va a dirigir al certificado de análisis nuestro, el interno, el de Cellgenic. A partir de ahí usted va a tener acceso a verificar la calidad y la pureza del producto. Nosotros manejamos una pureza mínima del 99 %, doc; de ahí para arriba puede cambiar un poco, entonces puede ser 99,6, 99,4, pero la pureza mínima es del 99 %. Y este es uno de los certificados de análisis que manejamos, pero también tenemos dos laboratorios aliados en Estados Unidos, que son Oracle [y Vanguard], que si usted lo llega a requerir también le podemos proporcionar el certificado de análisis de los dos laboratorios aliados que tenemos en Estados Unidos. Entonces ese sería el certificado de análisis externo, que no es de Cellgenic, que es de otro laboratorio, para dar un poquito más de soporte y fuerza al tema de calidad que manejamos. Así sería el proceso para usted verificar la calidad y pureza de los productos que manejamos."
+
+**Audio 2 (10:47:42).** "Doc, en la tirzepatida ya no estamos manejando la presentación ni de 40 ni de 50 miligramos. Las presentaciones que estamos manejando para la tirzepatida son de 10, de 20, de 30 y de 60 miligramos. Eso ya va a variar de acuerdo al tipo de pacientes que usted vaya a manejar, doc. Entonces, por ejemplo, si va a manejar un volumen grande de pacientes, se recomendaría un vial de 60 miligramos, que alcanza para unas 24 dosis mínimas. Entonces se [superaría] un poquito, pero si es un paciente que, no sé, tiene que viajar y no puede ir al consultorio para hacer la aplicación, se recomienda pues un vial de menor concentración, que puede ser de 10 miligramos, que le puede durar un mes, o de 20 miligramos. Eso puede variar un poco de esa manera."
+
+Nota sobre el segundo laboratorio: el primer pase lo reconoció como "Vanguard" y el segundo como "Iván Work". Existe Vanguard Laboratory (Olympia, Washington, ISO/IEC 17025), que analiza muestras enviadas por vendedores de péptidos; de un laboratorio "Oracle" no se halló rastro. Confirmar ambos nombres por escrito.
+
+## 28. Análisis
+
+1. **Uso previsto declarado por el vendedor.** El segundo audio recomienda presentaciones "de acuerdo al tipo de pacientes", calcula 24 dosis "mínimas" por vial de 60 mg (24 × 2,5 mg, la dosis inicial de Mounjaro), habla de "la aplicación en el consultorio" y de un vial "que le puede durar un mes" a un paciente. Es asesoramiento posológico para administración a personas. Para la FDA, las declaraciones del vendedor definen el uso previsto con independencia de la etiqueta RUO (cartas del 31/03/2026 y 24/08/2026). Para la ley argentina es la oferta de un medicamento sin registro (Ley 16.463, art. 2 y 19) y el mismo supuesto de la Disposición ANMAT 8203/2025 (Tirzec).
+2. **Riesgo sanitario del esquema propuesto.** Un vial de 60 mg "para un volumen grande de pacientes" implica un frasco reconstituido con agua bacteriostática, punzado 24 veces durante semanas o meses y compartido entre personas. Las prácticas de inyección segura (CDC, OMS, recomendaciones de ANMAT) exigen vial único por paciente y, en multidosis, un plazo máximo de 28 días. Compartir viales es causa documentada de brotes de hepatitis B y C y de infecciones bacterianas. Extraer 2,5 mg de un vial de 60 mg exige medir décimas de mililitro: es el mecanismo de las sobredosis por error de unidades que la FDA y ANVISA reportaron con semaglutida magistral en 2024.
+3. **Certificado interno por código QR.** Autocertificación de la misma empresa a la que un auditor de proveedores atribuye el uso de un cromatograma ajeno (sección 6). "Pureza mínima 99 %" es un porcentaje de área cromatográfica: no acredita identidad (masa 4813,5 Da), contenido real de péptido, contraión, solventes residuales ni endotoxinas (ver guía de IFA, capa 2).
+4. **Certificado externo "a pedido".** No forma parte del lote. Vanguard Laboratory declara en sus propios certificados que no presencia la selección de la muestra ni puede confirmar que sea representativa del lote: certifica lo que el vendedor elige enviar. Un laboratorio "Oracle" no pudo identificarse.
+5. **Inconsistencia con los documentos escritos.** El audio elimina los viales de 40 y 50 mg; la lista de precios de septiembre de 2026 los cotiza y el catálogo 2026 ofrece 10, 20, 30, 50 y 60 mg. Las presentaciones cambian de semana en semana, lo que no ocurre con un producto fabricado bajo lotes controlados.
+6. **Valor probatorio.** Los audios son comunicaciones dirigidas al destinatario; conservarlos y reenviarlos no constituye interceptación (art. 153 CP). Junto con el catálogo ("Physician Use Only", indicaciones y vías), la lista de precios (descargo RUO) y los comunicados de la empresa, forman un expediente coherente para una presentación ante ANMAT (Programa de Pesquisa de Medicamentos Ilegítimos) o ante el colegio profesional.
+
+## 29. Preguntas pendientes para el vendedor (por escrito)
+
+1. Razón social, domicilio y número de acreditación ISO 17025 de "Oracle" y de "Vanguard", y copia de un certificado externo con espectrometría de masas del lote concreto de tirzepatida que se enviaría.
+2. Razón social que factura, país de origen del péptido y nombre del fabricante real.
+3. Número de registro ANMAT del producto o disposición de habilitación del importador en Argentina.
+4. Confirmación escrita de si el producto es para uso humano. La respuesta, cualquiera sea, cierra el expediente.
