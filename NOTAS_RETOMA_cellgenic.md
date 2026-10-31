@@ -1,6 +1,6 @@
 # Nota de retoma: investigación CellGenic / GSCG / RMTG
 
-**Última actualización:** 31 de octubre de 2026
+**Última actualización:** 31 de octubre de 2026 (segunda edición: dictamen con estrategia de actuación y autoevaluación; entregables PDF y Word)
 **Rama:** `claude/kind-mccarthy-63mh1o` · **PR:** gabrielgonzalezsaludmental-collab/Wi-Sense#1 (listo para revisión, sin conflictos, sin CI en el repo)
 
 ## Archivos
@@ -10,8 +10,16 @@
 | `informe_cellgenic_rmtg.md` | Informe de investigación en cinco partes y 29 secciones: estructura corporativa, finanzas SEC, personas, productos, historial regulatorio, domicilios, eventos, difusión, habilitaciones por jurisdicción, análisis del catálogo y la lista de precios, transcripción y análisis de los tres audios del vendedor. | Completo al 31/10/2026 |
 | `informe_legal_cellgenic_argentina.md` | Dictamen preliminar: calificación de los productos, situación de la empresa (societaria, sanitaria, publicitaria, penal, civil), esquema de "receta magistral", escenarios de exposición del médico, prueba, vías de actuación, recaudos, normas citadas. | Completo; con puntos marcados "[verificar]" para un abogado |
 | `NOTAS_RETOMA_cellgenic.md` | Esta nota. | — |
+| `entregables/Dossier_CellGenic_Argentina_2026-10-31.pdf` y `.docx` | Dossier integral con diseño corporativo: Parte A dictamen jurídico, Parte B informe de investigación. 31 páginas en PDF. | Generado el 31/10/2026 |
+| `entregables/Dictamen_Legal_CellGenic_Argentina_2026-10-31.pdf` y `.docx` | Dictamen jurídico solo (secciones I a XIII, incluye estrategia de actuación y autoevaluación). | Generado el 31/10/2026 |
+| `entregables/Informe_Investigacion_CellGenic_2026-10-31.pdf` y `.docx` | Informe de investigación solo (Partes I a VI, incluye autoevaluación). | Generado el 31/10/2026 |
+| `herramientas/docs/` | Plantilla corporativa (`style.css`, `cover.html`, `template.html`), renderizador Chromium (`render_pdf.js`) y constructor (`build_docs.py`). Regenerar todo con `python3 herramientas/docs/build_docs.py`. | — |
 
 Material de origen que **no** está en el repositorio (quedó solo en la sesión y en el dispositivo del Dr. González): catálogo 2026 (PDF, 44 páginas), lista de precios V1.0 septiembre 2026 (PDF, 7 páginas) y tres notas de voz de WhatsApp del 31/10/2026 (10:47:41, 10:47:42, 11:18:55). Se excluyeron por confidencialidad y por ser comunicaciones privadas. Si se retoma en otra sesión, volver a subirlos.
+
+## Diseño corporativo
+
+Los entregables usan una identidad derivada de la paleta del proyecto Wi-Sense (azul marino `#0c3a5f`, celeste `#3ba9ff`, verde azulado `#22d3a8`, fondo de portada `#0a0e1a`), tipografía Inter en PDF y Arial en Word. No se pudo acceder al proyecto de Claude Design desde la sesión en la nube (requiere `/design-login` interactivo); si se comparte con "Send to Claude Code Web", se pueden reemplazar los tokens en `style.css` y en `build_docs.py` y regenerar. En Word, el índice y la numeración total de páginas se completan al abrir el archivo (campos con actualización automática).
 
 ## Hallazgos que ordenan todo lo demás
 
@@ -41,6 +49,10 @@ Para destrabar desde una sesión en la nube: habilitar sec.gov, datos.gob.mx, ce
 3. Nombre completo, dirección y número de acreditación ISO 17025 de "Oracle" y "Vanguard", y certificado externo con espectrometría de masas del lote de tirzepatida que se enviaría.
 4. Número de registro ANMAT de cada producto ofrecido.
 5. Confirmación escrita de si los productos son para uso humano.
+
+## Estrategia legal recomendada (resumen de la sección XII del dictamen)
+
+Semana 1: constatación notarial de PDF y audios; preguntas de verificación por escrito al vendedor; solicitud de supresión de datos propios si se entregó matrícula. Semana 2: presentación ante ANMAT (Pesquisa de Medicamentos Ilegítimos) con copia a INCUCAI y a la autoridad sanitaria de CABA o PBA; aviso a Lilly, Novo Nordisk y Pfizer; aviso a COFA y al colegio de farmacéuticos; aviso a la Facultad de Medicina de la UBA y a las sociedades científicas. Según respuesta o si aparecen pacientes tratados: denuncia penal ante el Ministerio Público Fiscal; Secretaría de Comercio (publicidad engañosa); Agencia de Acceso a la Información Pública. Reserva: acción preventiva colectiva por asociación de consumidores o Defensoría. Para la práctica propia: Mounjaro con receta o protocolo de investigación; ninguna vía lícita para BPC-157, retatrutida y similares.
 
 ## Próximos pasos sugeridos
 

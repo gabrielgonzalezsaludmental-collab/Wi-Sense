@@ -548,3 +548,57 @@ Nota sobre el segundo laboratorio: el primer pase lo reconoció como "Vanguard" 
 "Hola doc, listo, perfecto. Entonces le comento: en la llamada que tuvimos ayer, doc, yo le estaba mencionando, nosotros ya tenemos nuestro laboratorio en Buenos Aires. El laboratorio ya, si usted eventualmente tiene la oportunidad de visitarlo... Nosotros ya contamos con todas las habilitaciones y regulaciones sanitarias correspondientes, incluyendo los requisitos aplicables de ANMAT. Eso no significa que los productos, como son los péptidos, los exosomas o las células, tengan ANMAT, ¿no? Como operamos en Argentina, operamos bajo receta magistral, bajo la modalidad de receta magistral, que nosotros se la compartimos a cada profesional de la salud. Él [la] emite a nosotros y llena todos los datos del paciente que va a hacer uso de los productos, ya sea péptidos, exosomas o biológicos. Y de esa manera, pues, lo que es el doctor puede trabajarlo sin ningún inconveniente, ya usándolo en sus pacientes y ya aplicándolo también en sus clínicas. Entonces, de esa manera, es una manera muy práctica que lo manejamos únicamente en Argentina. Listo, entonces es básicamente eso."
 
 **Tres hechos nuevos.** (1) Afirma un laboratorio en Buenos Aires "con todas las habilitaciones, incluyendo los requisitos aplicables de ANMAT", sin nombrar la entidad, la dirección ni el número de disposición; nada de eso apareció en ninguna fuente pública ni en los contratos de alquiler del 10-K. (2) Reconoce expresamente que péptidos, exosomas y células **no tienen registro de ANMAT**. (3) Describe el mecanismo: la empresa entrega al médico un formulario de "receta magistral", el médico lo completa con los datos del paciente y lo remite a la empresa, y con eso "puede trabajarlo sin ningún inconveniente en sus pacientes y en sus clínicas", "únicamente en Argentina". El análisis jurídico de este esquema está en el informe legal separado (`informe_legal_cellgenic_argentina.md`).
+
+---
+
+# Parte VI: autoevaluación del analista
+
+*(Agregada el 31/10/2026 a pedido del Dr. González. Es la evaluación que el propio asistente hace de su trabajo: qué está bien sostenido, qué no, qué errores cometió y corrigió, y qué evidencia cambiaría sus conclusiones.)*
+
+## 30. Método y sus límites
+
+- **Qué se hizo.** Alrededor de cien búsquedas web en español e inglés; lectura de los dos PDF comerciales recibidos; transcripción local de tres notas de voz con dos modelos de reconocimiento (Whisper base y small) y comparación entre ambos; contraste sistemático entre lo que la empresa afirma, lo que dicen sus presentaciones ante la SEC y lo que existe en registros públicos.
+- **Qué no se pudo hacer.** La política de red de la sesión bloqueó el acceso directo a sec.gov, cellgenic.com, stemcellsgroup.com, bbb.org, sunbiz.org, nootroholic.com, datos.gob.mx, cenatra.salud.gob.mx, tsdrapi.uspto.gov, marcas.impi.gob.mx e infoleg.gob.ar. Todas las citas de esos sitios provienen de resúmenes de un motor de búsqueda o de copias sindicadas. Un resumen puede truncar u omitir contexto. No se consultó a la empresa, a ANMAT, a COFEPRIS ni a ningún abogado. No se analizó ningún vial.
+- **Sesgo de partida.** La investigación comenzó a partir de un documento ya crítico con la empresa, y se buscaron activamente señales de alarma. Para compensarlo se buscaron también cartas de advertencia de la FDA, acciones de la FTC, juicios, quejas y alertas de COFEPRIS contra la empresa, y no se encontró ninguna; esa ausencia se informó tal cual. Las piezas de prueba más fuertes (catálogo, lista de precios, audios) provienen de la propia empresa, no de sus críticos.
+- **Transcripciones.** Los dos modelos coincidieron en todas las frases con relevancia jurídica. Difirieron en palabras sueltas (un nombre de laboratorio, un conector), que quedaron marcadas entre corchetes. Las transcripciones deben tratarse como fieles en contenido y aproximadas en alguna palabra aislada, y la constatación notarial debe hacerse sobre los audios originales.
+
+## 31. Grado de confianza por conclusión
+
+| Conclusión | Confianza | Base |
+|---|---|---|
+| Estructura corporativa (Nevada, Florida, ex Meso Numismatics), cambio de control a favor de Novas en 2021, domicilio legal en Boca Raton | Alta | Presentaciones ante la SEC (10-K, 8-K), registros de Florida |
+| Situación financiera (pérdidas, going concern, deuda en mora, dilución, capitalización) | Alta en las cifras del 10-K; media en las del 2T 2026, que provienen de un comunicado y de un agregador que no coinciden entre sí | SEC; Stocktitan; comunicado |
+| Ningún producto tiene registro de ANMAT, FDA, ANVISA ni COFEPRIS como medicamento | Alta | Admisión del vendedor en el tercer audio; comunicados de la empresa; precedentes de ANMAT |
+| Los péptidos se promocionan para uso humano con indicaciones, dosis y vías | Alta | Catálogo (etiquetas "Physician Use Only", páginas 11 a 39), lista de precios, audio 2 |
+| El esquema de "receta magistral" no es una preparación magistral en sentido legal | Alta | Ley 17.565, Res. MS 1490/2015, Decreto 1299/97; descripción del propio vendedor |
+| No existe entidad, CUIT, domicilio ni habilitación de la empresa en Argentina | Media-alta | Ausencia en todas las fuentes públicas accesibles y en los contratos de alquiler del 10-K; los registros oficiales (IGJ, ARCA, base federal de droguerías) no pudieron consultarse directamente |
+| El "laboratorio en Buenos Aires con habilitaciones de ANMAT" no existe como tal | Media | Solo ausencia de evidencia; podría tratarse de un establecimiento de un socio local con alguna habilitación distinta a la que se afirma |
+| La licencia de COFEPRIS de Cancún es de banco y recolección de células, no de fabricación de medicamentos | Alta en cuanto a lo que la empresa afirma; media en cuanto a su vigencia real | Comunicados; padrón CENATRA no consultado |
+| Alegación de certificado de análisis con cromatograma ajeno | Baja | Una sola fuente secundaria (Nootroholic); no verificada; se presenta como alegación atribuida |
+| Identidad de los laboratorios "Oracle" y "Vanguard" | Media para Vanguard Laboratory (existe, ISO 17025, analiza muestras enviadas por vendedores); baja para "Oracle" (no hallado); media en el reconocimiento de los nombres en el audio | Búsquedas; dos pases de transcripción |
+| Riesgo sanitario del esquema de viales compartidos y de la reconstitución de 60 mg | Alta | Normas de inyección segura; alertas de FDA y ANVISA sobre errores de dosificación con GLP-1 magistrales |
+| Encuadres penales específicos (arts. 201, 204 ter, 204 quinquies, 172 CP; Código Aduanero; Ley 27.447) | Media | Dependen de hechos aún no probados (envíos concretos, pacientes tratados, falsedad de la habilitación) y del criterio fiscal; se presentan como encuadres posibles, no como imputaciones |
+| Numeración exacta de incisos y artículos marcados "[verificar]" | Media-baja | Texto consolidado no accesible; el contenido de las normas es correcto con alta confianza, la numeración de incisos debe confirmarse |
+| Vigencia de patentes de tirzepatida y semaglutida en Argentina y registro local de la marca GoQuick | Desconocida | INPI no consultado |
+| "Declaración de interés" de la Facultad de Medicina de la UBA | No verificada | Solo afirmaciones de la empresa y de un colaborador en LinkedIn |
+
+## 32. Errores cometidos y corregidos durante el trabajo
+
+1. En la guía sobre IFA se citó la Disposición ANMAT 6677/10 como régimen de buenas prácticas clínicas; fue reemplazada por la Disposición 7516/2025 (octubre de 2025). Corregido en la misma respuesta y en el dictamen.
+2. En el análisis inicial se afirmó que no se había hallado pronunciamiento de ANMAT sobre péptidos; búsquedas posteriores encontraron la alerta de agosto de 2025 sobre retatrutida y una decena de péptidos inyectables. Incorporado al dictamen. Sigue siendo cierto que no se halló pronunciamiento específico sobre tirzepatida **magistral**.
+3. El borrador del dictamen citaba la Disposición ANMAT 4980/2005 sobre publicidad; está derogada por la 4059/2025. Corregido antes de emitir.
+4. La Disposición 2819/04 (BPF, cuyo Anexo VI regulaba IFA) está derogada por la 4159/2023; la norma específica de IFA que se mantiene como referencia es la 5260/2008. Ajustado en la guía y en el dictamen.
+5. El documento original del Dr. González contenía una contradicción (viales y lapiceras en una sección; formato no informado en otra), señalada en el primer análisis.
+6. La cifra de resultado del 2T 2026 quedó sin conciliar entre el comunicado (resultado operativo positivo) y el agregador (pérdida neta); se dejó constancia en lugar de elegir una.
+
+## 33. Qué evidencia cambiaría las conclusiones
+
+- **Una habilitación verificable** (número de disposición, director técnico, inscripción en la base federal de ANMAT) de un establecimiento en Buenos Aires cambiaría la conclusión sobre la inexistencia de estructura local, pero no el estatus de los productos, que el propio vendedor reconoce sin registro.
+- **Registro de producto ante ANMAT** de alguno de los péptidos cambiaría por completo el análisis respecto de ese producto. Hoy no existe y la empresa lo admite.
+- **Certificados de análisis externos, por lote, con espectrometría de masas, de un laboratorio ISO 17025 identificado, más un certificado de BPF de una autoridad PIC/S** elevarían la evaluación técnica de la calidad del péptido. No alterarían su ilegalidad en Argentina.
+- **Un contexto distinto para los audios** (por ejemplo, que el vendedor hablara de un protocolo de investigación aprobado) debilitaría la conclusión sobre uso previsto. El catálogo, la lista de precios y las expresiones "pacientes", "consultorio" y "clínicas" hacen esa hipótesis improbable.
+- **Una resolución formal de la Facultad de Medicina de la UBA** confirmaría o desmentiría la "declaración de interés"; en ningún caso convertiría una certificación comercial en título habilitante.
+
+## 34. Conclusión del analista
+
+Con alta confianza: la empresa ofrece en Argentina medicamentos y productos de terapia avanzada sin registro, los promociona para uso humano y propone un mecanismo documental que traslada la responsabilidad al médico; adquirirlos o usarlos es ilegal para un profesional argentino y además clínicamente peligroso en la modalidad que el propio vendedor describe. Con confianza media: la empresa carece de toda estructura legal en el país y su afirmación sobre un laboratorio habilitado en Buenos Aires es falsa o engañosa. Con confianza baja y presentada como alegación ajena: la adulteración de certificados de análisis. La recomendación operativa (no comprar, no firmar, preservar la prueba y presentarla ante ANMAT) no depende de ninguno de los puntos de confianza media o baja.
