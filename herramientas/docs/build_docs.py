@@ -59,6 +59,12 @@ def prep_docs():
             subtitle="CellGenic / Global Stem Cells Group / Regenerative Medical Technology Group (OTC: RMTG)",
             short="Informe de investigación · CellGenic / GSCG / RMTG", kicker="Informe de investigación",
             scope="Estructura corporativa, finanzas, personas, productos, historial regulatorio, domicilios, eventos, difusión, habilitaciones, documentos comerciales, audios del vendedor, autoevaluación y adenda sobre el manual de protocolos y el formulario de receta."),
+        "Opinion_Analista_CellGenic": dict(
+            md=wrap_meta(strip_title(read("opinion_cellgenic.md"))), toc=2,
+            title="Opinión del analista",
+            subtitle="Qué pienso del caso CellGenic y qué haría en el lugar del Dr. González",
+            short="Opinión del analista · CellGenic", kicker="Opinión",
+            scope="Opinión personal sobre la empresa, los productos, la situación legal y el curso de acción, con grado de convicción. No es un dictamen."),
         "Dossier_CellGenic_Argentina": dict(
             md=dossier, toc=2,
             title="Dossier integral",

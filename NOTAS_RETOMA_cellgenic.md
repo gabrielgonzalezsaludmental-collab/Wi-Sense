@@ -1,6 +1,6 @@
 # Nota de retoma: investigación CellGenic / GSCG / RMTG
 
-**Última actualización:** 2 de noviembre de 2026 (tercera edición: adenda sobre el manual de protocolos y el formulario de receta; entregables regenerados, versión 1.1)
+**Última actualización:** 2 de noviembre de 2026 (tercera edición: adenda sobre el manual de protocolos y el formulario de receta, informe de opinión; entregables regenerados, versión 1.1)
 **Rama:** `claude/kind-mccarthy-63mh1o` · **PR:** gabrielgonzalezsaludmental-collab/Wi-Sense#1 (listo para revisión, sin conflictos, sin CI en el repo). Los commits posteriores al 31/10/2026 están solo en el clon local hasta que se autorice el `git push`.
 
 ## Archivos
@@ -9,7 +9,9 @@
 |---|---|---|
 | `informe_cellgenic_rmtg.md` | Informe de investigación en siete partes y 42 secciones: estructura corporativa, finanzas SEC, personas, productos, historial regulatorio, domicilios, eventos, difusión, habilitaciones por jurisdicción, análisis del catálogo y la lista de precios, transcripción y análisis de los tres audios, autoevaluación (Parte VI) y adenda del 2/11/2026 sobre el manual de protocolos y el formulario de receta (Parte VII). | Completo al 2/11/2026 |
 | `informe_legal_cellgenic_argentina.md` | Dictamen preliminar (secciones I a XIV): calificación de los productos, situación de la empresa, esquema de "receta magistral", escenarios del médico, prueba, vías de actuación, estrategia ordenada (XII), autoevaluación (XIII) y adenda bajo derecho argentino sobre el manual y el formulario, con ajuste de la estrategia (XIV). | Completo; con puntos marcados "[verificar]" para un abogado |
+| `opinion_cellgenic.md` | Opinión personal del analista (2/11/2026): qué pienso de la empresa, de los productos, de la situación legal y qué haría en el lugar del Dr. González, con grado de convicción y dónde puedo estar equivocado. | Completo |
 | `NOTAS_RETOMA_cellgenic.md` | Esta nota. | — |
+| `entregables/Opinion_Analista_CellGenic_2026-11-02.pdf` y `.docx` | Informe de opinión con diseño corporativo (6 páginas). | Generado el 2/11/2026 |
 | `entregables/Dossier_CellGenic_Argentina_2026-11-02.pdf` y `.docx` | Dossier integral con diseño corporativo: Parte A dictamen jurídico, Parte B informe de investigación. | Generado el 2/11/2026 (reemplaza la edición del 31/10, que queda en el historial de git) |
 | `entregables/Dictamen_Legal_CellGenic_Argentina_2026-11-02.pdf` y `.docx` | Dictamen jurídico solo. | Generado el 2/11/2026 |
 | `entregables/Informe_Investigacion_CellGenic_2026-11-02.pdf` y `.docx` | Informe de investigación solo. | Generado el 2/11/2026 |
