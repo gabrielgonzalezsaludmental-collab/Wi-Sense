@@ -8,8 +8,8 @@ HERE = Path(__file__).resolve().parent
 OUT = ROOT / "entregables"
 BUILD = Path("/tmp/build")
 OUT.mkdir(exist_ok=True); BUILD.mkdir(exist_ok=True)
-DATE = "31 de octubre de 2026"
-SLUG = "2026-10-31"
+DATE = "2 de noviembre de 2026"
+SLUG = "2026-11-02"
 PD_FROM = "markdown-tex_math_dollars-raw_tex+pipe_tables+smart"
 
 def run(cmd, **kw):
@@ -52,19 +52,19 @@ def prep_docs():
             title="Dictamen jurídico preliminar",
             subtitle="Situación en Argentina de CellGenic / Global Stem Cells Group / RMTG y de los profesionales que adquieran o usen sus productos",
             short="Dictamen jurídico · CellGenic Argentina", kicker="Dictamen jurídico preliminar",
-            scope="Calificación de los productos, situación de la empresa, esquema de «receta magistral», exposición del médico, prueba, vías de actuación y estrategia recomendada."),
+            scope="Calificación de los productos, situación de la empresa, esquema de «receta magistral», exposición del médico, prueba, vías de actuación, estrategia recomendada y adenda sobre el manual de protocolos y el formulario de receta."),
         "Informe_Investigacion_CellGenic": dict(
             md=inf, toc=2,
             title="Informe de investigación",
             subtitle="CellGenic / Global Stem Cells Group / Regenerative Medical Technology Group (OTC: RMTG)",
             short="Informe de investigación · CellGenic / GSCG / RMTG", kicker="Informe de investigación",
-            scope="Estructura corporativa, finanzas, personas, productos, historial regulatorio, domicilios, eventos, difusión, habilitaciones, documentos comerciales, audios del vendedor y autoevaluación."),
+            scope="Estructura corporativa, finanzas, personas, productos, historial regulatorio, domicilios, eventos, difusión, habilitaciones, documentos comerciales, audios del vendedor, autoevaluación y adenda sobre el manual de protocolos y el formulario de receta."),
         "Dossier_CellGenic_Argentina": dict(
             md=dossier, toc=2,
             title="Dossier integral",
             subtitle="CellGenic / Global Stem Cells Group / RMTG: dictamen jurídico preliminar e informe de investigación",
             short="Dossier integral · CellGenic Argentina", kicker="Dossier integral",
-            scope="Parte A: dictamen jurídico. Parte B: informe de investigación completo con documentos comerciales, audios y autoevaluación."),
+            scope="Parte A: dictamen jurídico. Parte B: informe de investigación completo con documentos comerciales, audios, autoevaluación y adenda del 2 de noviembre de 2026."),
     }
 
 def build_pdf(name, d):
