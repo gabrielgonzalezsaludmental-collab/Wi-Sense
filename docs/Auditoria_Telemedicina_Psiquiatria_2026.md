@@ -1,4 +1,4 @@
-# Informe de auditoría del resumen "Telemedicina en Psiquiatría (y Psicología) en España"
+# Informe de auditoría del resumen "Telemedicina en Psiquiatría en España"
 **Fecha:** 6 de noviembre de 2026. **Objeto:** verificar una a una las afirmaciones del resumen (versión 1) contra los textos oficiales y producir la versión 2 corregida.
 
 ## 1. Método
@@ -111,4 +111,18 @@ Comprobaciones realizadas el 6-11-2026 sobre los textos oficiales, tras ampliar 
 | 68 | Tasa de la autorización sanitaria | Sede de la CARM (página dinámica no legible) | No verificable |
 | 69 | Estatutos del Colegio de Médicos de Murcia (colegiación en cualquier modalidad) y creación del Colegio de Psicología (Decreto 3/2001) | Webs colegiales no accesibles | No verificable |
 | 70 | Admisión de una actividad exclusivamente telemática sin sede | Sin previsión normativa | Pendiente de consulta a la Consejería |
+
+## 9. Adenda (versión 4): ejercicio como médico psiquiatra
+El usuario ejerce como médico, no como psicólogo. La versión 4 adapta el documento a ese perfil.
+
+| Cambio | Base verificada | Resultado |
+|---|---|---|
+| Se retiran los requisitos de ejercicio como psicólogo (Máster en Psicología General Sanitaria, homologación de títulos de Psicología, colegiación en el COP, Código Deontológico del Psicólogo, epígrafe IAE 776, buenas prácticas del COP Madrid) | Ley 43/1979: la integración en el COP es obligatoria "para el ejercicio de la profesión de psicólogo" | Confirmada |
+| La psicoterapia del psiquiatra es un acto médico dentro de sus competencias | Orden PCM/205/2023 (competencias 4.4 a 4.6 del programa de Psiquiatría) | Confirmada |
+| La exención de IVA se mantiene como profesional médico | Ley 37/1992 art. 20.Uno.3 | Confirmada |
+| Epígrafe fiscal: grupo 832 "Médicos especialistas" | RDL 1175/1990 | Confirmada |
+| Mencionar la titulación en Psicología solo como formación académica, sin ofrecer servicios de psicología | Interpretación prudente de la Ley 43/1979 y del art. 90 del Código de Deontología Médica | Criterio de prudencia, no norma expresa |
+| La Guía de Telepsicología del COP (2017) se mantiene solo como referencia de buena práctica, no como norma vinculante | Código de Deontología Médica 2022, cap. XXIII | Confirmada |
+
+Las comprobaciones 11 a 13 y 37 de la sección 5 se refieren a la psicología y se conservan solo como referencia.
 
