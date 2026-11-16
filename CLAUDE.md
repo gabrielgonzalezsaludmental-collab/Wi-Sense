@@ -34,3 +34,13 @@ Todo el proyecto es **un solo archivo**: `index.html` (HTML + CSS + JS inline).
   problema del código: hay que instalar la app de GitHub de Claude en el repo
   o reconectar GitHub desde https://claude.ai/customize/connectors y luego
   reintentar el push desde la misma sesión.
+
+## Alcance del repositorio
+
+- Este repositorio es **solo** para Wi-Sense: la demo `index.html` y su documentación.
+- Documentos de otros proyectos (casos legales o periciales, investigaciones sobre
+  terceros, trámites fiscales, carrera internacional, material personal) **no se suben
+  acá**. Van a Google Drive, en `00_SISTEMA_ORDENADO_2026/`, dentro de la carpeta
+  numerada del proyecto que corresponda, o en `99_BANDEJA_INGRESO/` si no está claro.
+- Si una sesión produce un informe que no es de Wi-Sense, lo entrega como archivo o lo
+  sube a Drive; no abre una rama ni un PR en este repo para eso.
