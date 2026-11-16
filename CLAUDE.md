@@ -27,6 +27,23 @@ Todo el proyecto es **un solo archivo**: `index.html` (HTML + CSS + JS inline).
 - `render()`: repinta KPIs, leyenda, tiles, tarjetas y alarmas.
 - `applyScn()`: aplica el escenario elegido en los selectores.
 
+## Registro de datos (persistencia)
+
+- En cada tick se guarda una lectura por paciente en `LOG.readings` como fila compacta
+  `[ts, id, FC, FR, SpO2, mov, zona, sueño, escenario, riesgo, nivel, pred, eta, caída, factores]`,
+  y cada alarma, cambio de escenario e inicio de sesión como objeto en `LOG.events`.
+- Persistencia en `localStorage` bajo la clave `wisense.registro.v1`: guardado automático
+  cada 10 s y al cerrar u ocultar la pestaña. Tope de ~3 M de caracteres; al superarlo
+  se recortan las lecturas más antiguas (los eventos se conservan, hasta 1000) y se avisa
+  en el panel. Si `localStorage` falla, los datos siguen en memoria y se avisa.
+- Exportación desde el panel "Registro de datos": `exportCSV("lecturas"|"eventos")`
+  (separador `;`, decimal con coma y BOM UTF-8, pensado para Excel en español) y
+  `exportJSON()` con todo. `clearLog()` borra con confirmación.
+- Al cargar, `loadLog()` restaura lecturas y eventos, recompone el contador de alarmas
+  y las últimas 12 alarmas del panel lateral.
+- Chequeo headless ampliado: además de 6 `.tile` y 6 `.card`, verificar filas en `#reg-b`,
+  la clave en `localStorage` después de 10 s y que al recargar el panel diga "restauradas".
+
 ## Git
 
 - Trabajar en la rama `claude/...` que indique la sesión y abrir PR en borrador.
