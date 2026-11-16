@@ -114,7 +114,8 @@ const residents=[
  {id:"r5",name:"Ramón Benítez",home:"Casa Benítez",cond:"Parkinson, riesgo caídas",bHr:76,bRr:17},
  {id:"r6",name:"Nilda Vega",home:"Casa Vega",cond:"Seguimiento general",bHr:75,bRr:16},
 ];
-residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;});
+residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;
+  r.risk=0;r.level="ok";r.factors=[];r.pred=false;r.eta=null;});
 
 function step(r,dt){
   r.t0+=dt;
@@ -130,7 +131,6 @@ function step(r,dt){
   r.sleep = mov>0.3?"despierto":"ligero";
   // riesgo
   let risk=0,factors=[],level="ok",pred=false,eta=null;
-  const z=v=>Math.abs(v);
   if(r.hr>=RANGES.hr.ch){factors.push("Taquicardia crítica ("+Math.round(r.hr)+" lpm)");risk=Math.max(risk,95);}
   if(r.rr>=RANGES.rr.ch){factors.push("Taquipnea marcada ("+Math.round(r.rr)+" rpm)");risk=Math.max(risk,70);}
   if(r.spo2<=RANGES.spo2.cl){factors.push("Desaturación ("+Math.round(r.spo2)+"%)");risk=Math.max(risk,88);}
