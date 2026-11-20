@@ -1,0 +1,43 @@
+/* Identidad corporativa derivada de Wi-Sense: azul marino, celeste, verde azulado */
+:root{--navy:#0c3a5f;--deep:#0a0e1a;--accent:#3ba9ff;--teal:#22d3a8;--ink:#1f2937;--muted:#5b6472;--line:#d7dde8;--panel:#f4f7fb;--panel2:#f4f9ff}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;padding:0}
+body{font-family:Inter,Arial,Helvetica,sans-serif;font-size:10.4pt;line-height:1.48;color:var(--ink)}
+p{margin:0 0 7pt 0;orphans:3;widows:3;text-align:left}
+h1,h2,h3,h4{font-family:"Inter Display",Inter,Arial,sans-serif;color:var(--navy);line-height:1.2;break-after:avoid;page-break-after:avoid}
+h1{font-size:22pt;font-weight:700;margin:0 0 14pt 0;padding:6pt 0 6pt 12pt;border-left:7px solid var(--teal);break-before:page;page-break-before:always}
+h1.toc-title,h1.no-break{break-before:auto;page-break-before:auto}
+h2{font-size:14.5pt;font-weight:700;margin:20pt 0 8pt 0;padding-bottom:4pt;border-bottom:2px solid var(--teal)}
+h3{font-size:11.8pt;font-weight:700;margin:14pt 0 5pt 0}
+h4{font-size:10.6pt;font-weight:700;margin:10pt 0 4pt 0;color:var(--ink)}
+strong{font-weight:700}
+em{color:var(--muted)}
+a{color:var(--navy);text-decoration:none;border-bottom:1px dotted var(--accent);overflow-wrap:anywhere;word-break:break-word}
+hr{border:0;border-top:1px solid var(--line);margin:14pt 0}
+ul,ol{margin:4pt 0 8pt 0;padding-left:18pt}
+li{margin:2.5pt 0}
+blockquote{margin:9pt 0;padding:8pt 12pt;border-left:4px solid var(--accent);background:var(--panel2);font-size:9.8pt;break-inside:avoid}
+blockquote p{margin:0 0 5pt 0}
+code{font-family:"DejaVu Sans Mono",Menlo,monospace;font-size:8.8pt;background:#eef2f7;padding:1px 3px;border-radius:2px}
+pre{font-family:"DejaVu Sans Mono",monospace;font-size:8.6pt;background:#eef2f7;padding:8pt;border-radius:3px;white-space:pre-wrap;break-inside:avoid}
+table{width:100%;border-collapse:collapse;margin:9pt 0 12pt 0;font-size:8.7pt;line-height:1.35}
+thead{display:table-header-group}
+tr{break-inside:avoid;page-break-inside:avoid}
+th{background:var(--navy);color:#fff;text-align:left;font-weight:600;padding:5pt 6pt;border:1px solid var(--navy);vertical-align:bottom}
+td{padding:4pt 6pt;border:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even) td{background:var(--panel)}
+td code{font-size:8pt}
+/* Índice */
+nav#TOC{break-after:page;page-break-after:always}
+nav#TOC ul{list-style:none;margin:0;padding:0}
+nav#TOC>ul>li{font-weight:600;margin:7pt 0 3pt 0;font-size:10.6pt}
+nav#TOC>ul>li>a{border:none}
+nav#TOC ul ul{margin:2pt 0 4pt 0}
+nav#TOC ul ul li{font-weight:400;font-size:9.6pt;margin:1.5pt 0 1.5pt 14pt;color:var(--ink)}
+nav#TOC ul ul ul li{margin-left:28pt;font-size:9.2pt;color:var(--muted)}
+nav#TOC a{border:none}
+/* Bloque de metadatos al inicio (líneas **Clave:** valor) */
+.meta{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--navy);padding:9pt 12pt;margin:0 0 14pt 0;font-size:9.6pt}
+.meta p{margin:0 0 3pt 0}
+.aviso{background:#fff7e6;border:1px solid #f1d9a6;border-left:5px solid #e0a62d;padding:8pt 12pt;margin:10pt 0;font-size:9.6pt}
+.firma{margin-top:28pt;padding-top:10pt;border-top:1px solid var(--line);font-size:9pt;color:var(--muted)}

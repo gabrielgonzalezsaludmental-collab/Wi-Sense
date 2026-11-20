@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>$title$</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+$if(toc)$
+<h1 class="toc-title">Índice</h1>
+<nav id="TOC" role="doc-toc">
+$table-of-contents$
+</nav>
+$endif$
+$body$
+<div class="firma">$shorttitle$ · Versión 1.1 · $date$ · Elaborado con asistencia de Claude Code para el Dr. Gabriel González. Documento de trabajo; no constituye asesoramiento legal.</div>
+</body>
+</html>

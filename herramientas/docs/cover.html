@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>__TITLE__</title>
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;padding:0;width:210mm;height:297mm}
+body{font-family:Inter,Arial,sans-serif;background:#0a0e1a;color:#fff;position:relative;overflow:hidden}
+.bar{position:absolute;left:0;top:0;width:14mm;height:297mm;background:linear-gradient(180deg,#22d3a8 0%,#3ba9ff 55%,#0c3a5f 100%)}
+.glow{position:absolute;right:-60mm;top:-60mm;width:180mm;height:180mm;border-radius:50%;background:radial-gradient(circle,rgba(59,169,255,.22) 0%,rgba(10,14,26,0) 65%)}
+.wrap{position:absolute;left:30mm;right:22mm;top:34mm;bottom:22mm}
+.kicker{font-size:10.5pt;letter-spacing:.18em;text-transform:uppercase;color:#22d3a8;font-weight:600;margin-bottom:16mm}
+h1{font-family:"Inter Display",Inter,Arial,sans-serif;font-size:31pt;line-height:1.12;font-weight:800;margin:0 0 9mm 0;color:#fff;max-width:150mm}
+.sub{font-size:14.5pt;line-height:1.4;color:#cfe3ff;max-width:150mm;margin:0 0 18mm 0;font-weight:400}
+.ficha{border-top:1px solid rgba(255,255,255,.18);padding-top:7mm;display:grid;grid-template-columns:38mm 1fr;row-gap:3.2mm;column-gap:6mm;font-size:10pt;max-width:150mm}
+.ficha .k{color:#8fb8e8;text-transform:uppercase;letter-spacing:.08em;font-size:8pt;font-weight:600;padding-top:1pt}
+.ficha .v{color:#eaf2ff}
+.foot{position:absolute;left:30mm;right:22mm;bottom:16mm;font-size:8.5pt;color:#8a96b3;border-top:1px solid rgba(255,255,255,.12);padding-top:4mm;display:flex;justify-content:space-between}
+.conf{display:inline-block;border:1px solid #22d3a8;color:#22d3a8;border-radius:3px;padding:1.5pt 7pt;font-size:8.5pt;letter-spacing:.1em;text-transform:uppercase}
+</style></head>
+<body>
+<div class="bar"></div><div class="glow"></div>
+<div class="wrap">
+  <div class="kicker">__KICKER__</div>
+  <h1>__TITLE__</h1>
+  <div class="sub">__SUBTITLE__</div>
+  <div class="ficha">
+    <div class="k">Preparado para</div><div class="v">Dr. Gabriel González, médico psiquiatra</div>
+    <div class="k">Preparado por</div><div class="v">Claude Code (asistente de IA), bajo encargo del destinatario</div>
+    <div class="k">Fecha</div><div class="v">__DATE__</div>
+    <div class="k">Versión</div><div class="v">1.1</div>
+    <div class="k">Clasificación</div><div class="v"><span class="conf">Confidencial · Documento de trabajo</span></div>
+    <div class="k">Alcance</div><div class="v">__SCOPE__</div>
+  </div>
+</div>
+<div class="foot"><span>__SHORT__</span><span>No constituye asesoramiento legal. Fuentes y límites de verificación en el cuerpo del documento.</span></div>
+</body></html>
