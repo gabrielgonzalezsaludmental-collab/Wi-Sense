@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "npx --yes serve public -l 8080",
-    "check": "node --check netlify/functions/asistente.mjs && node --check public/assets/demo.js"
+    "check": "node --check netlify/functions/asistente.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.11.0"

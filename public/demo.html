@@ -6,51 +6,150 @@
 <meta name="theme-color" content="#0a0e1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Wi-Sense · Demo interactivo</title>
-<meta name="description" content="Demo interactivo de Wi-Sense: panel del operador con simulación de hogares, alertas escalonadas y asistente de IA.">
-<link rel="stylesheet" href="assets/styles.css">
+<meta name="description" content="Demo interactivo de Wi-Sense: panel del operador con simulación de hogares, registro de datos, alertas escalonadas y asistente de IA.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2322c8b4'/%3E%3Ccircle cx='50' cy='27' r='6' fill='%23fff'/%3E%3Cpath d='M28 60 L50 44 L72 60 Z M34 60 H66 V86 H34 Z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  :root{--bg:#0a0e1a;--panel:#121829;--panel2:#1a2238;--line:#243049;--txt:#e8edf7;--muted:#8a96b3;
+        --accent:#3ba9ff;--teal:#22d3a8;--ok:#22c55e;--aviso:#facc15;--urgente:#fb923c;--critico:#ef4444;--predictivo:#a855f7}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;line-height:1.45}
+  .wrap{max-width:1080px;margin:0 auto;padding:14px 14px 70px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .lg{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#22c8b4,#0c3a5f);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  h1{font-size:21px;font-weight:800;margin:0}
+  .sub{font-size:12px;color:var(--muted)}
+  .clock{margin-left:auto;font-size:13px;color:var(--muted)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 6px;text-align:center}
+  .kpi b{display:block;font-size:24px;font-weight:800}.kpi span{font-size:11px;color:var(--muted)}
+  .board{background:var(--panel);border:1px solid var(--accent);border-radius:16px;padding:14px;margin-bottom:12px}
+  .board h2{font-size:14px;margin:0 0 9px;font-weight:800}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .lc{display:flex;align-items:center;gap:6px;background:var(--panel2);border-radius:18px;padding:5px 11px;font-size:12px}
+  .lc i{width:10px;height:10px;border-radius:50%} .lc b{font-size:14px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px}
+  .tile{background:var(--panel2);border-radius:11px;border-left:6px solid var(--ok);padding:9px 12px}
+  .tile .r1{display:flex;align-items:center;gap:9px}
+  .tile .dot{width:14px;height:14px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 8px currentColor}
+  .tile .nm{flex:1;min-width:0}.tile .nm .n{font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tile .nm .h{font-size:10px;color:var(--muted)}
+  .tile .bd{font-size:10px;font-weight:800}
+  .tile .vt{font-size:10px;color:var(--muted);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .eta{color:var(--predictivo);font-weight:700}
+  .ctrl{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  select,button{font-family:inherit;font-size:13px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--txt);padding:9px 11px}
+  button.apply{background:var(--accent);color:#04101e;border:none;font-weight:800;cursor:pointer}
+  .msg{font-size:12px;color:var(--teal)}
+  .cols{display:grid;grid-template-columns:1fr 320px;gap:12px}
+  @media(max-width:780px){.cols{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+  .card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--ok);border-radius:13px;padding:13px}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start}
+  .card .n{font-weight:700}.card .meta{font-size:11px;color:var(--muted)}
+  .badge{font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
+  .v{background:var(--panel2);border-radius:9px;padding:8px 2px;text-align:center}.v b{display:block;font-size:18px;font-weight:700}.v span{font-size:9px;color:var(--muted)}
+  .loc{font-size:11px;color:var(--muted)}
+  .fct{font-size:11px;color:var(--muted);margin-top:6px;min-height:22px}
+  .alerts{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+  .alerts h3{font-size:14px;margin:0 0 9px}
+  .al{border-left:3px solid var(--urgente);background:var(--panel2);border-radius:8px;padding:8px 11px;margin-bottom:7px;font-size:12px}
+  .al .t{font-weight:700}.al .s{color:var(--muted);font-size:11px}.al .nt{color:var(--teal);font-size:10px}
+  .reg{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:12px}
+  .reg h3{font-size:14px;margin:0 0 9px}
+  .reg .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+  .reg .st{font-size:11px;color:var(--muted);flex:1 1 100%;line-height:1.5}.reg .st b{color:var(--txt)}
+  .reg .warn{color:var(--aviso)}
+  button.sec{cursor:pointer;font-size:12px;padding:7px 10px}
+  button.danger{border-color:#7f1d1d;color:#fca5a5}
+  .tblw{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:9px}
+  table.tbl{width:100%;border-collapse:collapse;font-size:11.5px}
+  .tbl th,.tbl td{padding:5px 7px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
+  .tbl th{position:sticky;top:0;background:var(--panel2);color:var(--muted);font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.3px}
+  .tbl td.lv{font-weight:800}
+  .trend{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+  .trend .tr{background:var(--panel2);border-radius:8px;padding:5px 7px 3px;min-width:0}
+  .trend .tr span{display:block;font-size:9px;color:var(--muted);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .trend svg{display:block;width:100%;height:26px}
+  .reg .msg2{font-size:11px;color:var(--teal);flex:1 1 100%;min-height:14px}
+  .ph{display:none}
+  @media print{
+    :root{--bg:#fff;--panel:#fff;--panel2:#f3f4f6;--line:#cbd5e1;--txt:#111;--muted:#555}
+    body{background:#fff;color:#111}
+    .wrap{max-width:none;padding:0}
+    .ctrl,.alerts,.ai,.reg .bar select,.reg .bar button,.reg .msg2,.clock,.sub{display:none!important}
+    .cols{grid-template-columns:1fr}
+    .tblw{max-height:none;overflow:visible;border:none}
+    .tbl th{position:static;background:#eee;color:#111}
+    .card,.tile,.kpi,.board,.reg{break-inside:avoid;border-color:#cbd5e1}
+    .ph{display:block;font-size:12px;color:#333;margin:0 0 10px}
+    .foot{color:#333}
+  }
+  .foot{color:var(--muted);font-size:10.5px;text-align:center;margin-top:18px;line-height:1.6}
+  a.lg{color:inherit}
+  .sub a{color:var(--accent);text-decoration:none}
+  .ctrl button.ghost{background:transparent;cursor:pointer}
+  .side{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  /* Asistente IA */
+  .ai{background:var(--panel);border:1px solid var(--predictivo);border-radius:14px;padding:12px;display:flex;flex-direction:column}
+  .ai h3{font-size:14px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+  .ai .mode{margin-left:auto;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--panel2);color:var(--muted)}
+  .ai .mode.cloud{color:var(--teal)}
+  .ai .hint{font-size:11px;color:var(--muted);margin-bottom:8px}
+  .ai .quick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .ai .quick button{font-size:11px;padding:6px 9px;border-radius:16px;cursor:pointer}
+  .ai .quick button:hover{border-color:var(--predictivo)}
+  .chat{overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:4px 2px;max-height:340px;min-height:150px}
+  .bub{font-size:12.5px;line-height:1.45;padding:9px 11px;border-radius:12px;max-width:94%;white-space:pre-wrap;word-break:break-word}
+  .bub.u{align-self:flex-end;background:rgba(59,169,255,.18);border:1px solid rgba(59,169,255,.35)}
+  .bub.a{align-self:flex-start;background:var(--panel2);border:1px solid var(--line)}
+  .bub.a.think{color:var(--muted);font-style:italic}
+  .ai form{display:flex;gap:6px;margin-top:8px}
+  .ai form input{flex:1;min-width:0;font-family:inherit;font-size:13px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--txt);padding:9px 11px}
+  .ai form input:focus{outline:2px solid var(--predictivo);outline-offset:1px}
+  .ai form button{background:var(--predictivo);color:#fff;border:none;font-weight:800;cursor:pointer}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <header class="demo-header">
-    <a href="index.html" class="lg" aria-label="Volver al inicio"><svg viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><g fill="none" stroke="#eafff8" stroke-width="7" stroke-linecap="round"><path d="M30 38 A28 28 0 0 1 70 38"/><path d="M38 30 A18 18 0 0 1 62 30" opacity=".7"/></g><circle cx="50" cy="26" r="5" fill="#eafff8"/><path d="M28 56 L50 40 L72 56 Z M34 56 H66 V82 H34 Z" fill="#fff"/><path d="M37 70 h8 l4 -10 5 16 4 -6 h6" fill="none" stroke="#0c3a5f" stroke-width="4" stroke-linejoin="round"/></svg></a>
-    <div><h1>Wi-Sense · Panel del operador</h1><div class="sub">Demo interactivo · datos simulados en tu navegador · <a href="index.html">volver al sitio</a></div></div>
-    <div class="clock" id="clock" aria-live="off"></div>
+  <header>
+    <a href="index.html" class="lg" aria-label="Volver al sitio"><svg viewBox="0 0 100 100" width="26" height="26"><g fill="none" stroke="#eafff8" stroke-width="7" stroke-linecap="round"><path d="M30 38 A28 28 0 0 1 70 38"/><path d="M38 30 A18 18 0 0 1 62 30" opacity=".7"/></g><circle cx="50" cy="26" r="5" fill="#eafff8"/><path d="M28 56 L50 40 L72 56 Z M34 56 H66 V82 H34 Z" fill="#fff"/><path d="M37 70 h8 l4 -10 5 16 4 -6 h6" fill="none" stroke="#0c3a5f" stroke-width="4" stroke-linejoin="round"/></svg></a>
+    <div><h1>Wi-Sense · Panel del operador</h1><div class="sub">Demo interactivo · corre en tu navegador (sin servidor) · <a href="index.html">volver al sitio</a></div></div>
+    <div class="clock" id="clock"></div>
   </header>
+  <div class="ph" id="print-head"></div>
 
-  <div class="kpis" role="group" aria-label="Indicadores">
+  <div class="kpis">
     <div class="kpi"><b id="k-h">0</b><span>Hogares</span></div>
     <div class="kpi"><b id="k-a" style="color:var(--urgente)">0</b><span>Alarmas</span></div>
     <div class="kpi"><b id="k-p" style="color:var(--predictivo)">0</b><span>Predictivas</span></div>
     <div class="kpi"><b id="k-c" style="color:var(--critico)">0</b><span>Críticos</span></div>
   </div>
 
-  <section class="board" aria-labelledby="board-h">
-    <h2 id="board-h">🚦 Estado de pacientes — vista rápida del operador</h2>
+  <div class="board">
+    <h2>🚦 Estado de pacientes — vista rápida del operador</h2>
     <div class="legend" id="legend"></div>
     <div class="tiles" id="tiles"></div>
-  </section>
+  </div>
 
-  <section class="ctrl" aria-label="Controles de simulación">
+  <div class="ctrl">
     <span style="font-size:13px">🎬 Escenario:</span>
-    <label class="sr-only" for="sel-res">Persona</label>
     <select id="sel-res"></select>
-    <label class="sr-only" for="sel-scn">Escenario</label>
     <select id="sel-scn">
       <option value="normal">Normal</option>
       <option value="deterioro">Deterioro progresivo</option>
       <option value="evento">Evento agudo</option>
       <option value="caida">Caída nocturna</option>
     </select>
-    <button class="apply" id="btn-apply" type="button">Aplicar</button>
-    <button class="ghost" id="btn-pause" type="button" aria-pressed="false">⏸ Pausar</button>
-    <button class="ghost" id="btn-reset" type="button">↺ Reiniciar</button>
-    <span class="msg" id="msg" aria-live="polite"></span>
-  </section>
+    <button class="apply" onclick="applyScn()">Aplicar</button>
+    <button class="ghost" id="btn-pause" onclick="togglePause()" aria-pressed="false">⏸ Pausar</button>
+    <button class="ghost" onclick="resetSim()">↺ Reiniciar</button>
+    <span class="msg" id="msg"></span>
+  </div>
 
   <div class="cols">
     <div class="cards" id="cards"></div>
-    <aside class="side">
+    <div class="side">
       <section class="ai" id="asistente" aria-labelledby="ai-h">
         <h3 id="ai-h">🤖 Asistente IA <span class="mode" id="ai-mode" title="Modo de respuesta">local</span></h3>
         <div class="hint">Pregunta sobre el estado actual. Responde en lenguaje claro y sugiere acciones. No reemplaza el criterio clínico.</div>
@@ -67,15 +166,424 @@
           <button type="submit">Enviar</button>
         </form>
       </section>
-      <section class="alerts" aria-labelledby="al-h">
-        <h3 id="al-h">🚨 Alarmas y notificaciones</h3>
-        <div id="al-list" role="log" aria-live="polite"></div>
-      </section>
-    </aside>
+      <div class="alerts"><h3>🚨 Alarmas y notificaciones</h3><div id="al-list" role="log" aria-live="polite"></div></div>
+    </div>
+  </div>
+
+  <div class="reg" id="reg">
+    <h3>🗂️ Registro de datos — todo lo que registran los sensores</h3>
+    <div class="bar">
+      <select id="reg-f"><option value="">Todos los pacientes</option></select>
+      <select id="reg-v"><option value="lecturas">Lecturas</option><option value="eventos">Alarmas y eventos</option><option value="resumen">Resumen por paciente</option></select>
+      <button class="sec" onclick="exportCSV('lecturas')">⬇ CSV lecturas</button>
+      <button class="sec" onclick="exportCSV('eventos')">⬇ CSV eventos</button>
+      <button class="sec" onclick="exportJSON()">⬇ JSON completo</button>
+      <button class="sec" onclick="document.getElementById('reg-imp').click()">⬆ Importar JSON</button>
+      <input type="file" id="reg-imp" accept=".json,application/json" hidden>
+      <button class="sec" onclick="shareLog()">📤 Compartir / enviar</button>
+      <button class="sec" onclick="printReport()">🖨 Imprimir informe</button>
+      <button class="sec danger" onclick="clearLog()">🗑 Borrar registro</button>
+      <div class="st" id="reg-st"></div>
+      <div class="msg2" id="reg-msg"></div>
+    </div>
+    <div class="tblw"><table class="tbl"><thead id="reg-h"></thead><tbody id="reg-b"></tbody></table></div>
   </div>
 
   <div class="foot">Wi-Sense — demo de simulación (datos generados en el navegador). Sistema de apoyo y alerta temprana; no es un dispositivo médico certificado. Ante una emergencia real llamá al 107.</div>
 </div>
-<script src="assets/demo.js"></script>
+
+<script>
+const COL={ok:"#22c55e",aviso:"#facc15",urgente:"#fb923c",critico:"#ef4444",predictivo:"#a855f7"};
+const LBL={ok:"ESTABLE",aviso:"VIGILAR",urgente:"URGENTE",critico:"CRÍTICO",predictivo:"PREDICTIVO"};
+const CLBL={critico:"Crítico",urgente:"Urgente",predictivo:"Predictivo",aviso:"Vigilar",ok:"Estable"};
+const ZONES=["dormitorio","baño","cocina","sala"];
+const RANGES={hr:{lo:50,hi:100,cl:40,ch:130},rr:{lo:12,hi:20,cl:8,ch:28},spo2:{lo:94,hi:100,cl:90,ch:100}};
+let alerts=[]; let stats={alerts:0,predictive:0};
+
+function R(a,b){return a+Math.random()*(b-a);}
+const residents=[
+ {id:"r1",name:"Dolores Martinez",home:"Casa Martinez",cond:"Hipertensión",bHr:74,bRr:16},
+ {id:"r2",name:"Jorge Martinez",home:"Casa Martinez",cond:"Diabetes tipo 2",bHr:78,bRr:17},
+ {id:"r3",name:"Héctor Ferreyra",home:"Depto Ferreyra",cond:"EPOC / insuf. cardíaca",bHr:80,bRr:18},
+ {id:"r4",name:"Susana Quiroga",home:"Casa Quiroga",cond:"Post-operatorio",bHr:72,bRr:16},
+ {id:"r5",name:"Ramón Benítez",home:"Casa Benítez",cond:"Parkinson, riesgo caídas",bHr:76,bRr:17},
+ {id:"r6",name:"Nilda Vega",home:"Casa Vega",cond:"Seguimiento general",bHr:75,bRr:16},
+];
+residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;
+  r.risk=0;r.level="ok";r.factors=[];r.pred=false;r.eta=null;});
+
+function step(r,dt){
+  r.t0+=dt;
+  let dHr=0,dRr=0,dSpo=0,mov=R(0.05,0.4);
+  if(r.scn==="deterioro"){const k=Math.min(r.t0/40,1);dRr+=9*k;dHr+=14*k;dSpo-=6*k;}
+  else if(r.scn==="evento"){if(r.t0>3){dHr+=58;dRr+=14;dSpo-=11;mov=0.05;}}
+  else if(r.scn==="caida"){if(r.t0>3){r.fall=1;mov=0.02;r.zone="baño";}}
+  r.hr += 0.3*((r.bHr+10*mov+dHr)-r.hr)+R(-1,1);
+  r.rr += 0.3*((r.bRr+4*mov+dRr)-r.rr)+R(-.4,.4);
+  r.spo2 += 0.3*((97.5-1.5*mov+dSpo)-r.spo2)+R(-.3,.3);
+  r.spo2=Math.max(80,Math.min(100,r.spo2)); r.mov=mov;
+  if(r.scn==="normal"&&Math.random()<0.05){r.zone=ZONES[Math.floor(Math.random()*ZONES.length)];}
+  r.sleep = mov>0.3?"despierto":"ligero";
+  // riesgo
+  let risk=0,factors=[],level="ok",pred=false,eta=null;
+  if(r.hr>=RANGES.hr.ch){factors.push("Taquicardia crítica ("+Math.round(r.hr)+" lpm)");risk=Math.max(risk,95);}
+  if(r.rr>=RANGES.rr.ch){factors.push("Taquipnea marcada ("+Math.round(r.rr)+" rpm)");risk=Math.max(risk,70);}
+  if(r.spo2<=RANGES.spo2.cl){factors.push("Desaturación ("+Math.round(r.spo2)+"%)");risk=Math.max(risk,88);}
+  if(r.fall){factors.push("Posible caída + inmovilidad");risk=Math.max(risk,96);}
+  // predicción simple: si deterioro en curso y aún no crítico
+  if(r.scn==="deterioro"&&r.rr<RANGES.rr.ch&&r.rr>r.bRr+2){
+    const slope=(r.rr-r.bRr)/Math.max(r.t0,1);
+    if(slope>0.02){eta=Math.max(1,Math.round((RANGES.rr.ch-r.rr)/slope));if(eta<=30){pred=true;factors.push("Predicción: FR cruzaría umbral en ~"+eta+" min");}}
+  }
+  if(risk===0){risk=Math.round(R(0,12));}
+  if(risk>=80)level="critico";else if(risk>=55)level="urgente";else if(pred)level="predictivo";else if(risk>=30)level="aviso";else level="ok";
+  r.risk=Math.round(risk);r.level=level;r.factors=factors;r.pred=pred;r.eta=eta;
+  // alarma
+  if((level==="critico"||level==="urgente"||level==="predictivo")&&(!r._lastAl||r._lastLvl!==level||(Date.now()-r._lastAl)>20000)){
+    r._lastAl=Date.now();r._lastLvl=level;
+    const notified = level==="critico"?["FAMILIAR","SAME 107"]:(level==="predictivo"?["FAMILIAR (preventivo)"]:["FAMILIAR"]);
+    alerts.unshift({level,home:r.home,factors:factors.slice(0,2),notified,ts:Date.now()});
+    alerts=alerts.slice(0,12); stats[level==="predictivo"?"predictive":"alerts"]++;
+    logEvent({type:"alarma",id:r.id,name:r.name,home:r.home,level,risk:r.risk,factors:factors.slice(),notified});
+  }
+}
+
+function order(l){return {critico:0,urgente:1,predictivo:2,aviso:3,ok:4}[l]??9;}
+function render(){
+  document.getElementById("clock").textContent=new Date().toLocaleTimeString()+(paused?" · pausado":"");
+  const homes=new Set(residents.map(r=>r.home)).size;
+  document.getElementById("k-h").textContent=homes;
+  document.getElementById("k-a").textContent=stats.alerts;
+  document.getElementById("k-p").textContent=stats.predictive;
+  document.getElementById("k-c").textContent=residents.filter(r=>r.level==="critico").length;
+  // legend / counts
+  const counts={critico:0,urgente:0,predictivo:0,aviso:0,ok:0};residents.forEach(r=>counts[r.level]++);
+  document.getElementById("legend").innerHTML=["critico","urgente","predictivo","aviso","ok"].map(k=>
+    `<div class="lc" style="opacity:${counts[k]?1:.45}"><i style="background:${COL[k]}"></i>${CLBL[k]} <b style="color:${COL[k]}">${counts[k]}</b></div>`).join("");
+  // tiles
+  const sorted=[...residents].sort((a,b)=>order(a.level)-order(b.level));
+  document.getElementById("tiles").innerHTML=sorted.map(r=>{const c=COL[r.level];
+    const eta=(r.pred&&r.eta)?` · <span class="eta">🔮 ~${r.eta} min</span>`:"";
+    return `<div class="tile" style="border-left-color:${c}"><div class="r1">
+      <span class="dot" style="background:${c};color:${c}"></span>
+      <div class="nm"><div class="n">${r.name}</div><div class="h">${r.home}</div></div>
+      <span class="bd" style="color:${c}">${LBL[r.level]}</span></div>
+      <div class="vt">FC ${Math.round(r.hr)} · FR ${Math.round(r.rr)} · SpO₂ ${Math.round(r.spo2)}% · 📍${r.zone}${eta}</div></div>`;}).join("");
+  // cards
+  document.getElementById("cards").innerHTML=sorted.map(r=>{const c=COL[r.level];
+    const eta=(r.pred&&r.eta)?`<div style="font-size:11px;color:var(--predictivo);margin-top:5px">🔮 Predicción: posible deterioro en ~${r.eta} min</div>`:"";
+    return `<div class="card" style="border-top-color:${c}"><div class="top">
+      <div><div class="n">${r.name}</div><div class="meta">${r.home} · ${r.cond}</div></div>
+      <span class="badge" style="background:${c}22;color:${c}">${LBL[r.level]}</span></div>
+      <div class="grid4">
+        <div class="v"><b>${Math.round(r.hr)}</b><span>FC lpm</span></div>
+        <div class="v"><b>${Math.round(r.rr)}</b><span>FR rpm</span></div>
+        <div class="v"><b>${Math.round(r.spo2)}</b><span>SpO₂ %</span></div>
+        <div class="v"><b style="color:${c}">${r.risk}</b><span>Riesgo</span></div></div>
+      <div class="loc">📍 ${r.zone} · 😴 ${r.sleep}</div>${eta}
+      ${trendHTML(r.id)}
+      <div class="fct">${(r.factors.length&&r.level!=="ok")?"⚠ "+r.factors.join(" · "):"Parámetros dentro de la normalidad individual"}</div>
+    </div>`;}).join("");
+  // alerts
+  document.getElementById("al-list").innerHTML=alerts.length?alerts.map(a=>{const c=COL[a.level];
+    return `<div class="al" style="border-left-color:${c}"><div class="t" style="color:${c}">${LBL[a.level]} · ${a.home}</div>
+      <div class="s">${(a.factors||[]).join(" · ")}</div><div class="nt">📨 ${a.notified.join(" ; ")}</div></div>`;}).join(""):
+    '<div style="color:var(--muted);font-size:12px">Sin alarmas.</div>';
+  renderLog();
+}
+function applyScn(){
+  const rid=document.getElementById("sel-res").value, scn=document.getElementById("sel-scn").value;
+  const r=residents.find(x=>x.id===rid); if(r){r.scn=scn;r.t0=0;r.fall=0;if(scn!=="caida")r.zone="dormitorio";logEvent({type:"escenario",id:r.id,name:r.name,home:r.home,detail:"Escenario aplicado por el operador: "+scn});}
+  document.getElementById("msg").textContent="✓ "+scn+" aplicado a "+(r?r.name:"");
+  setTimeout(()=>document.getElementById("msg").textContent="",2500);
+}
+// ===== Registro de datos: todo lo que registran los sensores, guardado en este navegador =====
+const LOG_KEY="wisense.registro.v1", LOG_MAX_CHARS=3000000, LOG_MAX_EVENTS=1000, LOG_TABLE_ROWS=40;
+const LOG={readings:[],events:[],restored:0,persist:true,dirty:false,note:"",len:0};
+const byId=Object.fromEntries(residents.map(r=>[r.id,r]));
+const pad2=n=>String(n).padStart(2,"0");
+function fmtDT(ts){const d=new Date(ts);return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate())+" "+pad2(d.getHours())+":"+pad2(d.getMinutes())+":"+pad2(d.getSeconds());}
+function stamp(){const d=new Date();return d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate())+"_"+pad2(d.getHours())+pad2(d.getMinutes());}
+function logReading(r,ts){
+  LOG.readings.push([ts,r.id,+r.hr.toFixed(1),+r.rr.toFixed(1),+r.spo2.toFixed(1),+r.mov.toFixed(2),r.zone,r.sleep,r.scn,r.risk,r.level,r.pred?1:0,r.eta??"",r.fall?1:0,r.factors.join(" | ")]);
+  LOG.dirty=true;
+}
+function logEvent(e){
+  LOG.events.push(Object.assign({ts:Date.now()},e));
+  if(LOG.events.length>LOG_MAX_EVENTS)LOG.events.splice(0,LOG.events.length-LOG_MAX_EVENTS);
+  LOG.dirty=true;
+}
+function snapshot(){return JSON.stringify({v:1,readings:LOG.readings,events:LOG.events});}
+function saveLog(force){
+  if(!LOG.persist||(!LOG.dirty&&!force))return;
+  try{
+    let s=snapshot();
+    while(s.length>LOG_MAX_CHARS&&LOG.readings.length>1000){
+      LOG.readings.splice(0,Math.ceil(LOG.readings.length*0.2));s=snapshot();
+      LOG.note="Se recortaron las lecturas más antiguas para no superar el límite del navegador. Exportá para conservar todo.";
+    }
+    localStorage.setItem(LOG_KEY,s);LOG.len=s.length;LOG.dirty=false;
+  }catch(err){
+    try{
+      LOG.readings.splice(0,Math.ceil(LOG.readings.length/2));const s=snapshot();
+      localStorage.setItem(LOG_KEY,s);LOG.len=s.length;LOG.dirty=false;
+      LOG.note="Cuota del navegador alcanzada: se recortó la mitad más antigua de las lecturas. Exportá para conservar todo.";
+    }catch(e2){
+      LOG.persist=false;
+      LOG.note="Persistencia no disponible en este navegador ("+((e2&&e2.name)||"error")+"). Los datos siguen en memoria: exportalos antes de cerrar.";
+    }
+  }
+}
+function loadLog(){
+  try{
+    const raw=localStorage.getItem(LOG_KEY);if(!raw)return;
+    const d=JSON.parse(raw);
+    if(d&&Array.isArray(d.readings)){LOG.readings=d.readings;LOG.events=Array.isArray(d.events)?d.events:[];LOG.restored=LOG.readings.length;LOG.len=raw.length;}
+  }catch(err){LOG.note="No se pudo leer el registro guardado ("+((err&&err.name)||"error")+").";}
+}
+function dl(name,content,type){
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);
+}
+const csvNum=v=>(v===""||v==null)?"":String(v).replace(".",",");
+const csvCell=v=>{const s=String(v??"");return /[;"\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+function csvText(kind){
+  let rows;
+  if(kind==="eventos"){
+    rows=[["fecha_hora","tipo","paciente","hogar","nivel","riesgo","detalle","factores","notificado"]]
+      .concat(LOG.events.map(e=>[fmtDT(e.ts),e.type,e.name||"",e.home||"",e.level||"",e.risk??"",e.detail||"",(e.factors||[]).join(" | "),(e.notified||[]).join(" ; ")]));
+  }else{
+    kind="lecturas";
+    rows=[["fecha_hora","id","paciente","hogar","FC_lpm","FR_rpm","SpO2_pct","movimiento","zona","sueño","escenario","riesgo","nivel","prediccion","eta_min","caida","factores"]]
+      .concat(LOG.readings.map(x=>{const r=byId[x[1]]||{};return [fmtDT(x[0]),x[1],r.name||"",r.home||"",csvNum(x[2]),csvNum(x[3]),csvNum(x[4]),csvNum(x[5]),x[6],x[7],x[8],x[9],x[10],x[11],x[12],x[13],x[14]];}));
+  }
+  return {name:"wisense_"+kind+"_"+stamp()+".csv",text:"﻿"+rows.map(r=>r.map(csvCell).join(";")).join("\r\n")};
+}
+function exportCSV(kind){const f=csvText(kind);dl(f.name,f.text,"text/csv;charset=utf-8");}
+function exportJSON(){
+  const data={exportado:fmtDT(Date.now()),fuente:"Wi-Sense · demo de simulación (datos generados en el navegador; no es un dispositivo médico certificado)",
+    pacientes:residents.map(r=>({id:r.id,nombre:r.name,hogar:r.home,condicion:r.cond,fc_base:r.bHr,fr_base:r.bRr})),
+    columnas_lecturas:["ts_ms","id","FC_lpm","FR_rpm","SpO2_pct","movimiento","zona","sueño","escenario","riesgo","nivel","prediccion","eta_min","caida","factores"],
+    lecturas:LOG.readings,eventos:LOG.events};
+  dl("wisense_registro_"+stamp()+".json",JSON.stringify(data),"application/json");
+}
+function clearLog(){
+  if(!confirm("¿Borrar todo el registro guardado en este navegador? Exportá antes si querés conservarlo."))return;
+  LOG.readings=[];LOG.events=[];LOG.restored=0;LOG.note="";alerts=[];stats={alerts:0,predictive:0};
+  try{localStorage.removeItem(LOG_KEY);}catch(e){}
+  logEvent({type:"sesion",detail:"Registro borrado por el operador"});saveLog(true);render();
+}
+function renderLog(){
+  const f=document.getElementById("reg-f").value, view=document.getElementById("reg-v").value;
+  const nAl=LOG.events.reduce((n,e)=>n+(e.type==="alarma"),0);
+  const first=LOG.readings.length?LOG.readings[0][0]:(LOG.events.length?LOG.events[0].ts:null);
+  document.getElementById("reg-st").innerHTML=
+    `<b>${LOG.readings.length.toLocaleString("es-AR")}</b> lecturas · <b>${nAl}</b> alarmas · <b>${LOG.events.length}</b> eventos`+
+    (first?` · desde ${fmtDT(first)}`:"")+
+    (LOG.restored?` · ${LOG.restored.toLocaleString("es-AR")} restauradas de este navegador`:"")+
+    (LOG.persist?` · guardado automático cada 10 s (${Math.round(LOG.len/LOG_MAX_CHARS*100)}% del espacio)`:"")+
+    (LOG.note?` <span class="warn">⚠ ${LOG.note}</span>`:"");
+  const H=document.getElementById("reg-h"), B=document.getElementById("reg-b");
+  if(view==="eventos"){
+    H.innerHTML="<tr><th>Fecha y hora</th><th>Tipo</th><th>Paciente</th><th>Hogar</th><th>Nivel</th><th>Detalle</th><th>Notificado</th></tr>";
+    const rows=[];for(let i=LOG.events.length-1;i>=0&&rows.length<LOG_TABLE_ROWS;i--){const e=LOG.events[i];if(f&&e.id!==f)continue;rows.push(e);}
+    B.innerHTML=rows.length?rows.map(e=>{const c=COL[e.level]||"var(--muted)";
+      return `<tr><td>${fmtDT(e.ts)}</td><td>${e.type}</td><td>${e.name||"—"}</td><td>${e.home||"—"}</td><td class="lv" style="color:${c}">${e.level?LBL[e.level]:"—"}</td><td>${e.detail||(e.factors||[]).join(" · ")}</td><td>${(e.notified||[]).join(" ; ")||"—"}</td></tr>`;}).join("")
+      :'<tr><td colspan="7" style="color:var(--muted)">Sin eventos todavía.</td></tr>';
+  }else if(view==="resumen"){
+    H.innerHTML="<tr><th>Paciente</th><th>Hogar</th><th>Lecturas</th><th>Período</th><th>FC media (mín–máx)</th><th>FR media (mín–máx)</th><th>SpO₂ media (mín)</th><th>Tiempo en alarma</th><th>Alarmas</th><th>Última alarma</th></tr>";
+    const list=residents.filter(r=>!f||r.id===f);
+    B.innerHTML=list.map(r=>{const s=summaryFor(r.id);
+      if(!s.n)return `<tr><td>${r.name}</td><td>${r.home}</td><td>0</td><td colspan="7" style="color:var(--muted)">Sin lecturas todavía.</td></tr>`;
+      const a=fmtDT(s.t0),b=fmtDT(s.t1),per=a.slice(0,16)+" → "+(a.slice(0,10)===b.slice(0,10)?b.slice(11,16):b.slice(0,16));
+      const pct=Math.round(s.alarmFrac*100),c=pct>=50?COL.critico:(pct>=20?COL.urgente:(pct>0?COL.aviso:COL.ok));
+      return `<tr><td>${r.name}</td><td>${r.home}</td><td>${s.n.toLocaleString("es-AR")}</td><td>${per}</td><td>${s.hr.avg} (${s.hr.min}–${s.hr.max})</td><td>${s.rr.avg} (${s.rr.min}–${s.rr.max})</td><td>${s.spo2.avg}% (${s.spo2.min}%)</td><td class="lv" style="color:${c}">${pct}%</td><td>${s.alarms}</td><td>${s.last?fmtDT(s.last.ts).slice(5,16)+" · "+LBL[s.last.level]:"—"}</td></tr>`;}).join("");
+  }else{
+    H.innerHTML="<tr><th>Hora</th><th>Paciente</th><th>FC</th><th>FR</th><th>SpO₂</th><th>Mov</th><th>Zona</th><th>Sueño</th><th>Escenario</th><th>Riesgo</th><th>Nivel</th><th>Factores</th></tr>";
+    const rows=[];for(let i=LOG.readings.length-1;i>=0&&rows.length<LOG_TABLE_ROWS;i--){const x=LOG.readings[i];if(f&&x[1]!==f)continue;rows.push(x);}
+    B.innerHTML=rows.length?rows.map(x=>{const c=COL[x[10]]||"var(--muted)";const r=byId[x[1]]||{};
+      return `<tr><td>${fmtDT(x[0]).slice(11)}</td><td>${r.name||x[1]}</td><td>${Math.round(x[2])}</td><td>${Math.round(x[3])}</td><td>${Math.round(x[4])}%</td><td>${Math.round(x[5]*100)}%</td><td>${x[6]}</td><td>${x[7]}</td><td>${x[8]}</td><td>${x[9]}</td><td class="lv" style="color:${c}">${LBL[x[10]]||x[10]}</td><td>${x[14]||"—"}</td></tr>`;}).join("")
+      :'<tr><td colspan="12" style="color:var(--muted)">Sin lecturas todavía: la primera llega en 1,5 s.</td></tr>';
+  }
+}
+// ===== Tendencias por paciente (últimas lecturas del registro) =====
+const TREND_N=120; // ≈ 3 min a una lectura cada 1,5 s
+function seriesFor(id,n){
+  const out=[];for(let i=LOG.readings.length-1;i>=0&&out.length<n;i--){const x=LOG.readings[i];if(x[1]===id)out.push(x);}
+  return out.reverse();
+}
+function spark(vals,color,lo,hi){
+  if(vals.length<2)return `<svg class="spark" viewBox="0 0 100 26" preserveAspectRatio="none"><line x1="0" y1="13" x2="100" y2="13" stroke="#243049" stroke-dasharray="3 3"/></svg>`;
+  const mn=Math.min(lo,...vals),mx=Math.max(hi,...vals),rg=(mx-mn)||1;
+  const pts=vals.map((v,i)=>`${(i/(vals.length-1)*100).toFixed(1)},${(24-(v-mn)/rg*22).toFixed(1)}`).join(" ");
+  return `<svg class="spark" viewBox="0 0 100 26" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
+}
+function trendHTML(id){
+  const s=seriesFor(id,TREND_N);
+  const mins=s.length>1?Math.max(1,Math.round((s[s.length-1][0]-s[0][0])/60000)):0;
+  const lab=k=>s.length>1?`${k} · últ. ${mins} min`:`${k} · tendencia`;
+  return `<div class="trend"><div class="tr"><span>${lab("FC")}</span>${spark(s.map(x=>x[2]),"#3ba9ff",50,100)}</div><div class="tr"><span>${lab("FR")}</span>${spark(s.map(x=>x[3]),"#22d3a8",12,20)}</div><div class="tr"><span>${lab("SpO₂")}</span>${spark(s.map(x=>x[4]),"#facc15",94,100)}</div></div>`;
+}
+// ===== Resumen por paciente (sobre todo el registro) =====
+function summaryFor(id){
+  let n=0,t0=null,t1=null,alarmN=0;const acc={hr:[0,Infinity,-Infinity],rr:[0,Infinity,-Infinity],spo2:[0,Infinity,-Infinity]};
+  const add=(k,v)=>{const a=acc[k];a[0]+=v;if(v<a[1])a[1]=v;if(v>a[2])a[2]=v;};
+  for(const x of LOG.readings){if(x[1]!==id)continue;n++;if(t0===null)t0=x[0];t1=x[0];add("hr",x[2]);add("rr",x[3]);add("spo2",x[4]);if(x[10]==="critico"||x[10]==="urgente"||x[10]==="predictivo")alarmN++;}
+  const st=k=>({avg:n?Math.round(acc[k][0]/n):0,min:n?Math.round(acc[k][1]):0,max:n?Math.round(acc[k][2]):0});
+  let alarms=0,last=null;for(const e of LOG.events){if(e.type==="alarma"&&e.id===id){alarms++;last=e;}}
+  return {n,t0,t1,hr:st("hr"),rr:st("rr"),spo2:st("spo2"),alarmFrac:n?alarmN/n:0,alarms,last};
+}
+// ===== Importar un JSON exportado (unifica registros de otro dispositivo sin servidor) =====
+function flashMsg(t){const m=document.getElementById("reg-msg");m.textContent=t;clearTimeout(flashMsg._t);flashMsg._t=setTimeout(()=>{m.textContent="";},8000);}
+function importJSON(file){
+  if(!file)return;
+  const rd=new FileReader();
+  rd.onerror=()=>flashMsg("⚠ No se pudo leer el archivo.");
+  rd.onload=()=>{
+    try{
+      const d=JSON.parse(rd.result);
+      const inR=Array.isArray(d.lecturas)?d.lecturas:(Array.isArray(d.readings)?d.readings:null);
+      const inE=Array.isArray(d.eventos)?d.eventos:(Array.isArray(d.events)?d.events:[]);
+      if(!inR)throw new Error("el archivo no tiene lecturas de Wi-Sense");
+      const keyR=x=>x[0]+"|"+x[1],keyE=e=>e.ts+"|"+e.type+"|"+(e.id||"");
+      const haveR=new Set(LOG.readings.map(keyR)),haveE=new Set(LOG.events.map(keyE));
+      let addR=0,dupR=0,addE=0,dupE=0;
+      for(const x of inR){if(!Array.isArray(x)||x.length<15||typeof x[0]!=="number")continue;const k=keyR(x);if(haveR.has(k)){dupR++;continue;}haveR.add(k);LOG.readings.push(x);addR++;}
+      for(const e of inE){if(!e||typeof e.ts!=="number"||!e.type)continue;const k=keyE(e);if(haveE.has(k)){dupE++;continue;}haveE.add(k);LOG.events.push(e);addE++;}
+      LOG.readings.sort((a,b)=>a[0]-b[0]);LOG.events.sort((a,b)=>a.ts-b.ts);
+      if(LOG.events.length>LOG_MAX_EVENTS)LOG.events.splice(0,LOG.events.length-LOG_MAX_EVENTS);
+      stats={alerts:0,predictive:0};LOG.events.forEach(e=>{if(e.type==="alarma")stats[e.level==="predictivo"?"predictive":"alerts"]++;});
+      alerts=LOG.events.filter(e=>e.type==="alarma").slice(-12).reverse().map(e=>({level:e.level,home:e.home,factors:e.factors||[],notified:e.notified||[],ts:e.ts}));
+      const detail=`Importadas ${addR} lecturas y ${addE} eventos desde ${file.name}`+((dupR||dupE)?` (${dupR} lecturas y ${dupE} eventos ya estaban y se omitieron)`:"");
+      logEvent({type:"importacion",detail});saveLog(true);render();flashMsg("✓ "+detail);
+    }catch(err){flashMsg("⚠ Importación fallida: "+((err&&err.message)||err));}
+  };
+  rd.readAsText(file);
+}
+// ===== Compartir / enviar (Web Share con archivos; si no está disponible, correo con el resumen) =====
+function shareSummary(){
+  const nAl=LOG.events.reduce((n,e)=>n+(e.type==="alarma"),0);
+  const first=LOG.readings.length?LOG.readings[0][0]:null,last=LOG.readings.length?LOG.readings[LOG.readings.length-1][0]:null;
+  const per=residents.map(r=>{const s=summaryFor(r.id);return s.n?`- ${r.name} (${r.home}): ${s.n} lecturas, FC ${s.hr.avg} lpm, FR ${s.rr.avg} rpm, SpO2 ${s.spo2.avg}% (mín ${s.spo2.min}%), ${s.alarms} alarmas`:null;}).filter(Boolean);
+  return `Registro Wi-Sense · ${fmtDT(Date.now())}\n${LOG.readings.length} lecturas · ${nAl} alarmas · ${LOG.events.length} eventos`+
+    (first?`\nPeríodo: ${fmtDT(first)} → ${fmtDT(last)}`:"")+(per.length?`\n\nResumen por paciente:\n${per.join("\n")}`:"")+
+    `\n\nDemo de simulación: datos generados en el navegador; no es un dispositivo médico certificado.`;
+}
+async function shareLog(){
+  const text=shareSummary();
+  try{
+    const L=csvText("lecturas"),E=csvText("eventos");
+    const files=[new File([L.text],L.name,{type:"text/csv"}),new File([E.text],E.name,{type:"text/csv"})];
+    if(navigator.canShare&&navigator.canShare({files})){await navigator.share({title:"Registro Wi-Sense",text,files});flashMsg("✓ Registro compartido con los dos archivos CSV.");}
+    else if(navigator.share){await navigator.share({title:"Registro Wi-Sense",text});flashMsg("✓ Resumen compartido. Los archivos se adjuntan desde las descargas.");}
+    else{
+      location.href="mailto:?subject="+encodeURIComponent("Registro Wi-Sense "+fmtDT(Date.now()).slice(0,16))+"&body="+encodeURIComponent(text+"\n\nAdjuntá los archivos CSV o JSON exportados desde el panel.");
+      flashMsg("Se abrió tu correo con el resumen. Adjuntá los archivos exportados desde el panel.");
+    }
+  }catch(err){flashMsg(err&&err.name==="AbortError"?"Compartir cancelado.":"⚠ No se pudo compartir: "+((err&&err.message)||err));}
+}
+// ===== Informe imprimible (resumen por paciente + estado actual) =====
+function printReport(){
+  const v=document.getElementById("reg-v"),prev=v.value;
+  document.getElementById("print-head").textContent="Informe de monitoreo Wi-Sense · generado el "+fmtDT(Date.now())+" · "+LOG.readings.length.toLocaleString("es-AR")+" lecturas registradas · demo de simulación, no es un dispositivo médico certificado";
+  v.value="resumen";renderLog();
+  try{window.print();}finally{v.value=prev;renderLog();}
+}
+// ===== Pausa y reinicio de la simulación (el registro se conserva) =====
+let paused=false;
+function togglePause(){
+  paused=!paused;const b=document.getElementById("btn-pause");
+  b.textContent=paused?"▶ Reanudar":"⏸ Pausar";b.setAttribute("aria-pressed",String(paused));
+  logEvent({type:"sesion",detail:paused?"Simulación pausada por el operador":"Simulación reanudada"});render();
+}
+function resetSim(){
+  residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;
+    r.risk=0;r.level="ok";r.factors=[];r.pred=false;r.eta=null;r._lastAl=0;r._lastLvl=null;});
+  logEvent({type:"sesion",detail:"Simulación reiniciada por el operador (el registro se conserva)"});
+  document.getElementById("msg").textContent="↺ Simulación reiniciada";setTimeout(()=>document.getElementById("msg").textContent="",2500);
+  render();
+}
+// ===== Asistente IA del operador =====
+// Usa POST /api/asistente (Claude, función serverless en netlify/functions/asistente.mjs) si el sitio está desplegado
+// con ANTHROPIC_API_KEY; si no responde, contesta con un motor local basado en reglas. Nunca decide solo.
+const CONTACTO={r1:"su hija Carla",r2:"su hija Carla",r3:"su hijo Martín",r4:"su esposo Raúl",r5:"su nieta Sofía",r6:"su vecina Ana"};
+const aiHistory=[];
+function aiState(){
+  const s=[...residents].sort((a,b)=>order(a.level)-order(b.level)||b.risk-a.risk);
+  return {hora:new Date().toLocaleTimeString(),hogares:new Set(residents.map(r=>r.home)).size,
+    personas:s.map(r=>({nombre:r.name,hogar:r.home,condicion:r.cond,contacto:CONTACTO[r.id]||"el contacto familiar",nivel:CLBL[r.level],riesgo:r.risk,
+      fc:Math.round(r.hr),fr:Math.round(r.rr),spo2:Math.round(r.spo2),zona:r.zone,sueno:r.sleep,factores:r.factors,eta_min:r.pred?r.eta:null,caida:!!r.fall})),
+    alertas_recientes:alerts.slice(0,6).map(a=>({nivel:CLBL[a.level],hogar:a.home,factores:a.factors,notificados:a.notified}))};
+}
+function aiBubble(role,text,cls){
+  const d=document.createElement("div");d.className="bub "+(role==="user"?"u":"a")+(cls?" "+cls:"");d.textContent=text;
+  const c=document.getElementById("chat");c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+function aiSetMode(m){const el=document.getElementById("ai-mode");el.textContent=m==="cloud"?"Claude":"local";el.classList.toggle("cloud",m==="cloud");}
+function aiLocal(q,st){
+  const s=q.toLowerCase(),worst=st.personas[0],activos=st.personas.filter(p=>p.nivel!=="Estable");
+  const fmt=p=>`${p.nombre} (${p.hogar}): ${p.nivel}, riesgo ${p.riesgo}. FC ${p.fc}, FR ${p.fr}, SpO₂ ${p.spo2} %, en ${p.zona}.`;
+  const accion=p=>{
+    if(p.nivel==="Crítico")return `Llamá ya a ${p.contacto} y, en paralelo, al SAME 107. ${p.caida?"Hay posible caída con inmovilidad: pedí que no la muevan hasta que llegue la ambulancia.":"Confirmá estado de conciencia por teléfono."}`;
+    if(p.nivel==="Urgente")return `Llamá a ${p.contacto} para que verifique en persona. Si no responde en 2 minutos, escalá al SAME 107.`;
+    if(p.nivel==="Predictivo")return `Aviso preventivo a ${p.contacto}: la frecuencia respiratoria viene subiendo y cruzaría el umbral en unos ${p.eta_min} minutos. Que la observen y la hagan sentar; si aparece disnea, llamar al 107.`;
+    if(p.nivel==="Vigilar")return "Sin acción inmediata. Revisar de nuevo en 10 minutos.";
+    return "Sin acción.";
+  };
+  if(/predic/.test(s)){
+    const p=activos.find(x=>x.nivel==="Predictivo");
+    return "Una alerta PREDICTIVA no significa que la persona esté mal ahora. El sistema compara la tendencia de un parámetro, por ejemplo la frecuencia respiratoria, con la línea de base personal y estima en cuántos minutos cruzaría el umbral crítico si sigue así. Sirve para avisar al familiar antes de que ocurra la descompensación. "+(p?"Ahora mismo: "+fmt(p):"En este momento no hay alertas predictivas activas.");
+  }
+  if(/famil|mensaje|redact|hija|hijo|explic/.test(s)){
+    const p=worst;
+    if(p.nivel==="Estable")return `Todos los hogares están estables. Un mensaje posible: "Hola, te escribimos de Wi-Sense. Todo está en orden en la casa de ${p.nombre}. Respiración, ritmo cardíaco y movimiento dentro de lo habitual. Cualquier cambio te avisamos."`;
+    const motivo=p.caida?"detectamos una posible caída en el baño y no vemos movimiento desde entonces":p.nivel==="Predictivo"?"notamos que la respiración viene acelerándose de a poco":"notamos que la respiración y el pulso están más rápidos de lo habitual y la oxigenación un poco baja";
+    const pedido=p.nivel==="Crítico"?"Ya dimos aviso al SAME. ¿Podés ir o llamar ahora?":"¿Podés llamarla o pasar a verla? Si la notás agitada o confundida, llamá al 107.";
+    return `Mensaje sugerido para ${p.contacto}:\n\n"Hola, te escribimos de Wi-Sense por ${p.nombre}. Hace unos minutos ${motivo}. ${pedido} Nosotros seguimos atentos y te avisamos de cualquier cambio."`;
+  }
+  if(/llam|primero|priori|qué hago|que hago|acción|accion/.test(s)){
+    if(!activos.length)return "No hay alertas activas. Nadie necesita una llamada ahora. Los seis hogares están dentro de su normalidad.";
+    return "Orden sugerido:\n"+activos.slice(0,3).map((p,i)=>`${i+1}. ${fmt(p)}\n   → ${accion(p)}`).join("\n")+(activos.length>3?`\n...y ${activos.length-3} más en observación.`:"");
+  }
+  if(!activos.length)return `Las ${st.hora}. ${st.hogares} hogares monitoreados, todos estables. Sin alarmas activas. Podés aplicar un escenario desde los controles para ver cómo responde el sistema.`;
+  return `Las ${st.hora}. ${activos.length} de ${st.personas.length} personas requieren atención:\n`+activos.map(p=>"• "+fmt(p)).join("\n")+`\n\nPrioridad: ${worst.nombre}. ${accion(worst)}`;
+}
+async function askAI(q){
+  q=(q||"").trim();if(!q)return;
+  aiBubble("user",q);aiHistory.push({role:"user",content:q});
+  const thinking=aiBubble("assistant","Analizando...","think");
+  const st=aiState();let text=null,mode="local";
+  try{
+    const res=await fetch("/api/asistente",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:aiHistory.slice(-8),snapshot:st})});
+    if(res.ok){const d=await res.json();if(d&&typeof d.text==="string"&&d.text.trim()){text=d.text.trim();mode="cloud";}}
+  }catch(_){/* sin backend: motor local */}
+  if(!text)text=aiLocal(q,st);
+  aiSetMode(mode);thinking.remove();aiBubble("assistant",text);
+  aiHistory.push({role:"assistant",content:text});if(aiHistory.length>16)aiHistory.splice(0,aiHistory.length-16);
+  logEvent({type:"asistente",detail:"Consulta al asistente ("+(mode==="cloud"?"Claude":"local")+"): "+q.slice(0,120)});
+}
+function initAI(){
+  document.getElementById("ai-quick").addEventListener("click",e=>{const b=e.target.closest("button[data-q]");if(b)askAI(b.dataset.q);});
+  document.getElementById("ai-form").addEventListener("submit",e=>{e.preventDefault();const i=document.getElementById("ai-input");askAI(i.value);i.value="";});
+  aiBubble("assistant","Hola. Soy el asistente del operador. Preguntame qué está pasando, a quién llamar primero o pedime un mensaje para la familia. También podés aplicar un escenario arriba y volver a preguntar.");
+}
+// init
+document.getElementById("sel-res").innerHTML=residents.map(r=>`<option value="${r.id}">${r.name} (${r.home})</option>`).join("");
+document.getElementById("reg-f").innerHTML='<option value="">Todos los pacientes</option>'+residents.map(r=>`<option value="${r.id}">${r.name}</option>`).join("");
+document.getElementById("reg-f").addEventListener("change",renderLog);
+document.getElementById("reg-v").addEventListener("change",renderLog);
+document.getElementById("reg-imp").addEventListener("change",e=>{importJSON(e.target.files[0]);e.target.value="";});
+initAI();
+loadLog();
+LOG.events.forEach(e=>{if(e.type==="alarma")stats[e.level==="predictivo"?"predictive":"alerts"]++;});
+alerts=LOG.events.filter(e=>e.type==="alarma").slice(-12).reverse().map(e=>({level:e.level,home:e.home,factors:e.factors||[],notified:e.notified||[],ts:e.ts}));
+logEvent({type:"sesion",detail:LOG.restored?"Sesión iniciada · registro restaurado ("+LOG.restored+" lecturas)":"Sesión iniciada · registro nuevo"});
+setInterval(()=>{if(!paused){const ts=Date.now();residents.forEach(r=>{step(r,1.5);logReading(r,ts);});}render();},1500);
+setInterval(()=>saveLog(),10000);
+addEventListener("pagehide",()=>saveLog(true));
+addEventListener("beforeunload",()=>saveLog(true));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")saveLog(true);});
+render();
+</script>
 </body>
 </html>

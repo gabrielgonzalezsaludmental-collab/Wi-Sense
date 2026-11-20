@@ -7,10 +7,11 @@ Monitoreo domiciliario pasivo por Wi-Fi para personas mayores o con enfermedades
 ```
 public/                 Sitio estático (se publica tal cual)
   index.html            Landing: propuesta de valor, comparativa, planes, formulario de piloto
-  demo.html             Demo interactivo del panel del operador
+  demo.html             Demo interactivo del panel del operador: simulación, registro persistente
+                        con exportación e importación, tendencias, informe imprimible y asistente de IA.
+                        Es un solo archivo (HTML + CSS + JS) sin dependencias.
   gracias.html          Confirmación del formulario
-  assets/styles.css     Estilos compartidos
-  assets/demo.js        Simulación y asistente de IA (con motor local de respaldo)
+  assets/styles.css     Estilos de la landing
 netlify/functions/
   asistente.mjs         Función serverless que llama a Claude. Expone POST /api/asistente
 docs/ESTRATEGIA.md      Análisis de mercado, competencia, regulación y hoja de ruta
