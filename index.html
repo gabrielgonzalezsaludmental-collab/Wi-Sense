@@ -52,6 +52,18 @@
   .alerts h3{font-size:14px;margin:0 0 9px}
   .al{border-left:3px solid var(--urgente);background:var(--panel2);border-radius:8px;padding:8px 11px;margin-bottom:7px;font-size:12px}
   .al .t{font-weight:700}.al .s{color:var(--muted);font-size:11px}.al .nt{color:var(--teal);font-size:10px}
+  .reg{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:12px}
+  .reg h3{font-size:14px;margin:0 0 9px}
+  .reg .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+  .reg .st{font-size:11px;color:var(--muted);flex:1 1 100%;line-height:1.5}.reg .st b{color:var(--txt)}
+  .reg .warn{color:var(--aviso)}
+  button.sec{cursor:pointer;font-size:12px;padding:7px 10px}
+  button.danger{border-color:#7f1d1d;color:#fca5a5}
+  .tblw{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:9px}
+  table.tbl{width:100%;border-collapse:collapse;font-size:11.5px}
+  .tbl th,.tbl td{padding:5px 7px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
+  .tbl th{position:sticky;top:0;background:var(--panel2);color:var(--muted);font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.3px}
+  .tbl td.lv{font-weight:800}
   .foot{color:var(--muted);font-size:10.5px;text-align:center;margin-top:18px;line-height:1.6}
 </style>
 </head>
@@ -94,6 +106,20 @@
     <div class="alerts"><h3>🚨 Alarmas y notificaciones</h3><div id="al-list"></div></div>
   </div>
 
+  <div class="reg" id="reg">
+    <h3>🗂️ Registro de datos — todo lo que registran los sensores</h3>
+    <div class="bar">
+      <select id="reg-f"><option value="">Todos los pacientes</option></select>
+      <select id="reg-v"><option value="lecturas">Lecturas</option><option value="eventos">Alarmas y eventos</option></select>
+      <button class="sec" onclick="exportCSV('lecturas')">⬇ CSV lecturas</button>
+      <button class="sec" onclick="exportCSV('eventos')">⬇ CSV eventos</button>
+      <button class="sec" onclick="exportJSON()">⬇ JSON completo</button>
+      <button class="sec danger" onclick="clearLog()">🗑 Borrar registro</button>
+      <div class="st" id="reg-st"></div>
+    </div>
+    <div class="tblw"><table class="tbl"><thead id="reg-h"></thead><tbody id="reg-b"></tbody></table></div>
+  </div>
+
   <div class="foot">Wi-Sense — demo de simulación (datos generados en el navegador). Sistema de apoyo y alerta temprana; no es un dispositivo médico certificado.</div>
 </div>
 
@@ -114,7 +140,8 @@ const residents=[
  {id:"r5",name:"Ramón Benítez",home:"Casa Benítez",cond:"Parkinson, riesgo caídas",bHr:76,bRr:17},
  {id:"r6",name:"Nilda Vega",home:"Casa Vega",cond:"Seguimiento general",bHr:75,bRr:16},
 ];
-residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;});
+residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;
+  r.risk=0;r.level="ok";r.factors=[];r.pred=false;r.eta=null;});
 
 function step(r,dt){
   r.t0+=dt;
@@ -130,7 +157,6 @@ function step(r,dt){
   r.sleep = mov>0.3?"despierto":"ligero";
   // riesgo
   let risk=0,factors=[],level="ok",pred=false,eta=null;
-  const z=v=>Math.abs(v);
   if(r.hr>=RANGES.hr.ch){factors.push("Taquicardia crítica ("+Math.round(r.hr)+" lpm)");risk=Math.max(risk,95);}
   if(r.rr>=RANGES.rr.ch){factors.push("Taquipnea marcada ("+Math.round(r.rr)+" rpm)");risk=Math.max(risk,70);}
   if(r.spo2<=RANGES.spo2.cl){factors.push("Desaturación ("+Math.round(r.spo2)+"%)");risk=Math.max(risk,88);}
@@ -149,6 +175,7 @@ function step(r,dt){
     const notified = level==="critico"?["FAMILIAR","SAME 107"]:(level==="predictivo"?["FAMILIAR (preventivo)"]:["FAMILIAR"]);
     alerts.unshift({level,home:r.home,factors:factors.slice(0,2),notified,ts:Date.now()});
     alerts=alerts.slice(0,12); stats[level==="predictivo"?"predictive":"alerts"]++;
+    logEvent({type:"alarma",id:r.id,name:r.name,home:r.home,level,risk:r.risk,factors:factors.slice(),notified});
   }
 }
 
@@ -192,16 +219,128 @@ function render(){
     return `<div class="al" style="border-left-color:${c}"><div class="t" style="color:${c}">${LBL[a.level]} · ${a.home}</div>
       <div class="s">${(a.factors||[]).join(" · ")}</div><div class="nt">📨 ${a.notified.join(" ; ")}</div></div>`;}).join(""):
     '<div style="color:var(--muted);font-size:12px">Sin alarmas.</div>';
+  renderLog();
 }
 function applyScn(){
   const rid=document.getElementById("sel-res").value, scn=document.getElementById("sel-scn").value;
-  const r=residents.find(x=>x.id===rid); if(r){r.scn=scn;r.t0=0;r.fall=0;if(scn!=="caida")r.zone="dormitorio";}
+  const r=residents.find(x=>x.id===rid); if(r){r.scn=scn;r.t0=0;r.fall=0;if(scn!=="caida")r.zone="dormitorio";logEvent({type:"escenario",id:r.id,name:r.name,home:r.home,detail:"Escenario aplicado por el operador: "+scn});}
   document.getElementById("msg").textContent="✓ "+scn+" aplicado a "+(r?r.name:"");
   setTimeout(()=>document.getElementById("msg").textContent="",2500);
 }
+// ===== Registro de datos: todo lo que registran los sensores, guardado en este navegador =====
+const LOG_KEY="wisense.registro.v1", LOG_MAX_CHARS=3000000, LOG_MAX_EVENTS=1000, LOG_TABLE_ROWS=40;
+const LOG={readings:[],events:[],restored:0,persist:true,dirty:false,note:"",len:0};
+const byId=Object.fromEntries(residents.map(r=>[r.id,r]));
+const pad2=n=>String(n).padStart(2,"0");
+function fmtDT(ts){const d=new Date(ts);return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate())+" "+pad2(d.getHours())+":"+pad2(d.getMinutes())+":"+pad2(d.getSeconds());}
+function stamp(){const d=new Date();return d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate())+"_"+pad2(d.getHours())+pad2(d.getMinutes());}
+function logReading(r,ts){
+  LOG.readings.push([ts,r.id,+r.hr.toFixed(1),+r.rr.toFixed(1),+r.spo2.toFixed(1),+r.mov.toFixed(2),r.zone,r.sleep,r.scn,r.risk,r.level,r.pred?1:0,r.eta??"",r.fall?1:0,r.factors.join(" | ")]);
+  LOG.dirty=true;
+}
+function logEvent(e){
+  LOG.events.push(Object.assign({ts:Date.now()},e));
+  if(LOG.events.length>LOG_MAX_EVENTS)LOG.events.splice(0,LOG.events.length-LOG_MAX_EVENTS);
+  LOG.dirty=true;
+}
+function snapshot(){return JSON.stringify({v:1,readings:LOG.readings,events:LOG.events});}
+function saveLog(force){
+  if(!LOG.persist||(!LOG.dirty&&!force))return;
+  try{
+    let s=snapshot();
+    while(s.length>LOG_MAX_CHARS&&LOG.readings.length>1000){
+      LOG.readings.splice(0,Math.ceil(LOG.readings.length*0.2));s=snapshot();
+      LOG.note="Se recortaron las lecturas más antiguas para no superar el límite del navegador. Exportá para conservar todo.";
+    }
+    localStorage.setItem(LOG_KEY,s);LOG.len=s.length;LOG.dirty=false;
+  }catch(err){
+    try{
+      LOG.readings.splice(0,Math.ceil(LOG.readings.length/2));const s=snapshot();
+      localStorage.setItem(LOG_KEY,s);LOG.len=s.length;LOG.dirty=false;
+      LOG.note="Cuota del navegador alcanzada: se recortó la mitad más antigua de las lecturas. Exportá para conservar todo.";
+    }catch(e2){
+      LOG.persist=false;
+      LOG.note="Persistencia no disponible en este navegador ("+((e2&&e2.name)||"error")+"). Los datos siguen en memoria: exportalos antes de cerrar.";
+    }
+  }
+}
+function loadLog(){
+  try{
+    const raw=localStorage.getItem(LOG_KEY);if(!raw)return;
+    const d=JSON.parse(raw);
+    if(d&&Array.isArray(d.readings)){LOG.readings=d.readings;LOG.events=Array.isArray(d.events)?d.events:[];LOG.restored=LOG.readings.length;LOG.len=raw.length;}
+  }catch(err){LOG.note="No se pudo leer el registro guardado ("+((err&&err.name)||"error")+").";}
+}
+function dl(name,content,type){
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);
+}
+const csvNum=v=>(v===""||v==null)?"":String(v).replace(".",",");
+const csvCell=v=>{const s=String(v??"");return /[;"\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+function exportCSV(kind){
+  let rows;
+  if(kind==="eventos"){
+    rows=[["fecha_hora","tipo","paciente","hogar","nivel","riesgo","detalle","factores","notificado"]]
+      .concat(LOG.events.map(e=>[fmtDT(e.ts),e.type,e.name||"",e.home||"",e.level||"",e.risk??"",e.detail||"",(e.factors||[]).join(" | "),(e.notified||[]).join(" ; ")]));
+  }else{
+    kind="lecturas";
+    rows=[["fecha_hora","id","paciente","hogar","FC_lpm","FR_rpm","SpO2_pct","movimiento","zona","sueño","escenario","riesgo","nivel","prediccion","eta_min","caida","factores"]]
+      .concat(LOG.readings.map(x=>{const r=byId[x[1]]||{};return [fmtDT(x[0]),x[1],r.name||"",r.home||"",csvNum(x[2]),csvNum(x[3]),csvNum(x[4]),csvNum(x[5]),x[6],x[7],x[8],x[9],x[10],x[11],x[12],x[13],x[14]];}));
+  }
+  dl("wisense_"+kind+"_"+stamp()+".csv","﻿"+rows.map(r=>r.map(csvCell).join(";")).join("\r\n"),"text/csv;charset=utf-8");
+}
+function exportJSON(){
+  const data={exportado:fmtDT(Date.now()),fuente:"Wi-Sense · demo de simulación (datos generados en el navegador; no es un dispositivo médico certificado)",
+    pacientes:residents.map(r=>({id:r.id,nombre:r.name,hogar:r.home,condicion:r.cond,fc_base:r.bHr,fr_base:r.bRr})),
+    columnas_lecturas:["ts_ms","id","FC_lpm","FR_rpm","SpO2_pct","movimiento","zona","sueño","escenario","riesgo","nivel","prediccion","eta_min","caida","factores"],
+    lecturas:LOG.readings,eventos:LOG.events};
+  dl("wisense_registro_"+stamp()+".json",JSON.stringify(data),"application/json");
+}
+function clearLog(){
+  if(!confirm("¿Borrar todo el registro guardado en este navegador? Exportá antes si querés conservarlo."))return;
+  LOG.readings=[];LOG.events=[];LOG.restored=0;LOG.note="";alerts=[];stats={alerts:0,predictive:0};
+  try{localStorage.removeItem(LOG_KEY);}catch(e){}
+  logEvent({type:"sesion",detail:"Registro borrado por el operador"});saveLog(true);render();
+}
+function renderLog(){
+  const f=document.getElementById("reg-f").value, view=document.getElementById("reg-v").value;
+  const nAl=LOG.events.reduce((n,e)=>n+(e.type==="alarma"),0);
+  const first=LOG.readings.length?LOG.readings[0][0]:(LOG.events.length?LOG.events[0].ts:null);
+  document.getElementById("reg-st").innerHTML=
+    `<b>${LOG.readings.length.toLocaleString("es-AR")}</b> lecturas · <b>${nAl}</b> alarmas · <b>${LOG.events.length}</b> eventos`+
+    (first?` · desde ${fmtDT(first)}`:"")+
+    (LOG.restored?` · ${LOG.restored.toLocaleString("es-AR")} restauradas de este navegador`:"")+
+    (LOG.persist?` · guardado automático cada 10 s (${Math.round(LOG.len/LOG_MAX_CHARS*100)}% del espacio)`:"")+
+    (LOG.note?` <span class="warn">⚠ ${LOG.note}</span>`:"");
+  const H=document.getElementById("reg-h"), B=document.getElementById("reg-b");
+  if(view==="eventos"){
+    H.innerHTML="<tr><th>Fecha y hora</th><th>Tipo</th><th>Paciente</th><th>Hogar</th><th>Nivel</th><th>Detalle</th><th>Notificado</th></tr>";
+    const rows=[];for(let i=LOG.events.length-1;i>=0&&rows.length<LOG_TABLE_ROWS;i--){const e=LOG.events[i];if(f&&e.id!==f)continue;rows.push(e);}
+    B.innerHTML=rows.length?rows.map(e=>{const c=COL[e.level]||"var(--muted)";
+      return `<tr><td>${fmtDT(e.ts)}</td><td>${e.type}</td><td>${e.name||"—"}</td><td>${e.home||"—"}</td><td class="lv" style="color:${c}">${e.level?LBL[e.level]:"—"}</td><td>${e.detail||(e.factors||[]).join(" · ")}</td><td>${(e.notified||[]).join(" ; ")||"—"}</td></tr>`;}).join("")
+      :'<tr><td colspan="7" style="color:var(--muted)">Sin eventos todavía.</td></tr>';
+  }else{
+    H.innerHTML="<tr><th>Hora</th><th>Paciente</th><th>FC</th><th>FR</th><th>SpO₂</th><th>Mov</th><th>Zona</th><th>Sueño</th><th>Escenario</th><th>Riesgo</th><th>Nivel</th><th>Factores</th></tr>";
+    const rows=[];for(let i=LOG.readings.length-1;i>=0&&rows.length<LOG_TABLE_ROWS;i--){const x=LOG.readings[i];if(f&&x[1]!==f)continue;rows.push(x);}
+    B.innerHTML=rows.length?rows.map(x=>{const c=COL[x[10]]||"var(--muted)";const r=byId[x[1]]||{};
+      return `<tr><td>${fmtDT(x[0]).slice(11)}</td><td>${r.name||x[1]}</td><td>${Math.round(x[2])}</td><td>${Math.round(x[3])}</td><td>${Math.round(x[4])}%</td><td>${Math.round(x[5]*100)}%</td><td>${x[6]}</td><td>${x[7]}</td><td>${x[8]}</td><td>${x[9]}</td><td class="lv" style="color:${c}">${LBL[x[10]]||x[10]}</td><td>${x[14]||"—"}</td></tr>`;}).join("")
+      :'<tr><td colspan="12" style="color:var(--muted)">Sin lecturas todavía: la primera llega en 1,5 s.</td></tr>';
+  }
+}
 // init
 document.getElementById("sel-res").innerHTML=residents.map(r=>`<option value="${r.id}">${r.name} (${r.home})</option>`).join("");
-setInterval(()=>{residents.forEach(r=>step(r,1.5));render();},1500);
+document.getElementById("reg-f").innerHTML='<option value="">Todos los pacientes</option>'+residents.map(r=>`<option value="${r.id}">${r.name}</option>`).join("");
+document.getElementById("reg-f").addEventListener("change",renderLog);
+document.getElementById("reg-v").addEventListener("change",renderLog);
+loadLog();
+LOG.events.forEach(e=>{if(e.type==="alarma")stats[e.level==="predictivo"?"predictive":"alerts"]++;});
+alerts=LOG.events.filter(e=>e.type==="alarma").slice(-12).reverse().map(e=>({level:e.level,home:e.home,factors:e.factors||[],notified:e.notified||[],ts:e.ts}));
+logEvent({type:"sesion",detail:LOG.restored?"Sesión iniciada · registro restaurado ("+LOG.restored+" lecturas)":"Sesión iniciada · registro nuevo"});
+setInterval(()=>{const ts=Date.now();residents.forEach(r=>{step(r,1.5);logReading(r,ts);});render();},1500);
+setInterval(()=>saveLog(),10000);
+addEventListener("pagehide",()=>saveLog(true));
+addEventListener("beforeunload",()=>saveLog(true));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")saveLog(true);});
 render();
 </script>
 </body>
