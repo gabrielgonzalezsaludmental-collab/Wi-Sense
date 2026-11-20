@@ -64,6 +64,24 @@
   .tbl th,.tbl td{padding:5px 7px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
   .tbl th{position:sticky;top:0;background:var(--panel2);color:var(--muted);font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.3px}
   .tbl td.lv{font-weight:800}
+  .trend{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+  .trend .tr{background:var(--panel2);border-radius:8px;padding:5px 7px 3px;min-width:0}
+  .trend .tr span{display:block;font-size:9px;color:var(--muted);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .trend svg{display:block;width:100%;height:26px}
+  .reg .msg2{font-size:11px;color:var(--teal);flex:1 1 100%;min-height:14px}
+  .ph{display:none}
+  @media print{
+    :root{--bg:#fff;--panel:#fff;--panel2:#f3f4f6;--line:#cbd5e1;--txt:#111;--muted:#555}
+    body{background:#fff;color:#111}
+    .wrap{max-width:none;padding:0}
+    .ctrl,.alerts,.reg .bar select,.reg .bar button,.reg .msg2,.clock,.sub{display:none!important}
+    .cols{grid-template-columns:1fr}
+    .tblw{max-height:none;overflow:visible;border:none}
+    .tbl th{position:static;background:#eee;color:#111}
+    .card,.tile,.kpi,.board,.reg{break-inside:avoid;border-color:#cbd5e1}
+    .ph{display:block;font-size:12px;color:#333;margin:0 0 10px}
+    .foot{color:#333}
+  }
   .foot{color:var(--muted);font-size:10.5px;text-align:center;margin-top:18px;line-height:1.6}
 </style>
 </head>
@@ -74,6 +92,7 @@
     <div><h1>Wi-Sense</h1><div class="sub">Demo interactivo · corre en tu navegador (sin servidor)</div></div>
     <div class="clock" id="clock"></div>
   </header>
+  <div class="ph" id="print-head"></div>
 
   <div class="kpis">
     <div class="kpi"><b id="k-h">0</b><span>Hogares</span></div>
@@ -110,12 +129,17 @@
     <h3>🗂️ Registro de datos — todo lo que registran los sensores</h3>
     <div class="bar">
       <select id="reg-f"><option value="">Todos los pacientes</option></select>
-      <select id="reg-v"><option value="lecturas">Lecturas</option><option value="eventos">Alarmas y eventos</option></select>
+      <select id="reg-v"><option value="lecturas">Lecturas</option><option value="eventos">Alarmas y eventos</option><option value="resumen">Resumen por paciente</option></select>
       <button class="sec" onclick="exportCSV('lecturas')">⬇ CSV lecturas</button>
       <button class="sec" onclick="exportCSV('eventos')">⬇ CSV eventos</button>
       <button class="sec" onclick="exportJSON()">⬇ JSON completo</button>
+      <button class="sec" onclick="document.getElementById('reg-imp').click()">⬆ Importar JSON</button>
+      <input type="file" id="reg-imp" accept=".json,application/json" hidden>
+      <button class="sec" onclick="shareLog()">📤 Compartir / enviar</button>
+      <button class="sec" onclick="printReport()">🖨 Imprimir informe</button>
       <button class="sec danger" onclick="clearLog()">🗑 Borrar registro</button>
       <div class="st" id="reg-st"></div>
+      <div class="msg2" id="reg-msg"></div>
     </div>
     <div class="tblw"><table class="tbl"><thead id="reg-h"></thead><tbody id="reg-b"></tbody></table></div>
   </div>
@@ -212,6 +236,7 @@ function render(){
         <div class="v"><b>${Math.round(r.spo2)}</b><span>SpO₂ %</span></div>
         <div class="v"><b style="color:${c}">${r.risk}</b><span>Riesgo</span></div></div>
       <div class="loc">📍 ${r.zone} · 😴 ${r.sleep}</div>${eta}
+      ${trendHTML(r.id)}
       <div class="fct">${(r.factors.length&&r.level!=="ok")?"⚠ "+r.factors.join(" · "):"Parámetros dentro de la normalidad individual"}</div>
     </div>`;}).join("");
   // alerts
@@ -277,7 +302,7 @@ function dl(name,content,type){
 }
 const csvNum=v=>(v===""||v==null)?"":String(v).replace(".",",");
 const csvCell=v=>{const s=String(v??"");return /[;"\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
-function exportCSV(kind){
+function csvText(kind){
   let rows;
   if(kind==="eventos"){
     rows=[["fecha_hora","tipo","paciente","hogar","nivel","riesgo","detalle","factores","notificado"]]
@@ -287,8 +312,9 @@ function exportCSV(kind){
     rows=[["fecha_hora","id","paciente","hogar","FC_lpm","FR_rpm","SpO2_pct","movimiento","zona","sueño","escenario","riesgo","nivel","prediccion","eta_min","caida","factores"]]
       .concat(LOG.readings.map(x=>{const r=byId[x[1]]||{};return [fmtDT(x[0]),x[1],r.name||"",r.home||"",csvNum(x[2]),csvNum(x[3]),csvNum(x[4]),csvNum(x[5]),x[6],x[7],x[8],x[9],x[10],x[11],x[12],x[13],x[14]];}));
   }
-  dl("wisense_"+kind+"_"+stamp()+".csv","﻿"+rows.map(r=>r.map(csvCell).join(";")).join("\r\n"),"text/csv;charset=utf-8");
+  return {name:"wisense_"+kind+"_"+stamp()+".csv",text:"﻿"+rows.map(r=>r.map(csvCell).join(";")).join("\r\n")};
 }
+function exportCSV(kind){const f=csvText(kind);dl(f.name,f.text,"text/csv;charset=utf-8");}
 function exportJSON(){
   const data={exportado:fmtDT(Date.now()),fuente:"Wi-Sense · demo de simulación (datos generados en el navegador; no es un dispositivo médico certificado)",
     pacientes:residents.map(r=>({id:r.id,nombre:r.name,hogar:r.home,condicion:r.cond,fc_base:r.bHr,fr_base:r.bRr})),
@@ -319,6 +345,14 @@ function renderLog(){
     B.innerHTML=rows.length?rows.map(e=>{const c=COL[e.level]||"var(--muted)";
       return `<tr><td>${fmtDT(e.ts)}</td><td>${e.type}</td><td>${e.name||"—"}</td><td>${e.home||"—"}</td><td class="lv" style="color:${c}">${e.level?LBL[e.level]:"—"}</td><td>${e.detail||(e.factors||[]).join(" · ")}</td><td>${(e.notified||[]).join(" ; ")||"—"}</td></tr>`;}).join("")
       :'<tr><td colspan="7" style="color:var(--muted)">Sin eventos todavía.</td></tr>';
+  }else if(view==="resumen"){
+    H.innerHTML="<tr><th>Paciente</th><th>Hogar</th><th>Lecturas</th><th>Período</th><th>FC media (mín–máx)</th><th>FR media (mín–máx)</th><th>SpO₂ media (mín)</th><th>Tiempo en alarma</th><th>Alarmas</th><th>Última alarma</th></tr>";
+    const list=residents.filter(r=>!f||r.id===f);
+    B.innerHTML=list.map(r=>{const s=summaryFor(r.id);
+      if(!s.n)return `<tr><td>${r.name}</td><td>${r.home}</td><td>0</td><td colspan="7" style="color:var(--muted)">Sin lecturas todavía.</td></tr>`;
+      const a=fmtDT(s.t0),b=fmtDT(s.t1),per=a.slice(0,16)+" → "+(a.slice(0,10)===b.slice(0,10)?b.slice(11,16):b.slice(0,16));
+      const pct=Math.round(s.alarmFrac*100),c=pct>=50?COL.critico:(pct>=20?COL.urgente:(pct>0?COL.aviso:COL.ok));
+      return `<tr><td>${r.name}</td><td>${r.home}</td><td>${s.n.toLocaleString("es-AR")}</td><td>${per}</td><td>${s.hr.avg} (${s.hr.min}–${s.hr.max})</td><td>${s.rr.avg} (${s.rr.min}–${s.rr.max})</td><td>${s.spo2.avg}% (${s.spo2.min}%)</td><td class="lv" style="color:${c}">${pct}%</td><td>${s.alarms}</td><td>${s.last?fmtDT(s.last.ts).slice(5,16)+" · "+LBL[s.last.level]:"—"}</td></tr>`;}).join("");
   }else{
     H.innerHTML="<tr><th>Hora</th><th>Paciente</th><th>FC</th><th>FR</th><th>SpO₂</th><th>Mov</th><th>Zona</th><th>Sueño</th><th>Escenario</th><th>Riesgo</th><th>Nivel</th><th>Factores</th></tr>";
     const rows=[];for(let i=LOG.readings.length-1;i>=0&&rows.length<LOG_TABLE_ROWS;i--){const x=LOG.readings[i];if(f&&x[1]!==f)continue;rows.push(x);}
@@ -327,11 +361,95 @@ function renderLog(){
       :'<tr><td colspan="12" style="color:var(--muted)">Sin lecturas todavía: la primera llega en 1,5 s.</td></tr>';
   }
 }
+// ===== Tendencias por paciente (últimas lecturas del registro) =====
+const TREND_N=120; // ≈ 3 min a una lectura cada 1,5 s
+function seriesFor(id,n){
+  const out=[];for(let i=LOG.readings.length-1;i>=0&&out.length<n;i--){const x=LOG.readings[i];if(x[1]===id)out.push(x);}
+  return out.reverse();
+}
+function spark(vals,color,lo,hi){
+  if(vals.length<2)return `<svg class="spark" viewBox="0 0 100 26" preserveAspectRatio="none"><line x1="0" y1="13" x2="100" y2="13" stroke="#243049" stroke-dasharray="3 3"/></svg>`;
+  const mn=Math.min(lo,...vals),mx=Math.max(hi,...vals),rg=(mx-mn)||1;
+  const pts=vals.map((v,i)=>`${(i/(vals.length-1)*100).toFixed(1)},${(24-(v-mn)/rg*22).toFixed(1)}`).join(" ");
+  return `<svg class="spark" viewBox="0 0 100 26" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
+}
+function trendHTML(id){
+  const s=seriesFor(id,TREND_N);
+  const mins=s.length>1?Math.max(1,Math.round((s[s.length-1][0]-s[0][0])/60000)):0;
+  const lab=k=>s.length>1?`${k} · últ. ${mins} min`:`${k} · tendencia`;
+  return `<div class="trend"><div class="tr"><span>${lab("FC")}</span>${spark(s.map(x=>x[2]),"#3ba9ff",50,100)}</div><div class="tr"><span>${lab("FR")}</span>${spark(s.map(x=>x[3]),"#22d3a8",12,20)}</div><div class="tr"><span>${lab("SpO₂")}</span>${spark(s.map(x=>x[4]),"#facc15",94,100)}</div></div>`;
+}
+// ===== Resumen por paciente (sobre todo el registro) =====
+function summaryFor(id){
+  let n=0,t0=null,t1=null,alarmN=0;const acc={hr:[0,Infinity,-Infinity],rr:[0,Infinity,-Infinity],spo2:[0,Infinity,-Infinity]};
+  const add=(k,v)=>{const a=acc[k];a[0]+=v;if(v<a[1])a[1]=v;if(v>a[2])a[2]=v;};
+  for(const x of LOG.readings){if(x[1]!==id)continue;n++;if(t0===null)t0=x[0];t1=x[0];add("hr",x[2]);add("rr",x[3]);add("spo2",x[4]);if(x[10]==="critico"||x[10]==="urgente"||x[10]==="predictivo")alarmN++;}
+  const st=k=>({avg:n?Math.round(acc[k][0]/n):0,min:n?Math.round(acc[k][1]):0,max:n?Math.round(acc[k][2]):0});
+  let alarms=0,last=null;for(const e of LOG.events){if(e.type==="alarma"&&e.id===id){alarms++;last=e;}}
+  return {n,t0,t1,hr:st("hr"),rr:st("rr"),spo2:st("spo2"),alarmFrac:n?alarmN/n:0,alarms,last};
+}
+// ===== Importar un JSON exportado (unifica registros de otro dispositivo sin servidor) =====
+function flashMsg(t){const m=document.getElementById("reg-msg");m.textContent=t;clearTimeout(flashMsg._t);flashMsg._t=setTimeout(()=>{m.textContent="";},8000);}
+function importJSON(file){
+  if(!file)return;
+  const rd=new FileReader();
+  rd.onerror=()=>flashMsg("⚠ No se pudo leer el archivo.");
+  rd.onload=()=>{
+    try{
+      const d=JSON.parse(rd.result);
+      const inR=Array.isArray(d.lecturas)?d.lecturas:(Array.isArray(d.readings)?d.readings:null);
+      const inE=Array.isArray(d.eventos)?d.eventos:(Array.isArray(d.events)?d.events:[]);
+      if(!inR)throw new Error("el archivo no tiene lecturas de Wi-Sense");
+      const keyR=x=>x[0]+"|"+x[1],keyE=e=>e.ts+"|"+e.type+"|"+(e.id||"");
+      const haveR=new Set(LOG.readings.map(keyR)),haveE=new Set(LOG.events.map(keyE));
+      let addR=0,dupR=0,addE=0,dupE=0;
+      for(const x of inR){if(!Array.isArray(x)||x.length<15||typeof x[0]!=="number")continue;const k=keyR(x);if(haveR.has(k)){dupR++;continue;}haveR.add(k);LOG.readings.push(x);addR++;}
+      for(const e of inE){if(!e||typeof e.ts!=="number"||!e.type)continue;const k=keyE(e);if(haveE.has(k)){dupE++;continue;}haveE.add(k);LOG.events.push(e);addE++;}
+      LOG.readings.sort((a,b)=>a[0]-b[0]);LOG.events.sort((a,b)=>a.ts-b.ts);
+      if(LOG.events.length>LOG_MAX_EVENTS)LOG.events.splice(0,LOG.events.length-LOG_MAX_EVENTS);
+      stats={alerts:0,predictive:0};LOG.events.forEach(e=>{if(e.type==="alarma")stats[e.level==="predictivo"?"predictive":"alerts"]++;});
+      alerts=LOG.events.filter(e=>e.type==="alarma").slice(-12).reverse().map(e=>({level:e.level,home:e.home,factors:e.factors||[],notified:e.notified||[],ts:e.ts}));
+      const detail=`Importadas ${addR} lecturas y ${addE} eventos desde ${file.name}`+((dupR||dupE)?` (${dupR} lecturas y ${dupE} eventos ya estaban y se omitieron)`:"");
+      logEvent({type:"importacion",detail});saveLog(true);render();flashMsg("✓ "+detail);
+    }catch(err){flashMsg("⚠ Importación fallida: "+((err&&err.message)||err));}
+  };
+  rd.readAsText(file);
+}
+// ===== Compartir / enviar (Web Share con archivos; si no está disponible, correo con el resumen) =====
+function shareSummary(){
+  const nAl=LOG.events.reduce((n,e)=>n+(e.type==="alarma"),0);
+  const first=LOG.readings.length?LOG.readings[0][0]:null,last=LOG.readings.length?LOG.readings[LOG.readings.length-1][0]:null;
+  const per=residents.map(r=>{const s=summaryFor(r.id);return s.n?`- ${r.name} (${r.home}): ${s.n} lecturas, FC ${s.hr.avg} lpm, FR ${s.rr.avg} rpm, SpO2 ${s.spo2.avg}% (mín ${s.spo2.min}%), ${s.alarms} alarmas`:null;}).filter(Boolean);
+  return `Registro Wi-Sense · ${fmtDT(Date.now())}\n${LOG.readings.length} lecturas · ${nAl} alarmas · ${LOG.events.length} eventos`+
+    (first?`\nPeríodo: ${fmtDT(first)} → ${fmtDT(last)}`:"")+(per.length?`\n\nResumen por paciente:\n${per.join("\n")}`:"")+
+    `\n\nDemo de simulación: datos generados en el navegador; no es un dispositivo médico certificado.`;
+}
+async function shareLog(){
+  const text=shareSummary();
+  try{
+    const L=csvText("lecturas"),E=csvText("eventos");
+    const files=[new File([L.text],L.name,{type:"text/csv"}),new File([E.text],E.name,{type:"text/csv"})];
+    if(navigator.canShare&&navigator.canShare({files})){await navigator.share({title:"Registro Wi-Sense",text,files});flashMsg("✓ Registro compartido con los dos archivos CSV.");}
+    else if(navigator.share){await navigator.share({title:"Registro Wi-Sense",text});flashMsg("✓ Resumen compartido. Los archivos se adjuntan desde las descargas.");}
+    else{
+      location.href="mailto:?subject="+encodeURIComponent("Registro Wi-Sense "+fmtDT(Date.now()).slice(0,16))+"&body="+encodeURIComponent(text+"\n\nAdjuntá los archivos CSV o JSON exportados desde el panel.");
+      flashMsg("Se abrió tu correo con el resumen. Adjuntá los archivos exportados desde el panel.");
+    }
+  }catch(err){flashMsg(err&&err.name==="AbortError"?"Compartir cancelado.":"⚠ No se pudo compartir: "+((err&&err.message)||err));}
+}
+// ===== Informe imprimible (resumen por paciente + estado actual) =====
+function printReport(){
+  const v=document.getElementById("reg-v"),prev=v.value;
+  document.getElementById("print-head").textContent="Informe de monitoreo Wi-Sense · generado el "+fmtDT(Date.now())+" · "+LOG.readings.length.toLocaleString("es-AR")+" lecturas registradas · demo de simulación, no es un dispositivo médico certificado";
+  v.value="resumen";renderLog();
+  try{window.print();}finally{v.value=prev;renderLog();}
+}
 // init
 document.getElementById("sel-res").innerHTML=residents.map(r=>`<option value="${r.id}">${r.name} (${r.home})</option>`).join("");
 document.getElementById("reg-f").innerHTML='<option value="">Todos los pacientes</option>'+residents.map(r=>`<option value="${r.id}">${r.name}</option>`).join("");
 document.getElementById("reg-f").addEventListener("change",renderLog);
 document.getElementById("reg-v").addEventListener("change",renderLog);
+document.getElementById("reg-imp").addEventListener("change",e=>{importJSON(e.target.files[0]);e.target.value="";});
 loadLog();
 LOG.events.forEach(e=>{if(e.type==="alarma")stats[e.level==="predictivo"?"predictive":"alerts"]++;});
 alerts=LOG.events.filter(e=>e.type==="alarma").slice(-12).reverse().map(e=>({level:e.level,home:e.home,factors:e.factors||[],notified:e.notified||[],ts:e.ts}));
