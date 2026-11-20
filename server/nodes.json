@@ -1,0 +1,9 @@
+{
+  "home": "Casa GG",
+  "patient": "GG",
+  "nodes": [
+    { "id": "esp32-01", "label": "ESP32-01 · Mi pieza", "zone": "pieza",  "patient": "GG", "baseline": { "hr": 72, "rr": 15 } },
+    { "id": "esp32-02", "label": "ESP32-02 · Living",   "zone": "living", "patient": "GG", "baseline": { "hr": 72, "rr": 15 } },
+    { "id": "esp32-03", "label": "ESP32-03 · Cocina",   "zone": "cocina", "patient": "GG", "baseline": { "hr": 72, "rr": 15 } }
+  ]
+}
