@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a0e1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Wi-Sense · Demo</title>
+<title>Wi-Sense · Demo interactivo</title>
+<meta name="description" content="Demo interactivo de Wi-Sense: panel del operador con simulación de hogares, registro de datos, alertas escalonadas y asistente de IA.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2322c8b4'/%3E%3Ccircle cx='50' cy='27' r='6' fill='%23fff'/%3E%3Cpath d='M28 60 L50 44 L72 60 Z M34 60 H66 V86 H34 Z' fill='%23fff'/%3E%3C/svg%3E">
 <style>
   :root{--bg:#0a0e1a;--panel:#121829;--panel2:#1a2238;--line:#243049;--txt:#e8edf7;--muted:#8a96b3;
         --accent:#3ba9ff;--teal:#22d3a8;--ok:#22c55e;--aviso:#facc15;--urgente:#fb923c;--critico:#ef4444;--predictivo:#a855f7}
@@ -74,7 +76,7 @@
     :root{--bg:#fff;--panel:#fff;--panel2:#f3f4f6;--line:#cbd5e1;--txt:#111;--muted:#555}
     body{background:#fff;color:#111}
     .wrap{max-width:none;padding:0}
-    .ctrl,.alerts,.reg .bar select,.reg .bar button,.reg .msg2,.clock,.sub{display:none!important}
+    .ctrl,.alerts,.ai,.reg .bar select,.reg .bar button,.reg .msg2,.clock,.sub{display:none!important}
     .cols{grid-template-columns:1fr}
     .tblw{max-height:none;overflow:visible;border:none}
     .tbl th{position:static;background:#eee;color:#111}
@@ -83,13 +85,36 @@
     .foot{color:#333}
   }
   .foot{color:var(--muted);font-size:10.5px;text-align:center;margin-top:18px;line-height:1.6}
+  a.lg{color:inherit}
+  .sub a{color:var(--accent);text-decoration:none}
+  .ctrl button.ghost{background:transparent;cursor:pointer}
+  .side{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  /* Asistente IA */
+  .ai{background:var(--panel);border:1px solid var(--predictivo);border-radius:14px;padding:12px;display:flex;flex-direction:column}
+  .ai h3{font-size:14px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+  .ai .mode{margin-left:auto;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--panel2);color:var(--muted)}
+  .ai .mode.cloud{color:var(--teal)}
+  .ai .hint{font-size:11px;color:var(--muted);margin-bottom:8px}
+  .ai .quick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .ai .quick button{font-size:11px;padding:6px 9px;border-radius:16px;cursor:pointer}
+  .ai .quick button:hover{border-color:var(--predictivo)}
+  .chat{overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:4px 2px;max-height:340px;min-height:150px}
+  .bub{font-size:12.5px;line-height:1.45;padding:9px 11px;border-radius:12px;max-width:94%;white-space:pre-wrap;word-break:break-word}
+  .bub.u{align-self:flex-end;background:rgba(59,169,255,.18);border:1px solid rgba(59,169,255,.35)}
+  .bub.a{align-self:flex-start;background:var(--panel2);border:1px solid var(--line)}
+  .bub.a.think{color:var(--muted);font-style:italic}
+  .ai form{display:flex;gap:6px;margin-top:8px}
+  .ai form input{flex:1;min-width:0;font-family:inherit;font-size:13px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--txt);padding:9px 11px}
+  .ai form input:focus{outline:2px solid var(--predictivo);outline-offset:1px}
+  .ai form button{background:var(--predictivo);color:#fff;border:none;font-weight:800;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="lg"><svg viewBox="0 0 100 100" width="26" height="26"><g fill="none" stroke="#eafff8" stroke-width="7" stroke-linecap="round"><path d="M30 38 A28 28 0 0 1 70 38"/><path d="M38 30 A18 18 0 0 1 62 30" opacity=".7"/></g><circle cx="50" cy="26" r="5" fill="#eafff8"/><path d="M28 56 L50 40 L72 56 Z M34 56 H66 V82 H34 Z" fill="#fff"/><path d="M37 70 h8 l4 -10 5 16 4 -6 h6" fill="none" stroke="#0c3a5f" stroke-width="4" stroke-linejoin="round"/></svg></div>
-    <div><h1>Wi-Sense</h1><div class="sub">Demo interactivo · corre en tu navegador (sin servidor)</div></div>
+    <a href="index.html" class="lg" aria-label="Volver al sitio"><svg viewBox="0 0 100 100" width="26" height="26"><g fill="none" stroke="#eafff8" stroke-width="7" stroke-linecap="round"><path d="M30 38 A28 28 0 0 1 70 38"/><path d="M38 30 A18 18 0 0 1 62 30" opacity=".7"/></g><circle cx="50" cy="26" r="5" fill="#eafff8"/><path d="M28 56 L50 40 L72 56 Z M34 56 H66 V82 H34 Z" fill="#fff"/><path d="M37 70 h8 l4 -10 5 16 4 -6 h6" fill="none" stroke="#0c3a5f" stroke-width="4" stroke-linejoin="round"/></svg></a>
+    <div><h1>Wi-Sense · Panel del operador</h1><div class="sub">Demo interactivo · corre en tu navegador (sin servidor) · <a href="index.html">volver al sitio</a></div></div>
     <div class="clock" id="clock"></div>
   </header>
   <div class="ph" id="print-head"></div>
@@ -117,12 +142,32 @@
       <option value="caida">Caída nocturna</option>
     </select>
     <button class="apply" onclick="applyScn()">Aplicar</button>
+    <button class="ghost" id="btn-pause" onclick="togglePause()" aria-pressed="false">⏸ Pausar</button>
+    <button class="ghost" onclick="resetSim()">↺ Reiniciar</button>
     <span class="msg" id="msg"></span>
   </div>
 
   <div class="cols">
     <div class="cards" id="cards"></div>
-    <div class="alerts"><h3>🚨 Alarmas y notificaciones</h3><div id="al-list"></div></div>
+    <div class="side">
+      <section class="ai" id="asistente" aria-labelledby="ai-h">
+        <h3 id="ai-h">🤖 Asistente IA <span class="mode" id="ai-mode" title="Modo de respuesta">local</span></h3>
+        <div class="hint">Pregunta sobre el estado actual. Responde en lenguaje claro y sugiere acciones. No reemplaza el criterio clínico.</div>
+        <div class="quick" id="ai-quick">
+          <button type="button" data-q="¿Qué está pasando ahora?">¿Qué está pasando?</button>
+          <button type="button" data-q="¿A quién llamo primero y por qué?">¿A quién llamo primero?</button>
+          <button type="button" data-q="Redactá un mensaje para la familia de la persona en peor estado, sin jerga médica.">Mensaje a la familia</button>
+          <button type="button" data-q="¿Qué significa la alerta predictiva?">¿Qué es predictivo?</button>
+        </div>
+        <div class="chat" id="chat" role="log" aria-live="polite" aria-relevant="additions"></div>
+        <form id="ai-form" autocomplete="off">
+          <label class="sr-only" for="ai-input">Tu pregunta</label>
+          <input id="ai-input" placeholder="Escribí tu pregunta..." maxlength="500">
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
+      <div class="alerts"><h3>🚨 Alarmas y notificaciones</h3><div id="al-list" role="log" aria-live="polite"></div></div>
+    </div>
   </div>
 
   <div class="reg" id="reg">
@@ -144,7 +189,7 @@
     <div class="tblw"><table class="tbl"><thead id="reg-h"></thead><tbody id="reg-b"></tbody></table></div>
   </div>
 
-  <div class="foot">Wi-Sense — demo de simulación (datos generados en el navegador). Sistema de apoyo y alerta temprana; no es un dispositivo médico certificado.</div>
+  <div class="foot">Wi-Sense — demo de simulación (datos generados en el navegador). Sistema de apoyo y alerta temprana; no es un dispositivo médico certificado. Ante una emergencia real llamá al 107.</div>
 </div>
 
 <script>
@@ -205,7 +250,7 @@ function step(r,dt){
 
 function order(l){return {critico:0,urgente:1,predictivo:2,aviso:3,ok:4}[l]??9;}
 function render(){
-  document.getElementById("clock").textContent=new Date().toLocaleTimeString();
+  document.getElementById("clock").textContent=new Date().toLocaleTimeString()+(paused?" · pausado":"");
   const homes=new Set(residents.map(r=>r.home)).size;
   document.getElementById("k-h").textContent=homes;
   document.getElementById("k-a").textContent=stats.alerts;
@@ -444,17 +489,96 @@ function printReport(){
   v.value="resumen";renderLog();
   try{window.print();}finally{v.value=prev;renderLog();}
 }
+// ===== Pausa y reinicio de la simulación (el registro se conserva) =====
+let paused=false;
+function togglePause(){
+  paused=!paused;const b=document.getElementById("btn-pause");
+  b.textContent=paused?"▶ Reanudar":"⏸ Pausar";b.setAttribute("aria-pressed",String(paused));
+  logEvent({type:"sesion",detail:paused?"Simulación pausada por el operador":"Simulación reanudada"});render();
+}
+function resetSim(){
+  residents.forEach(r=>{r.hr=r.bHr;r.rr=r.bRr;r.spo2=97;r.mov=.15;r.zone="dormitorio";r.sleep="despierto";r.scn="normal";r.t0=0;r.fall=0;
+    r.risk=0;r.level="ok";r.factors=[];r.pred=false;r.eta=null;r._lastAl=0;r._lastLvl=null;});
+  logEvent({type:"sesion",detail:"Simulación reiniciada por el operador (el registro se conserva)"});
+  document.getElementById("msg").textContent="↺ Simulación reiniciada";setTimeout(()=>document.getElementById("msg").textContent="",2500);
+  render();
+}
+// ===== Asistente IA del operador =====
+// Usa POST /api/asistente (Claude, función serverless en netlify/functions/asistente.mjs) si el sitio está desplegado
+// con ANTHROPIC_API_KEY; si no responde, contesta con un motor local basado en reglas. Nunca decide solo.
+const CONTACTO={r1:"su hija Carla",r2:"su hija Carla",r3:"su hijo Martín",r4:"su esposo Raúl",r5:"su nieta Sofía",r6:"su vecina Ana"};
+const aiHistory=[];
+function aiState(){
+  const s=[...residents].sort((a,b)=>order(a.level)-order(b.level)||b.risk-a.risk);
+  return {hora:new Date().toLocaleTimeString(),hogares:new Set(residents.map(r=>r.home)).size,
+    personas:s.map(r=>({nombre:r.name,hogar:r.home,condicion:r.cond,contacto:CONTACTO[r.id]||"el contacto familiar",nivel:CLBL[r.level],riesgo:r.risk,
+      fc:Math.round(r.hr),fr:Math.round(r.rr),spo2:Math.round(r.spo2),zona:r.zone,sueno:r.sleep,factores:r.factors,eta_min:r.pred?r.eta:null,caida:!!r.fall})),
+    alertas_recientes:alerts.slice(0,6).map(a=>({nivel:CLBL[a.level],hogar:a.home,factores:a.factors,notificados:a.notified}))};
+}
+function aiBubble(role,text,cls){
+  const d=document.createElement("div");d.className="bub "+(role==="user"?"u":"a")+(cls?" "+cls:"");d.textContent=text;
+  const c=document.getElementById("chat");c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+function aiSetMode(m){const el=document.getElementById("ai-mode");el.textContent=m==="cloud"?"Claude":"local";el.classList.toggle("cloud",m==="cloud");}
+function aiLocal(q,st){
+  const s=q.toLowerCase(),worst=st.personas[0],activos=st.personas.filter(p=>p.nivel!=="Estable");
+  const fmt=p=>`${p.nombre} (${p.hogar}): ${p.nivel}, riesgo ${p.riesgo}. FC ${p.fc}, FR ${p.fr}, SpO₂ ${p.spo2} %, en ${p.zona}.`;
+  const accion=p=>{
+    if(p.nivel==="Crítico")return `Llamá ya a ${p.contacto} y, en paralelo, al SAME 107. ${p.caida?"Hay posible caída con inmovilidad: pedí que no la muevan hasta que llegue la ambulancia.":"Confirmá estado de conciencia por teléfono."}`;
+    if(p.nivel==="Urgente")return `Llamá a ${p.contacto} para que verifique en persona. Si no responde en 2 minutos, escalá al SAME 107.`;
+    if(p.nivel==="Predictivo")return `Aviso preventivo a ${p.contacto}: la frecuencia respiratoria viene subiendo y cruzaría el umbral en unos ${p.eta_min} minutos. Que la observen y la hagan sentar; si aparece disnea, llamar al 107.`;
+    if(p.nivel==="Vigilar")return "Sin acción inmediata. Revisar de nuevo en 10 minutos.";
+    return "Sin acción.";
+  };
+  if(/predic/.test(s)){
+    const p=activos.find(x=>x.nivel==="Predictivo");
+    return "Una alerta PREDICTIVA no significa que la persona esté mal ahora. El sistema compara la tendencia de un parámetro, por ejemplo la frecuencia respiratoria, con la línea de base personal y estima en cuántos minutos cruzaría el umbral crítico si sigue así. Sirve para avisar al familiar antes de que ocurra la descompensación. "+(p?"Ahora mismo: "+fmt(p):"En este momento no hay alertas predictivas activas.");
+  }
+  if(/famil|mensaje|redact|hija|hijo|explic/.test(s)){
+    const p=worst;
+    if(p.nivel==="Estable")return `Todos los hogares están estables. Un mensaje posible: "Hola, te escribimos de Wi-Sense. Todo está en orden en la casa de ${p.nombre}. Respiración, ritmo cardíaco y movimiento dentro de lo habitual. Cualquier cambio te avisamos."`;
+    const motivo=p.caida?"detectamos una posible caída en el baño y no vemos movimiento desde entonces":p.nivel==="Predictivo"?"notamos que la respiración viene acelerándose de a poco":"notamos que la respiración y el pulso están más rápidos de lo habitual y la oxigenación un poco baja";
+    const pedido=p.nivel==="Crítico"?"Ya dimos aviso al SAME. ¿Podés ir o llamar ahora?":"¿Podés llamarla o pasar a verla? Si la notás agitada o confundida, llamá al 107.";
+    return `Mensaje sugerido para ${p.contacto}:\n\n"Hola, te escribimos de Wi-Sense por ${p.nombre}. Hace unos minutos ${motivo}. ${pedido} Nosotros seguimos atentos y te avisamos de cualquier cambio."`;
+  }
+  if(/llam|primero|priori|qué hago|que hago|acción|accion/.test(s)){
+    if(!activos.length)return "No hay alertas activas. Nadie necesita una llamada ahora. Los seis hogares están dentro de su normalidad.";
+    return "Orden sugerido:\n"+activos.slice(0,3).map((p,i)=>`${i+1}. ${fmt(p)}\n   → ${accion(p)}`).join("\n")+(activos.length>3?`\n...y ${activos.length-3} más en observación.`:"");
+  }
+  if(!activos.length)return `Las ${st.hora}. ${st.hogares} hogares monitoreados, todos estables. Sin alarmas activas. Podés aplicar un escenario desde los controles para ver cómo responde el sistema.`;
+  return `Las ${st.hora}. ${activos.length} de ${st.personas.length} personas requieren atención:\n`+activos.map(p=>"• "+fmt(p)).join("\n")+`\n\nPrioridad: ${worst.nombre}. ${accion(worst)}`;
+}
+async function askAI(q){
+  q=(q||"").trim();if(!q)return;
+  aiBubble("user",q);aiHistory.push({role:"user",content:q});
+  const thinking=aiBubble("assistant","Analizando...","think");
+  const st=aiState();let text=null,mode="local";
+  try{
+    const res=await fetch("/api/asistente",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:aiHistory.slice(-8),snapshot:st})});
+    if(res.ok){const d=await res.json();if(d&&typeof d.text==="string"&&d.text.trim()){text=d.text.trim();mode="cloud";}}
+  }catch(_){/* sin backend: motor local */}
+  if(!text)text=aiLocal(q,st);
+  aiSetMode(mode);thinking.remove();aiBubble("assistant",text);
+  aiHistory.push({role:"assistant",content:text});if(aiHistory.length>16)aiHistory.splice(0,aiHistory.length-16);
+  logEvent({type:"asistente",detail:"Consulta al asistente ("+(mode==="cloud"?"Claude":"local")+"): "+q.slice(0,120)});
+}
+function initAI(){
+  document.getElementById("ai-quick").addEventListener("click",e=>{const b=e.target.closest("button[data-q]");if(b)askAI(b.dataset.q);});
+  document.getElementById("ai-form").addEventListener("submit",e=>{e.preventDefault();const i=document.getElementById("ai-input");askAI(i.value);i.value="";});
+  aiBubble("assistant","Hola. Soy el asistente del operador. Preguntame qué está pasando, a quién llamar primero o pedime un mensaje para la familia. También podés aplicar un escenario arriba y volver a preguntar.");
+}
 // init
 document.getElementById("sel-res").innerHTML=residents.map(r=>`<option value="${r.id}">${r.name} (${r.home})</option>`).join("");
 document.getElementById("reg-f").innerHTML='<option value="">Todos los pacientes</option>'+residents.map(r=>`<option value="${r.id}">${r.name}</option>`).join("");
 document.getElementById("reg-f").addEventListener("change",renderLog);
 document.getElementById("reg-v").addEventListener("change",renderLog);
 document.getElementById("reg-imp").addEventListener("change",e=>{importJSON(e.target.files[0]);e.target.value="";});
+initAI();
 loadLog();
 LOG.events.forEach(e=>{if(e.type==="alarma")stats[e.level==="predictivo"?"predictive":"alerts"]++;});
 alerts=LOG.events.filter(e=>e.type==="alarma").slice(-12).reverse().map(e=>({level:e.level,home:e.home,factors:e.factors||[],notified:e.notified||[],ts:e.ts}));
 logEvent({type:"sesion",detail:LOG.restored?"Sesión iniciada · registro restaurado ("+LOG.restored+" lecturas)":"Sesión iniciada · registro nuevo"});
-setInterval(()=>{const ts=Date.now();residents.forEach(r=>{step(r,1.5);logReading(r,ts);});render();},1500);
+setInterval(()=>{if(!paused){const ts=Date.now();residents.forEach(r=>{step(r,1.5);logReading(r,ts);});}render();},1500);
 setInterval(()=>saveLog(),10000);
 addEventListener("pagehide",()=>saveLog(true));
 addEventListener("beforeunload",()=>saveLog(true));

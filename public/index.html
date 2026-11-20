@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0e1a">
+<title>Wi-Sense · Cuidado invisible para quienes viven solos</title>
+<meta name="description" content="Wi-Sense detecta caídas y cambios en la respiración y el ritmo cardíaco usando las señales Wi-Fi del hogar. Sin cámaras, sin pulseras, sin botones. Alertas a familiares y al SAME, con un asistente de IA para el operador.">
+<meta property="og:title" content="Wi-Sense · Cuidado invisible para quienes viven solos">
+<meta property="og:description" content="Monitoreo pasivo por Wi-Fi: caídas, signos vitales y predicción de deterioro, sin cámaras ni wearables.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2322c8b4'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M30 40 A28 28 0 0 1 70 40'/%3E%3Cpath d='M39 31 A18 18 0 0 1 61 31' opacity='.7'/%3E%3C/g%3E%3Ccircle cx='50' cy='27' r='6' fill='%23fff'/%3E%3Cpath d='M28 60 L50 44 L72 60 Z M34 60 H66 V86 H34 Z' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="Wi-Sense inicio">
+      <span class="lg"><svg viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><g fill="none" stroke="#eafff8" stroke-width="7" stroke-linecap="round"><path d="M30 38 A28 28 0 0 1 70 38"/><path d="M38 30 A18 18 0 0 1 62 30" opacity=".7"/></g><circle cx="50" cy="26" r="5" fill="#eafff8"/><path d="M28 56 L50 40 L72 56 Z M34 56 H66 V82 H34 Z" fill="#fff"/><path d="M37 70 h8 l4 -10 5 16 4 -6 h6" fill="none" stroke="#0c3a5f" stroke-width="4" stroke-linejoin="round"/></svg></span>
+      Wi-Sense
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#como-funciona" class="hide-m">Cómo funciona</a>
+      <a href="#para-quien" class="hide-m">Para quién</a>
+      <a href="#comparativa" class="hide-m">Comparativa</a>
+      <a href="#planes" class="hide-m">Planes</a>
+      <a href="demo.html" class="btn sm primary">Ver demo en vivo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div>
+      <span class="eyebrow">Monitoreo pasivo por Wi-Fi · Argentina</span>
+      <h1>Cuidado invisible para quienes viven solos.</h1>
+      <p class="lead">Wi-Sense está diseñado para detectar caídas y cambios en la respiración y el ritmo cardíaco a partir de las señales Wi-Fi que ya existen en el hogar. Sin cámaras. Sin pulseras. Sin un botón que haya que apretar.</p>
+      <div class="cta">
+        <a class="btn primary" href="#contacto">Sumarme al programa piloto</a>
+        <a class="btn" href="demo.html">Probar el demo interactivo</a>
+      </div>
+      <div class="trust">
+        <span>Sin imágenes ni audio</span>
+        <span>Procesamiento en el hogar</span>
+        <span>Alertas a familia y SAME 107</span>
+      </div>
+    </div>
+
+    <div class="live" aria-label="Vista previa del panel en vivo">
+      <div class="hd"><b><span class="pulse"></span>&nbsp; Panel del operador · simulación</b><span id="live-clock"></span></div>
+      <div class="tiles" id="live-tiles"></div>
+      <p class="muted" style="font-size:11px;margin:10px 0 0">Datos generados en tu navegador. <a href="demo.html">Abrir el demo completo →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="section alt" id="problema">
+  <div class="container">
+    <span class="eyebrow">El problema</span>
+    <h2>Una caída sin testigos puede pasar horas sin ser atendida.</h2>
+    <p class="lead">Los sistemas actuales dependen de que la persona apriete un botón o lleve puesto un dispositivo. En una caída con pérdida de conciencia, o en una persona con deterioro cognitivo, eso no sucede.</p>
+    <div class="grid c3" style="margin-top:28px">
+      <div class="card stat"><b>5,4 M</b><span>personas de 65 años o más en Argentina</span><small>Censo 2022, INDEC</small></div>
+      <div class="card stat"><b>~40 %</b><span>de los adultos mayores de CABA viven solos</span><small>Dirección de Estadística de la Ciudad</small></div>
+      <div class="card stat"><b>30 %</b><span>de los mayores de 65 de Rosario viven solos</span><small>Diario La Capital</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="section" id="como-funciona">
+  <div class="container">
+    <span class="eyebrow">Cómo funciona</span>
+    <h2>La señal Wi-Fi ya está en la casa. Wi-Sense la escucha.</h2>
+    <p class="lead">Cuando una persona respira, camina o se cae, altera levemente la propagación de las ondas Wi-Fi. Esa información, llamada CSI por su sigla en inglés, se procesa con modelos de inteligencia artificial directamente en el dispositivo.</p>
+    <div class="grid c4" style="margin-top:28px">
+      <div class="card step"><span class="num">1</span><h3>Un sensor en el hogar</h3><p>Un pequeño dispositivo se enchufa y se conecta al Wi-Fi. No requiere instalación técnica ni cámaras.</p></div>
+      <div class="card step"><span class="num">2</span><h3>Lectura de señales</h3><p>Extrae respiración, ritmo cardíaco, movimiento, zona de la casa y patrones de sueño, sin contacto con la persona.</p></div>
+      <div class="card step"><span class="num">3</span><h3>Línea de base personal</h3><p>Aprende los valores normales de cada persona y detecta desvíos antes de que crucen un umbral crítico.</p></div>
+      <div class="card step"><span class="num">4</span><h3>Alerta escalonada</h3><p>Avisa al familiar, luego al operador y, en casos críticos, al servicio de emergencias. Siempre con una persona en el circuito.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCIONES -->
+<section class="section alt" id="funciones">
+  <div class="container">
+    <span class="eyebrow">Qué detecta</span>
+    <h2>Cinco niveles de riesgo, un solo vistazo.</h2>
+    <div class="grid c3" style="margin-top:24px">
+      <div class="card"><div class="ic">🫁</div><h3>Respiración y ritmo cardíaco</h3><p>Frecuencia respiratoria y cardíaca en reposo y durante el sueño, comparadas con la línea de base individual.</p></div>
+      <div class="card"><div class="ic">🧍</div><h3>Caídas e inmovilidad</h3><p>Transición brusca de pie a suelo seguida de quietud. Se prioriza por zona de riesgo, como baño o escalera.</p></div>
+      <div class="card"><div class="ic">🔮</div><h3>Predicción de deterioro</h3><p>Cuando la tendencia indica que un parámetro cruzará el umbral, el sistema anticipa cuántos minutos faltan y avisa de forma preventiva.</p></div>
+      <div class="card"><div class="ic">📍</div><h3>Ubicación por zona</h3><p>Dormitorio, baño, cocina o sala. Sin cámaras: solo sabe en qué ambiente hay actividad.</p></div>
+      <div class="card"><div class="ic">😴</div><h3>Patrones de sueño y actividad</h3><p>Cambios sostenidos en el sueño o en la movilidad diaria son señales tempranas de infecciones, depresión o descompensación.</p></div>
+      <div class="card"><div class="ic">🤖</div><h3>Asistente de IA para el operador</h3><p>Explica cada alerta en lenguaje claro, sugiere a quién llamar primero y redacta el mensaje para la familia. <a href="#ia">Ver más</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="section" id="para-quien">
+  <div class="container">
+    <span class="eyebrow">Para quién</span>
+    <h2>Pensado para cuatro realidades distintas.</h2>
+    <div class="grid c2" style="margin-top:24px">
+      <div class="card"><div class="ic">👨‍👩‍👧</div><h3>Familias</h3><p>Para hijos que viven lejos de sus padres. Tranquilidad sin invadir la intimidad: nada de cámaras en la casa de mamá.</p></div>
+      <div class="card"><div class="ic">🏥</div><h3>Residencias geriátricas</h3><p>Supervisión nocturna de todas las habitaciones desde un solo panel. Menos rondas, respuesta más rápida, registro de eventos.</p></div>
+      <div class="card"><div class="ic">💳</div><h3>Prepagas y obras sociales</h3><p>Menos internaciones evitables y menos reinternaciones en los 30 días posteriores al alta. Datos para gestión de riesgo poblacional.</p></div>
+      <div class="card"><div class="ic">🩺</div><h3>Profesionales de salud</h3><p>Seguimiento de pacientes con deterioro cognitivo, enfermedad cardiorrespiratoria o aislamiento social, con señales objetivas entre consultas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIVA -->
+<section class="section alt" id="comparativa">
+  <div class="container">
+    <span class="eyebrow">Comparativa</span>
+    <h2>Cómo se compara con lo que ya existe.</h2>
+    <p class="lead">Evaluamos las alternativas disponibles en Argentina y en el mundo. Los costos son orientativos y provienen de fuentes públicas a noviembre de 2026.</p>
+    <div class="table-wrap" style="margin-top:22px">
+      <table>
+        <thead><tr><th>Solución</th><th>Requiere acción de la persona</th><th>Signos vitales</th><th>Detecta caídas</th><th>Predicción</th><th>Privacidad</th><th>Costo típico</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>Wi-Sense</td><td class="y">No</td><td class="y">Sí, sin contacto</td><td class="y">Sí, toda la casa</td><td class="y">Sí</td><td class="y">Sin imagen ni audio</td><td>Ver planes</td></tr>
+          <tr><td>Botón de pánico y teleasistencia<br><small class="muted">CallCare, URG Conecta, NBS</small></td><td class="n">Sí, apretar el botón</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="y">Alta</td><td>ARS 12.000 a 30.000 / mes</td></tr>
+          <tr><td>Pulsera o reloj con caída<br><small class="muted">Medical Guardian, CarePredict</small></td><td class="p">Llevarlo puesto y cargado</td><td class="p">Parcial</td><td class="p">Sí, si lo lleva</td><td class="n">No</td><td class="y">Alta</td><td>USD 27 a 70 / mes + equipo USD 150 a 500</td></tr>
+          <tr><td>Cámaras con IA<br><small class="muted">SafelyYou</small></td><td class="y">No</td><td class="n">No</td><td class="y">Sí, en el cuarto</td><td class="n">No</td><td class="n">Baja: video</td><td>Solo institucional</td></tr>
+          <tr><td>Radar por habitación<br><small class="muted">Vayyar Care</small></td><td class="y">No</td><td class="p">Parcial</td><td class="y">Sí, por ambiente</td><td class="n">No</td><td class="y">Alta</td><td>USD 240 por ambiente + suscripción</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:12.5px;margin-top:12px">Fuentes y detalle en el <a href="https://github.com/gabrielgonzalezsaludmental-collab/Wi-Sense/blob/main/docs/ESTRATEGIA.md">documento de estrategia</a>. Wi-Sense se encuentra en etapa de desarrollo y validación.</p>
+  </div>
+</section>
+
+<!-- IA -->
+<section class="section" id="ia">
+  <div class="container">
+    <div class="grid c2" style="align-items:center">
+      <div>
+        <span class="eyebrow">Inteligencia artificial</span>
+        <h2>Un asistente que explica, prioriza y redacta.</h2>
+        <p class="lead">El operador no debería interpretar tres números y una gráfica a las 3 de la mañana. El asistente de Wi-Sense, construido sobre Claude, lee el estado de todos los hogares y responde en lenguaje claro.</p>
+        <ul class="muted" style="font-size:15px;line-height:1.8;padding-left:20px">
+          <li>"¿Qué está pasando ahora?" devuelve un resumen por prioridad.</li>
+          <li>"¿A quién llamo primero?" sugiere el orden de acción según el riesgo.</li>
+          <li>"Explicale la alerta a la hija de Dolores" redacta un mensaje sin jerga médica.</li>
+          <li>Nunca decide solo: toda alerta crítica la confirma una persona.</li>
+        </ul>
+        <a class="btn primary" href="demo.html#asistente">Hablar con el asistente en el demo</a>
+      </div>
+      <div class="card" style="font-size:13.5px;line-height:1.6">
+        <div class="bub u" style="margin-bottom:8px;display:inline-block;background:rgba(59,169,255,.18);border:1px solid rgba(59,169,255,.35);padding:9px 11px;border-radius:12px">¿A quién llamo primero?</div>
+        <div class="bub a" style="background:var(--panel2);border:1px solid var(--line);padding:9px 11px;border-radius:12px">Primero <b>Héctor Ferreyra</b>, Depto Ferreyra. Frecuencia respiratoria en 27 y subiendo, saturación 91 %. Con su EPOC, ese patrón suele preceder a una descompensación. Llamá al familiar de contacto y, si no responde en 2 minutos, al SAME 107. Los otros cinco hogares están estables.</div>
+        <p class="muted" style="font-size:11.5px;margin:10px 0 0">Ejemplo con datos simulados. En producción el asistente solo accede a datos con consentimiento informado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="section alt" id="planes">
+  <div class="container">
+    <span class="eyebrow">Planes</span>
+    <h2>Precios orientativos del programa piloto.</h2>
+    <p class="lead">Durante el piloto los precios se fijan en dólares como referencia y se facturan en pesos al tipo de cambio del día. Sujetos a cambio al finalizar la validación.</p>
+    <div class="grid c3" style="margin-top:24px">
+      <div class="card price">
+        <span class="tag">Familias</span>
+        <h3>Hogar</h3>
+        <div class="amt">USD 29 <small>/ mes</small></div>
+        <ul><li>1 sensor Wi-Sense incluido en comodato</li><li>Hasta 2 personas monitoreadas</li><li>App para hasta 4 familiares</li><li>Alertas por app, SMS y llamada</li><li>Escalado al SAME 107 con confirmación</li></ul>
+        <a class="btn" href="#contacto">Quiero el piloto</a>
+      </div>
+      <div class="card price featured">
+        <span class="tag">Residencias</span>
+        <h3>Institucional</h3>
+        <div class="amt">USD 12 <small>/ cama / mes</small></div>
+        <ul><li>Panel de operador con todas las habitaciones</li><li>Asistente de IA incluido</li><li>Registro de eventos exportable</li><li>Capacitación del personal</li><li>Soporte prioritario</li></ul>
+        <a class="btn primary" href="#contacto">Pedir una demo</a>
+      </div>
+      <div class="card price">
+        <span class="tag">Prepagas y obras sociales</span>
+        <h3>Poblacional</h3>
+        <div class="amt">A convenir</div>
+        <ul><li>Integración con historia clínica</li><li>Reportes de riesgo poblacional</li><li>Programa post alta de 30 días</li><li>Acuerdo de confidencialidad y DPA</li><li>Validación clínica conjunta</li></ul>
+        <a class="btn" href="#contacto">Conversemos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container" style="max-width:820px">
+    <span class="eyebrow">Preguntas frecuentes</span>
+    <h2>Lo que nos preguntan siempre.</h2>
+    <details><summary>¿Wi-Sense ve o escucha lo que pasa en la casa?</summary><p>No. El sistema no tiene cámara ni micrófono. Solo analiza cómo cambia la señal Wi-Fi cuando alguien se mueve o respira. No puede reconstruir imágenes ni conversaciones.</p></details>
+    <details><summary>¿Es un dispositivo médico aprobado por ANMAT?</summary><p>Todavía no. Wi-Sense es un sistema de apoyo y alerta temprana en etapa de validación. No reemplaza el criterio médico ni un servicio de emergencias. Estamos trabajando con el marco de software como dispositivo médico incorporado por la Disposición ANMAT 64/2025.</p></details>
+    <details><summary>¿Qué pasa si se corta la luz o internet?</summary><p>El sensor avisa a los familiares que perdió conexión. Cuando vuelve, reanuda el monitoreo. Estamos evaluando una batería de respaldo para la versión comercial.</p></details>
+    <details><summary>¿Quién puede ver los datos?</summary><p>Solo las personas autorizadas por la persona monitoreada o su representante legal. Los datos de salud son datos sensibles según la Ley 25.326 y se tratan con consentimiento informado, cifrado y procesamiento local siempre que es posible.</p></details>
+    <details><summary>¿Funciona con cualquier router?</summary><p>El sensor incluye su propio radio Wi-Fi, así que no depende de la marca del router. Necesita un Wi-Fi doméstico común de 2,4 o 5 GHz.</p></details>
+    <details><summary>¿Cuántas falsas alarmas genera?</summary><p>Es la pregunta correcta. La literatura reporta tasas de detección de caídas por Wi-Fi de entre 87 y 98 por ciento, con falsas alarmas que pueden superar el 15 por ciento en sistemas tempranos. Nuestro piloto mide exactamente eso antes de cualquier lanzamiento comercial.</p></details>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section alt" id="contacto">
+  <div class="container" style="max-width:820px">
+    <span class="eyebrow">Programa piloto</span>
+    <h2>Buscamos 20 hogares y 3 residencias en Argentina.</h2>
+    <p class="lead">Dejanos tus datos y te contactamos para explicarte cómo participar. Sin costo durante los primeros 90 días del piloto.</p>
+    <form class="lead-form" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html">
+      <input type="hidden" name="form-name" value="contacto">
+      <p class="sr-only"><label>No completar: <input name="bot-field"></label></p>
+      <div><label for="nombre">Nombre</label><input id="nombre" name="nombre" required autocomplete="name"></div>
+      <div><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+      <div><label for="rol">Soy</label><select id="rol" name="rol" required>
+        <option value="">Elegí una opción</option>
+        <option>Familiar de una persona mayor</option>
+        <option>Directivo de residencia geriátrica</option>
+        <option>Prepaga u obra social</option>
+        <option>Profesional de salud</option>
+        <option>Inversor o socio</option>
+        <option>Otro</option>
+      </select></div>
+      <div><label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" autocomplete="address-level2"></div>
+      <div class="full"><label for="mensaje">Contanos tu situación</label><textarea id="mensaje" name="mensaje" placeholder="Por ejemplo: mi madre de 82 años vive sola en Rosario y ya tuvo una caída..."></textarea></div>
+      <div class="full notice">Al enviar aceptás que te contactemos por email. No compartimos tus datos con terceros. Podés pedir su eliminación cuando quieras.</div>
+      <div class="full"><button class="btn primary" type="submit" style="width:auto">Quiero participar del piloto</button></div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="legal">
+      <b style="color:var(--txt)">Wi-Sense</b> · Sistema de apoyo y alerta temprana para el cuidado domiciliario. No es un dispositivo médico certificado ni reemplaza la atención médica o un servicio de emergencias. Ante una emergencia llamá al 107 (SAME) o al 911.<br>
+      Datos personales tratados conforme a la Ley 25.326. Buenos Aires, Argentina.
+    </div>
+    <div>
+      <a href="demo.html">Demo</a> · <a href="#contacto">Contacto</a> · <a href="https://github.com/gabrielgonzalezsaludmental-collab/Wi-Sense">Código</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mini simulación para el panel del hero (independiente del demo completo)
+(function(){
+  const COL={ok:"#22c55e",aviso:"#facc15",urgente:"#fb923c",critico:"#ef4444",predictivo:"#a855f7"};
+  const LBL={ok:"ESTABLE",aviso:"VIGILAR",urgente:"URGENTE",critico:"CRÍTICO",predictivo:"PREDICTIVO"};
+  const people=[
+    {n:"Dolores Martinez",h:"Casa Martinez",hr:74,rr:16,sp:97,z:"sala",lvl:"ok"},
+    {n:"Héctor Ferreyra",h:"Depto Ferreyra",hr:92,rr:24,sp:92,z:"dormitorio",lvl:"predictivo",eta:14},
+    {n:"Ramón Benítez",h:"Casa Benítez",hr:76,rr:17,sp:96,z:"cocina",lvl:"ok"},
+    {n:"Nilda Vega",h:"Casa Vega",hr:75,rr:16,sp:97,z:"dormitorio",lvl:"aviso"},
+  ];
+  const el=document.getElementById("live-tiles"), clk=document.getElementById("live-clock");
+  function j(v,a){return Math.round(v+(Math.random()*2-1)*a);}
+  function draw(){
+    clk.textContent=new Date().toLocaleTimeString();
+    el.innerHTML=people.map(p=>{const c=COL[p.lvl];
+      const eta=p.eta?` · <span class="eta">🔮 ~${Math.max(1,p.eta-Math.floor(Date.now()/60000)%5)} min</span>`:"";
+      return `<div class="tile" style="border-left-color:${c}"><div class="r1"><span class="dot" style="background:${c};color:${c}"></span>
+        <div class="nm"><div class="n">${p.n}</div><div class="h">${p.h}</div></div><span class="bd" style="color:${c}">${LBL[p.lvl]}</span></div>
+        <div class="vt">FC ${j(p.hr,2)} · FR ${j(p.rr,1)} · SpO₂ ${j(p.sp,1)}% · 📍${p.z}${eta}</div></div>`;}).join("");
+  }
+  draw(); setInterval(draw,1800);
+})();
+</script>
+</body>
+</html>
