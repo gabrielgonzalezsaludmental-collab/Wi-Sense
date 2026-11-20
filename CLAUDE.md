@@ -8,6 +8,8 @@ Monitoreo domiciliario (Wi-Fi sensing) con nodos ESP32. Piezas del proyecto, tod
   y alarmas, sirve el dashboard y la API `/api/*`. Nodos en `server/nodes.json`.
 - `server/wisense-mcp.mjs`: servidor MCP por stdio que expone el monitoreo a Claude (consulta la API del anterior).
 - `firmware/esp32_wisense/esp32_wisense.ino`: sketch del ESP32 (POST JSON al servidor). `docs/ESP32_MCP_SETUP.md`: puesta en marcha.
+- `instalar.sh`: instalador para la PC Linux de la casa (sin sudo ni git): baja Node 22 a `~/.local/opt/node` si falta,
+  descarga el proyecto a `~/Wi-Sense`, crea `arrancar.sh` y arranca el servidor. Probar con `WISENSE_NO_ARRANCAR=1`.
 
 ## Reglas para sesiones de Claude Code
 

@@ -2,16 +2,26 @@
 
 Cómo pasar de la demo simulada al monitoreo real de los tres ESP32 de la casa, y cómo consultarlo desde Claude por MCP.
 
-## 1. Arrancar el servidor local (en la Mac o PC de la casa)
+## 0. Instalación en un solo comando (Linux, sin sudo ni git)
 
 ```bash
-cd Wi-Sense
+bash <(curl -fsSL https://raw.githubusercontent.com/gabrielgonzalezsaludmental-collab/Wi-Sense/claude/amazing-edison-l2r1zk/instalar.sh)
+```
+
+`instalar.sh` instala Node 22 en `~/.local/opt/node` si falta (sin tocar el sistema), descarga el proyecto en `~/Wi-Sense`,
+crea `~/Wi-Sense/arrancar.sh`, muestra la IP de la PC para los ESP32 y el comando del MCP, y arranca el servidor.
+Para volver a arrancarlo después: `~/Wi-Sense/arrancar.sh`. Variables: `WISENSE_DIR`, `WISENSE_RAMA`, `WISENSE_NO_ARRANCAR=1`.
+
+## 1. Arrancar el servidor local (en la PC de la casa)
+
+```bash
+cd ~/Wi-Sense            # o la carpeta donde esté el repo
 node server/wisense-server.mjs
 # Wi-Sense · servidor local en http://0.0.0.0:8787
 ```
 
 - Dashboard en vivo: http://127.0.0.1:8787 (desde otro dispositivo de la red: http://IP-DE-LA-MAC:8787).
-- Sin Node instalado: https://nodejs.org (LTS). No hace falta `npm install`: el servidor no usa dependencias.
+- Sin Node instalado: usá `instalar.sh` (paso 0) o https://nodejs.org (LTS). No hace falta `npm install`: el servidor no usa dependencias.
 - Nodos configurados en `server/nodes.json` (id, nombre, ambiente, paciente). Un ESP32 con un id desconocido se registra solo como "sin asignar".
 
 ## 2. Probar sin sensores (simulación en el servidor)
