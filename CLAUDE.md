@@ -41,8 +41,22 @@ Todo el proyecto es **un solo archivo**: `index.html` (HTML + CSS + JS inline).
   `exportJSON()` con todo. `clearLog()` borra con confirmación.
 - Al cargar, `loadLog()` restaura lecturas y eventos, recompone el contador de alarmas
   y las últimas 12 alarmas del panel lateral.
-- Chequeo headless ampliado: además de 6 `.tile` y 6 `.card`, verificar filas en `#reg-b`,
-  la clave en `localStorage` después de 10 s y que al recargar el panel diga "restauradas".
+- `importJSON(file)` (botón "Importar JSON", input `#reg-imp`) une un JSON exportado en
+  otro dispositivo: deduplica lecturas por `ts|id` y eventos por `ts|type|id`, reordena,
+  recompone alarmas y deja un evento `importacion`. Es la forma de unificar registros
+  entre dispositivos sin servidor.
+- `shareLog()` usa Web Share con los dos CSV como archivos (móvil); si no hay soporte
+  abre un `mailto:` con el texto de `shareSummary()`. `printReport()` pone la vista
+  "Resumen por paciente", rellena `#print-head` e imprime con la hoja `@media print`.
+- Tendencias: cada tarjeta muestra tres sparklines SVG (`trendHTML`, últimas
+  `TREND_N`=120 lecturas del paciente, escala que siempre incluye el rango normal).
+- Vista "Resumen por paciente" en `#reg-v`: `summaryFor(id)` calcula lecturas, período,
+  media/mín/máx de FC, FR y SpO₂, % de lecturas en alarma, nº de alarmas y última alarma.
+- Chequeo headless ampliado: además de 6 `.tile` y 6 `.card`, verificar 18 `svg.spark`,
+  filas en `#reg-b` en las tres vistas, la clave en `localStorage` después de 10 s, que al
+  recargar el panel diga "restauradas", y que exportar JSON → borrar → importar recupere
+  las lecturas y una segunda importación no duplique (con `navigator.share` y
+  `window.print` stubeados).
 
 ## Git
 
