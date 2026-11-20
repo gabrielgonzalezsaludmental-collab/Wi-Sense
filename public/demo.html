@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0e1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Wi-Sense · Demo interactivo</title>
+<meta name="description" content="Demo interactivo de Wi-Sense: panel del operador con simulación de hogares, alertas escalonadas y asistente de IA.">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2322c8b4'/%3E%3Ccircle cx='50' cy='27' r='6' fill='%23fff'/%3E%3Cpath d='M28 60 L50 44 L72 60 Z M34 60 H66 V86 H34 Z' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="wrap">
+  <header class="demo-header">
+    <a href="index.html" class="lg" aria-label="Volver al inicio"><svg viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><g fill="none" stroke="#eafff8" stroke-width="7" stroke-linecap="round"><path d="M30 38 A28 28 0 0 1 70 38"/><path d="M38 30 A18 18 0 0 1 62 30" opacity=".7"/></g><circle cx="50" cy="26" r="5" fill="#eafff8"/><path d="M28 56 L50 40 L72 56 Z M34 56 H66 V82 H34 Z" fill="#fff"/><path d="M37 70 h8 l4 -10 5 16 4 -6 h6" fill="none" stroke="#0c3a5f" stroke-width="4" stroke-linejoin="round"/></svg></a>
+    <div><h1>Wi-Sense · Panel del operador</h1><div class="sub">Demo interactivo · datos simulados en tu navegador · <a href="index.html">volver al sitio</a></div></div>
+    <div class="clock" id="clock" aria-live="off"></div>
+  </header>
+
+  <div class="kpis" role="group" aria-label="Indicadores">
+    <div class="kpi"><b id="k-h">0</b><span>Hogares</span></div>
+    <div class="kpi"><b id="k-a" style="color:var(--urgente)">0</b><span>Alarmas</span></div>
+    <div class="kpi"><b id="k-p" style="color:var(--predictivo)">0</b><span>Predictivas</span></div>
+    <div class="kpi"><b id="k-c" style="color:var(--critico)">0</b><span>Críticos</span></div>
+  </div>
+
+  <section class="board" aria-labelledby="board-h">
+    <h2 id="board-h">🚦 Estado de pacientes — vista rápida del operador</h2>
+    <div class="legend" id="legend"></div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="ctrl" aria-label="Controles de simulación">
+    <span style="font-size:13px">🎬 Escenario:</span>
+    <label class="sr-only" for="sel-res">Persona</label>
+    <select id="sel-res"></select>
+    <label class="sr-only" for="sel-scn">Escenario</label>
+    <select id="sel-scn">
+      <option value="normal">Normal</option>
+      <option value="deterioro">Deterioro progresivo</option>
+      <option value="evento">Evento agudo</option>
+      <option value="caida">Caída nocturna</option>
+    </select>
+    <button class="apply" id="btn-apply" type="button">Aplicar</button>
+    <button class="ghost" id="btn-pause" type="button" aria-pressed="false">⏸ Pausar</button>
+    <button class="ghost" id="btn-reset" type="button">↺ Reiniciar</button>
+    <span class="msg" id="msg" aria-live="polite"></span>
+  </section>
+
+  <div class="cols">
+    <div class="cards" id="cards"></div>
+    <aside class="side">
+      <section class="ai" id="asistente" aria-labelledby="ai-h">
+        <h3 id="ai-h">🤖 Asistente IA <span class="mode" id="ai-mode" title="Modo de respuesta">local</span></h3>
+        <div class="hint">Pregunta sobre el estado actual. Responde en lenguaje claro y sugiere acciones. No reemplaza el criterio clínico.</div>
+        <div class="quick" id="ai-quick">
+          <button type="button" data-q="¿Qué está pasando ahora?">¿Qué está pasando?</button>
+          <button type="button" data-q="¿A quién llamo primero y por qué?">¿A quién llamo primero?</button>
+          <button type="button" data-q="Redactá un mensaje para la familia de la persona en peor estado, sin jerga médica.">Mensaje a la familia</button>
+          <button type="button" data-q="¿Qué significa la alerta predictiva?">¿Qué es predictivo?</button>
+        </div>
+        <div class="chat" id="chat" role="log" aria-live="polite" aria-relevant="additions"></div>
+        <form id="ai-form" autocomplete="off">
+          <label class="sr-only" for="ai-input">Tu pregunta</label>
+          <input id="ai-input" placeholder="Escribí tu pregunta..." maxlength="500">
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
+      <section class="alerts" aria-labelledby="al-h">
+        <h3 id="al-h">🚨 Alarmas y notificaciones</h3>
+        <div id="al-list" role="log" aria-live="polite"></div>
+      </section>
+    </aside>
+  </div>
+
+  <div class="foot">Wi-Sense — demo de simulación (datos generados en el navegador). Sistema de apoyo y alerta temprana; no es un dispositivo médico certificado. Ante una emergencia real llamá al 107.</div>
+</div>
+<script src="assets/demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "wi-sense",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Wi-Sense: monitoreo domiciliario pasivo por Wi-Fi. Sitio, demo interactivo y asistente de IA.",
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes serve public -l 8080",
+    "check": "node --check netlify/functions/asistente.mjs && node --check public/assets/demo.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.11.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
